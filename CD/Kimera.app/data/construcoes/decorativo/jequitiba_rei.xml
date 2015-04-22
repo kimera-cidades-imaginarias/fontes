@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<data>
+	<construcao>
+		<nome>Jequitibá-Rei</nome>
+		
+		<!-- Texto descritivo -->
+		<descricao>
+			<![CDATA[Este é o Jequitibá-Rei, que irá auxiliar em sua missão.]]>
+		</descricao>
+		
+		<caminho>data/construcoes/decorativo/jequitiba_rei.swf</caminho>
+		
+		<!-- Tamanho: quantas células do mapa a construção ocupará -->
+		<tamanho>4x4</tamanho>
+		
+		<tamanho_perspectiva/>
+		<areas_livres/>
+	</construcao>
+</data>
+

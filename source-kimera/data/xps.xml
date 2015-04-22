@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<data>
+	<niveis>
+		<!-- 1ª fase -->
+		<nivel>
+			<nivel>1</nivel>
+			<xps>0.0002183304</xps>
+			<xps_proximo_nivel>96843545600</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>2</nivel>
+			<xps>0.0001816031</xps>
+			<xps_proximo_nivel>100</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>3</nivel>
+			<xps>0.0002524491</xps>
+			<xps_proximo_nivel>200</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>4</nivel>
+			<xps>0.0003859331</xps>
+			<xps_proximo_nivel>400</xps_proximo_nivel>
+		</nivel>
+		
+		<!-- 2ª fase -->
+		<nivel>
+			<nivel>5</nivel>
+			<xps>0.0005286608</xps>
+			<xps_proximo_nivel>800</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>6</nivel>
+			<xps>0.0008665241</xps>
+			<xps_proximo_nivel>1600</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>7</nivel>
+			<xps>0.0015648766</xps>
+			<xps_proximo_nivel>3200</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>8</nivel>
+			<xps>0.0027367768</xps>
+			<xps_proximo_nivel>6400</xps_proximo_nivel>
+		</nivel>
+		
+		<!-- 3ª fase -->
+		<nivel>
+			<nivel>9</nivel>
+			<xps>0.0041263091</xps>
+			<xps_proximo_nivel>12800</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>10</nivel>
+			<xps>0.0073213787</xps>
+			<xps_proximo_nivel>25600</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>11</nivel>
+			<xps>0.0136795558</xps>
+			<xps_proximo_nivel>51200</xps_proximo_nivel>
+		</nivel>
+		<nivel>
+			<nivel>12</nivel>
+			<xps>0.0250266144</xps>
+			<xps_proximo_nivel>102400</xps_proximo_nivel>
+		</nivel>
+		
+	</niveis>
+</data>

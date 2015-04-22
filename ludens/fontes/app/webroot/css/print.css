@@ -1,0 +1,15 @@
+@media print {
+    div#header,
+    div.full-box-header,
+    ul#menu-restrito-tabs,
+    form#IndicadoresRelatoriosForm,
+    div#home-box1,
+    div#home-box2,
+    div#home-box3 {
+        display:none;
+    }
+    
+    div#relatorio-resultado {
+        display:block;
+    }
+}

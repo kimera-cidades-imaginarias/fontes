@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"> </script>
+
+<script type="text/javascript">
+var ge;
+var overlays = [];   // record information about overlays (filled by 'addOverlay')
+var drawOrder = 0;   // drawOrder value of topmost overlay
+google.load("earth", "1");
+
+function Point (lat, lon) {
+  this.lat = lat;
+  this.lon = lon;
+}
+
+function Overlay (groundOverlay, points, drawOrder) {
+  this.overlay = groundOverlay;  // KML object
+  this.points = points;          // array of Points (vertices of overlay)
+  this.drawOrder = drawOrder;    // integer, higest displayed topmost
+}
+Overlay.prototype.hitTest = function (lat, lon) {   // return true if lat/lon is within overlay
+    // Based upon http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
+    var isInside = false;
+    var minLon = this.points[0].lon, maxLon = this.points[0].lon;
+    var minLat = this.points[0].lat, maxLat = this.points[0].lat;
+    for (var n = 1; n < this.points.length; n++) {
+      var q = this.points[n];
+      minLon = Math.min(q.lon, minLon);
+      maxLon = Math.max(q.lon, maxLon);
+      minLat = Math.min(q.lat, minLat);
+      maxLat = Math.max(q.lat, maxLat);
+    }
+    if (lon < minLon || lon > maxLon || lat < minLat || lat > maxLat)
+      return false;
+
+    var i = 0, j = this.points.length - 1;
+    for (i, j; i < this.points.length; j = i++)
+      if ( (this.points[i].lat > lat) != (this.points[j].lat > lat) &&
+          lon < (this.points[j].lon - this.points[i].lon) * (lat - this.points[i].lat) /
+          (this.points[j].lat - this.points[i].lat) + this.points[i].lon )
+        isInside = !isInside;
+    return isInside;
+  }
+
+function init() {
+  google.earth.createInstance('map3d', initCB, failureCB);
+}
+
+function initCB(e) {
+  ge = e;
+  ge.getWindow().setVisibility(true);
+
+  var lat = 37.204193;
+  var lon = -112.934429;
+  var dlat = 0.003;
+  var dlon = 0.005;
+  var offset = 0.004;
+
+  var la = ge.createLookAt('');  // position camera
+  la.set(lat, lon, 0, ge.ALTITUDE_RELATIVE_TO_GROUND, 0, 30, 2000);
+  ge.getView().setAbstractView(la);
+
+  for (var i = 0; i < 2; i++)  // generate two overlays, overlapping; second one rotated
+    addOverlay('http://www.google.com/logos/earthday08.gif',
+        lat + dlat + offset*i, lat - dlat + offset*i,
+        lon + dlon + offset*i, lon - dlon + offset*i, 30*i);
+  // KML overlays can't (yet) generate mouse events, so look for events from globe
+  google.earth.addEventListener(ge.getGlobe(), 'mousemove', function(event) {
+    var lat = event.getLatitude();
+    var lon = event.getLongitude();
+    // show that a move event was received:
+    document.getElementById('logMove').innerHTML = event.getLatitude();
+    topmost = -1, zMax = 0;  // find topmost overlay
+    for (var i = overlays.length - 1; i >= 0; i--)
+      if (overlays[i].hitTest(lat, lon)) {  // if mouse is within overlays[i]
+        document.getElementById('logHit').innerHTML = i + '; ' + overlays[i].drawOrder;
+        if (overlays[i].drawOrder > zMax) {  // if this overlay is higher than any previous
+          topmost = i;
+          zMax = overlays[i].drawOrder;
+        }
+      }
+    if ((topmost >= 0) && (overlays[topmost].drawOrder < drawOrder)) {
+      // if in an overlay and it is buried, make it top-most
+      overlays[topmost].overlay.setDrawOrder(++drawOrder);
+      overlays[topmost].drawOrder = drawOrder;  // update local structure
+    }
+    document.getElementById('logOver').innerHTML = topmost + '; ' + zMax;
+  });
+}
+
+function addOverlay(url, north, south, east, west, rotation) {
+  var groundOverlay = ge.createGroundOverlay('');  // create overlay
+  var icon = ge.createIcon('');
+  icon.setHref(url);
+  groundOverlay.setIcon(icon);
+  var latLonBox = ge.createLatLonBox('');
+  latLonBox.setBox(north, south, east, west, rotation);
+  groundOverlay.setLatLonBox(latLonBox);
+  groundOverlay.setDrawOrder(++drawOrder);
+  ge.getFeatures().appendChild(groundOverlay);
+  var points = [];  // figure out lat/lon of the corners of the overlay
+  var sinTheta = Math.sin(rotation * Math.PI / 180.0);
+  var cosTheta = Math.cos(rotation * Math.PI / 180.0);
+  // rotation is about the center of the overlay; find midpoint:
+  var midPoint = new Point((north + south) / 2, (west + east) / 2);
+  // To do cartesian rotation, need to consider that the distance between
+  // units of longitude diminish as one goes north, to zero at pole:
+  var cosLat = Math.cos(midPoint.lat * Math.PI / 180.0);  // longitude compression factor
+  west = (west - midPoint.lon) * cosLat, east = (east - midPoint.lon) * cosLat;
+  north -= midPoint.lat, south -= midPoint.lat;
+  // use cartesian rotation (good enough approximation for UI away from pole, boundaries)
+  // after rotation, restore (expand) longitudes by compression factor
+  points.push(new Point(midPoint.lat + west * sinTheta + north * cosTheta,
+      midPoint.lon + (west * cosTheta - north * sinTheta) / cosLat));
+  points.push(new Point(midPoint.lat + east * sinTheta + north * cosTheta,
+      midPoint.lon + (east * cosTheta - north * sinTheta) / cosLat));
+  points.push(new Point(midPoint.lat + east * sinTheta + south * cosTheta,
+      midPoint.lon + (east * cosTheta - south * sinTheta) / cosLat));
+  points.push(new Point(midPoint.lat + west * sinTheta + south * cosTheta,
+      midPoint.lon + (west * cosTheta - south * sinTheta) / cosLat));
+  overlays.push(new Overlay(groundOverlay, points, drawOrder));
+}
+
+function failureCB(errorCode) {
+  alert("GE init fail");
+}
+
+google.setOnLoadCallback(init);
+</script>
+</head>
+
+<body>
+
+<div id=map3d style='height: 400px; width: 600px'></div>
+<p>Mouse over the two overlays.  The one under the mouse should come to surface.</p>
+<p>Latitude of mouse: <span id=logMove></span></p>
+<p>Index of last overlay hit; its drawOrder: <span id=logHit></span></p>
+<p>Index of topmost overlay; max drawOrder: <span id=logOver></span></p>
+
+</body>
+</html>

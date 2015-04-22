@@ -1,0 +1,7 @@
+a:4:{i:0;a:3:{s:3:"dia";s:2:"07";s:3:"mes";s:3:"Jun";s:5:"texto";s:141:"Cinematic de abertura do jogo Guardiões da Floresta, o último lançamento do grupo Comunidades Virtuais!
+
+Baixe o... http://t.co/LSgqWrHJpV";}i:1;a:3:{s:3:"dia";s:2:"19";s:3:"mes";s:3:"May";s:5:"texto";s:70:"Curta a nossa página:
+
+https://t.co/Q2fy4CE6oB http://t.co/qC1Mxw1xDr";}i:2;a:3:{s:3:"dia";s:2:"03";s:3:"mes";s:3:"May";s:5:"texto";s:22:"http://t.co/FYePNBdzpF";}i:3;a:3:{s:3:"dia";s:2:"24";s:3:"mes";s:3:"Apr";s:5:"texto";s:81:"Eis a página do nosso novo jogo:
+
+https://t.co/G9WL1qDOoq http://t.co/CUoxY6hbcR";}}

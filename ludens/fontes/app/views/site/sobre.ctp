@@ -1,0 +1,336 @@
+
+<?php echo $html->css('shCoreDefault', NULL, array('inline' => false)); ?>
+
+<? $javascript->link('shCore', false) ?>
+<? $javascript->link('shBrushAS3', false) ?>
+
+<div id="sobre-box" class="conteudo-central">
+    <div class="big-box">
+        <h2 class="big-box-title"><strong>sobre /</strong> conheça o sistema Ludens </h2>
+        <div class="big-box-content">
+            <p>
+                <? echo $html->image('sobre-img.jpg', array('alt' => 'Sobre o SAJ', 'align' => 'Cadastro' )); ?>
+            </p>
+            <p>
+                O Ludens é um sistema WEB que registra as ações dos jogadores ao interagirem com jogos com fins educativos.
+            </p>
+            <p>
+                O objetivo dos Ludens é permitir que <em>professores, pedagogos e desenvolvedores de jogos</em> avaliem as ações dos alunos ao entrarem em contato com jogos digitais com fins pedagógicos. Para isso, o Ludens mapeia o engajamento e as dificuldades, obtendo informações que possam subsidiar práticas pedagógias que utilizam as mídias como elementos mediadores.
+            </p>
+            <p>
+                Por exemplo, um jogo conectado a plataforma ludens pode registrar quanto tempo os jogadores estão levando para solucionar um dado desafio. Professores, Game Designers e Pedagogos podem acessar o Ludens e gerar relatórios, com dados da performance do jogador e da turma nas ações exigidas pelo jogo.
+            </p>
+            <p>
+                Para os desenvolvedores, o Ludens poderá apresentar informações e dados relativos a jogabilidade e usabilidade dos jogos, bem como identificação dos principais problemas vivenciados pelos alunos/jogadores, comparando o tempo que cada jogador ou turma levou para solucionar os desafios propostos.
+            </p>
+            <p>
+                <?php echo $html->link('Cadastre-se'    , '/usuarios/cadastro/'); ?> e comece a usar agora!
+            </p>
+            <h3>Como funciona?</h3>
+            <p>
+                Para que um jogo possa registrar as ações dos jogadores na plataforma Ludens, é necessário que o desenvolvedor realize um cadastro e a integração do jogo com a plataforma. Se você é desenvolvedor <?php echo $html->link('cadastre-se'    , '/usuarios/cadastro/'); ?> e leia o tópico <em>Integração do jogo com o ludens</em> para saber como integrar seu jogo.
+            </p>
+            <p>
+                Estando o jogo integrado com a plataforma, o avaliador (professor, pedagogo ou game designer) deve se cadastrar e realizar login no site Ludens. Após o login, o avaliador será direcionado para uma área restrita, onde poderá cadastrar os jogadores que deseja avaliar. Cada jogador terá um login e uma senha que informará durante o jogo, e que servirão para identificar que as ações registradas naquela sessão de jogo são daquele jogador. Para que o login do jogador funcione e que as ações sejam registradas, o computador no qual o jogador está jogando deve estar conectado à internet.
+            </p>
+            <p>
+                A medida que os jogadores interagem com o jogo as ações serão registradas e poderão ser acompanhadas pela área restrita do avaliador. É possível gerar relatórios individuals por jogador e por turma.
+            </p>
+            <p>
+                <strong>Lembre-se que não é objetivo do sistema Ludens</strong> acusar ou apresentar hipóteses sobre o domínio do aluno com relação a um conteúdo ou uma determinada habilidade sua. O sistema não apresentará resultados do tipo “João não compreendeu o que é Revolução Francesa” ou “Maria não sabe ler”. O sistema apresentará indicadores. Cabe ao avaliador utilizá-los adequadamente como pistas, para identificar os reais problemas existentes.
+            </p>
+
+            <h3>Integração do jogo com o ludens</h3>
+            <p>
+                Este tópico é destinado a desenvolvedores de jogos. Para integrar o seu jogo com a plataforma Ludens você deve realizar as seguintes etapas:
+            </p>
+            <ol>
+                <li><span>Cadastrar-se no site Ludens.</span></li>
+                <li><span>Realizar login no site Ludens e cadastrar o seu jogo na sessão "Meus jogos".</span></li>
+                <li><span>Implementar o registro de ações do seu jogo.</span></li>
+            </ol>
+            <p>
+                <strong>Na etapa 2</strong>, ao cadastrar o jogo, você deverá cadastrar também os indicadores que serão registrados para aquele jogo (acesse "Editar Indicadores"). Ao cadastrar um indicador você deve informar:
+			</p>
+			<ol>
+				<li><span><b>Nome</b>: um nome para o indicador.</span></li>
+				<li><span><b>Código</b>: um código para o indicador. Esse código será usado na programação para identificar o indicador. Sugere-se usar apenas caracteres maiúsculos e o "-" (hifen) como separador. Ex: "TEMPO-RES-QUEST-1".</span></li>
+				<li><span><b>Descrição</b>: texto que descreve o que o indicador representa.</span></li>
+				<li><span><b>Tipo</b>: o tipo da informação registrada pelo indicador. Poderá ser:
+					<ol>
+						<li><span><b>Taxa de leitura</b>: valor que indica a velocidade de leitura do jogador, em caracteres por segundo. Esse indicador é utilizado para identificar dificuldade de leitura do jogador. Por exemplo, se a taxa de leitura do jogador for muito inferior a taxa de sua turma, ele pode estar tendo problemas de leitura. Na programação, o valor informado deve ser do tipo <b>número com casas decimais</b>.</span></li>
+					
+
+						<li><span><b>Tempo</b>: valor que indica o tempo que o jogador levou para realizar uma tarefa. Na programação, o valor informado deve representar a <b>quantidade de segundos</b>, sendo do tipo <b>número inteiro</b>.</span></li>
+
+						<li><span><b>Sim/não</b>: valor que indica se o jogador executou uma ação ou não. Na programação, o valor informado deve ser "0" ou "1".</span></li>
+
+						<li><span><b>Quantidade</b>: valor que indica quantas vezes o jogador executou uma dada ação. Na programação, o valor informado deve representar uma <b>quantidade de segundos</b>, sendo do tipo <b>número inteiro</b>.</span></li>
+
+					</ol>
+				</span></li>
+				<li><span><b>Exibir</b>: o jogador pode jogar o game várias vezes, sendo realizados diversos registros do mesmo indicador. Esse campo define de que forma o sistema deve exibir esses diversos registros no relatório de jogadores.
+				</span></li>
+			</ol>
+			<p>
+				Os indicadores podem estar relacionados ao tempo para solucionar quests, tempo de leitura de textos, quantidade de saves realizados, ou qualquer coisa que você deseje registrar.
+            </p>
+            <p>
+                <strong>Na etapa 3</strong> é necessário realizar a comunicação do jogo com o site ludens. Você tem duas opções para realizar essa comunicação:
+            </p>
+            <ol>
+				<li><span>(<b>Recomendado</b>)Postar os dados diretamente para o site Ludens, usando a URL http://www.comunidadesvirtuais.pro.br/ludens/api/.</span></li>
+                <li><span>Gravar um arquivo de texto com os valores dos indicadores, e depois realizar o upload do arquivo através da área restrita do site Ludens.</span></li>
+                
+            </ol>
+
+			<h3>Postando dados para o site Ludens</h3>
+            <p>
+                Ao postar dados para a API do sistema Ludens, é necessário especificar o parâmetro "action" que define qual ação está sendo executada na API. A depender da ação realizada, outros parâmetros deverão ser informados. As seguintes ações estão disponíveis:
+            </p>
+
+            <table border="1">
+                <tr>
+                    <th>
+                        Action
+                    </th>
+                    <th>
+                        Descrição
+                    </th>
+                    <th>
+                        Parâmetros
+                    </th>
+                    <th>
+                        Retorno
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        login
+                    </td>
+                    <td>
+                        Identifica um jogador no sistema.
+                    </td>
+                    <td>
+                        <strong>identificador</strong>: Define qual será o identificador do jogador no processo de login. Os valores aceitos são 'email' ou 'matricula'.<br/><br/>
+                        <strong>matricula</strong>: Número de matrícula do jogador. Esse parâmetro só deverá ser informado se o valor 'matricula' for informado para o parâmetro 'identificador'.<br/><br/>
+                        <strong>email</strong>: E-mail do jogador. Esse parâmetro só deverá ser informado se o valor 'email' for informado para o parâmetro 'identificador'.<br/><br/>
+                        <strong>senha</strong>: Senha do jogador.<br/><br/>
+                    </td>
+                    <td>
+                        <strong>id</strong>: Identificador da sessão do jogador.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        indicador
+                    </td>
+                    <td>
+                        Registra o valor de um indicador.
+                    </td>
+                    <td>
+                        <strong>id</strong>: Identificador da sessão do jogador, retornado pela ação 'login'.<br/><br/>
+                        <strong>codigo_jogo</strong>: Código do jogo cujo indicador está sendo registrado. Esse código é definido durante a etapa 2 citada anteriormente.<br/><br/>
+                        <strong>codigo_indicador</strong>: Código do indicador que está sendo registrado. Esse código é definido durante a criação do indicador, na etapa 2 citada anteriormente.<br/><br/>
+                        <strong>valor</strong>: Valor que deseja-se registrar para o dado indicador, em formato de string. Para maiores informações veja a sessão "Tipos de indicadores".<br/><br/>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        get-indicador
+                    </td>
+                    <td>
+                        Retorna o valor atual de um indicador.
+                    </td>
+                    <td>
+                        <strong>id</strong>: Identificador da sessão do jogador, retornado pela ação 'login'.<br/><br/>
+                        <strong>codigo_jogo</strong>: Código do jogo cujo indicador está sendo registrado. Esse código é definido durante a etapa 2 citada anteriormente.<br/><br/>
+                        <strong>codigo_indicador</strong>: Código do indicador que está sendo registrado. Esse código é definido durante a criação do indicador, na etapa 2 citada anteriormente.<br/><br/>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        quem-sou-eu
+                    </td>
+                    <td>
+                        Retorna informações sobre o jogador.
+                    </td>
+                    <td>
+                        <strong>id</strong>: Identificador da sessão do jogador, retornado pela ação 'login'.<br/><br/>
+                    </td>
+                    <td>
+                        <strong>jogador_id</strong>: código do jogador<br/><br/>
+                        <strong>nome</strong>: nome do jogador <br/><br/>
+                        <strong>email</strong>: do jogador<br/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        logout
+                    </td>
+                    <td>
+                        Encerra a sessão do jogador.
+                    </td>
+                    <td>
+                        <strong>id</strong>: Identificador da sessão do jogador, retornado pela ação 'login'.<br/><br/>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+            <br/><br/>
+            <p>
+                Em todas as ações, o retorno é feito em formato JSON, e possui além dos parâmetros já citados, os seguintes:<br/><br/>
+                <strong>- erro:</strong> assume o valor 1 se houve algum erro na operação e o valor 0 se nenhum erro ocorreu.<br/>
+                <strong>- desc:</strong> descrição do erro (se algum erro ocorreu) ou ''.</br>
+            </p>
+			
+            <h3>Gravando os indicadores em um arquivo de texto</h3>
+            <p>
+                O formato do arquivo de registro é feito através de blocos, que apresentam informações sobre um jogador. Um arquivo de registro pode conter vários blocos.
+                Dentro de um bloco, a primeira informação que você deve apresentar é a identificação do jogador, no formato "$ID::tipo::valor".
+                Nas linhas subsequentes você deve informar os registros de indicadores, sempre no formato "código_indicador:valor". Caso queira acrescentar comentários que serão ignorados durante o processamento do arquivo, use o caracter '#'.
+                No início do arquivo, você deve informar o código do jogo, no formato "$CODIGO::valor".
+                Um exemplo de arquivo de integração é apresentado abaixo.
+            </p>
+            <pre class="brush: as3;">
+
+            # Exemplo de arquivo de integração.
+
+            # Código do jogo (definido durante o registro
+            # do jogo na área restrita).
+            $CODIGO::BUZIOS
+
+            #--------------------------------------
+            # Registro dos jogadores
+
+            # Identificação do jogador 1.
+            $ID::email::joao@gmail.com
+
+            # Registro dos indicadores. Podem haver quantos registros você desejar.
+            TEMPO_QUEST1::15
+            TEMPO_QUEST2::25
+            INTERACOES_ERRADAS::1
+            QUANTIDADE_SAVES::25
+            TEMPO_TELA1::5
+
+            # Identificação do jogador 2.
+            $ID::email::maria@hotmail.com
+
+            # Registro dos indicadores. Podem haver quantos registros você desejar.
+            TEMPO_QUEST1::22
+            TEMPO_QUEST2::13
+            INTERACOES_ERRADAS::5
+            QUANTIDADE_SAVES::10
+            TEMPO_TELA1::15
+
+            # Identificação do jogador 3.
+            $ID::matricula::1234
+
+            # Registro dos indicadores. Podem haver quantos registros você desejar.
+            TEMPO_QUEST1::43
+            TEMPO_QUEST2::25
+            INTERACOES_ERRADAS::15
+            QUANTIDADE_SAVES::1
+            TEMPO_TELA1::2
+
+            </pre>
+
+            <p>
+                Após gravar o arquivo, entre na área restrita do site Ludens e acesse a opção "Importar" para enviá-lo. Após o envio, as informações já estarão disponíveis para análise.
+            </p>
+
+            
+
+            <h3>Exemplo de integração em AS3/Flash</h3>
+            Abaixo segue um exemplo de como implementar a integração com a plataforma Ludens utilizando o Action Script 3. Trata-se de um exemplo simples que mostra como realizar a ação login. As demais ações seguem essa mesma lógica.<br/><br/>
+            <pre class="brush: as3;">
+/* */
+
+/*
+ * Realiza a postagem de dados em uma URL.
+ * url - url onde os dados serão postados
+ * parametros - objeto onde cada propriedade é um parâmetro
+ *              que deve ser enviado.
+ * callBackSucesso - função que será chamada em caso de
+ *                   sucesso no envio dos dados.
+ * callBackFalha - função que será chamada caso ocorra
+ *                 falha no envio dos dados.
+ */
+function Post( url: String,
+               parametros: Object,
+               callBackSucesso: Function,
+               callBackFalha: Function)
+{
+    // Converte o objeto de parâmetros em um objeto do tipo
+    // URLVariables.
+    var variables 		= new URLVariables();
+    for (var i in parametros)
+    {
+            variables[i] = parametros[i];
+    }
+
+    // Cria o objeto do tipo request, que especifica
+    // a URL e os parâmetros que serão postados.
+    var request 	= new URLRequest(url);
+    request.data 	= variables;
+    request.method 	= URLRequestMethod.POST;
+
+    // Cria o objeto loader que realiza a postagem dos dados
+    // e leitura da resposta.
+    var loader = new URLLoader();
+    loader.addEventListener(Event.COMPLETE		, callBackSucesso);
+    loader.addEventListener(IOErrorEvent.IO_ERROR	, callBackFalha);
+    loader.load(request);
+}
+
+function Sucesso(evt)
+{
+    // Imprime a resposta enviada pelo site Ludens.
+    // A resposta sempre é dada em uma string em formato JSON.
+    // Você pode usar uma biblioteca JSON para interpretar essa resposta
+    // em formato de objetos JSON.
+    trace(evt.target.data);
+}
+
+function Fracasso(evt)
+{
+    trace('Ocorreu um erro ao acessar ' + URL);
+}
+
+const URL_      = 'http://www.comunidadesvirtuais.pro.br/ludens/api/';
+const EMAIL     = 'COLOQUE O EMAIL DO JOGADOR AQUI';
+const SENHA     = 'COLOQUE A SENHA DO JOGADOR AQUI';
+
+// Ação 'login'.
+Post(URL_, {action: 'login',
+            identificador: 'email',
+            email: EMAIL,
+            senha: SENHA}, Sucesso, Fracasso);
+
+/* */
+            </pre>
+             <h3>Créditos</h3>
+             <p>
+             <strong>Financiamento</strong><br/>
+             FAPESB<br/><br/>
+
+             <strong>Realização</strong><br/>
+             UNEB/Grupo de Pesquisa Comunidades Virtuais<br/>
+             Rede Brasileira de Jogos Eletrônicos e Educação<br/>
+             </p>
+        </div><!-- #big-box-content-->
+        <span class="big-box-footer"></span>
+    </div>
+</div><!-- #conteudo-central-->
+<div id="sidebar">
+    <? echo $this->element('saj'); ?>
+    <? echo $this->element('novidades'); ?>
+</div>
