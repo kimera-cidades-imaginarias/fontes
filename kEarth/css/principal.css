@@ -12,11 +12,10 @@ body{
 
 h1{
     background:url(../img/logotipo.png) no-repeat center center;
-    width: 244px;
-    height: 190px;
+    width: 100px;
+    height: 78px;
     display: block;
     text-indent: -10000px;
-    margin: 10px auto;
 }
 
 ul.lista{

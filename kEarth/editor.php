@@ -425,7 +425,7 @@
   
   <body>
     <div class="container">
-      <h1>Kimera - KEarth</h1>
+      <br />
     
       <div class="row-fluid">
         <div class="well span9">
