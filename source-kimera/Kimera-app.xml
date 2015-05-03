@@ -1,48 +1,46 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<application xmlns="http://ns.adobe.com/air/application/3.2">
-  <id>kimera</id>
-  <filename>Kimera - Cidades Imaginárias</filename>
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- 
+	Usage:
+
+	To localize the description, use the following format for the description element.
+	<description>
+	<text xml:lang="en">English App description goes here</text>
+	<text xml:lang="fr">French App description goes here</text>
+	<text xml:lang="ja">Japanese App description goes here</text>
+	</description>
+
+	To localize the name, use the following format for the name element.
+	<name>
+	<text xml:lang="en">English App name goes here</text>
+	<text xml:lang="fr">French App name goes here</text>
+	<text xml:lang="ja">Japanese App name goes here</text>
+	</name>
+-->
+<application xmlns="http://ns.adobe.com/air/application/13.0">
+  <id>com.geotec.kimera</id>
+  <versionNumber>1.0.0</versionNumber>
+  <versionLabel></versionLabel>
+  <filename>Kimera</filename>
   <description/>
-  <!-- To localize the description, use the following format for the description element.<description><text xml:lang="en">English App description goes here</text><text xml:lang="fr">French App description goes here</text><text xml:lang="ja">Japanese App description goes here</text></description>-->
-  <name>Kimera - Cidades Imaginárias</name>
-  <!-- To localize the name, use the following format for the name element.<name><text xml:lang="en">English App name goes here</text><text xml:lang="fr">French App name goes here</text><text xml:lang="ja">Japanese App name goes here</text></name>-->
-  <copyright>GEOTEC</copyright>
+  <name>Kimera</name>
+  <copyright/>
   <initialWindow>
     <content>Kimera.swf</content>
     <systemChrome>standard</systemChrome>
     <transparent>false</transparent>
     <visible>true</visible>
     <fullScreen>true</fullScreen>
-    <aspectRatio>portrait</aspectRatio>
+    
     <renderMode>auto</renderMode>
-    <width>1024</width>
-    <height>768</height>
-    <maximizable>false</maximizable>
-    <minimizable>true</minimizable>
-    <resizable>false</resizable>
-    <autoOrients>true</autoOrients>
-  </initialWindow>
-  <icon>
-    <image16x16>AppIconsForPublish/icon16.png</image16x16>
-    <image32x32>AppIconsForPublish/icon32.png</image32x32>
-    <image48x48>AppIconsForPublish/icon48.png</image48x48>
-    <image128x128>AppIconsForPublish/icon128.png</image128x128>
-  </icon>
+    <autoOrients>true</autoOrients></initialWindow>
+  <icon/>
   <customUpdateUI>false</customUpdateUI>
   <allowBrowserInvocation>false</allowBrowserInvocation>
-  <installFolder>geotec</installFolder>
-  <programMenuFolder>geotec</programMenuFolder>
-  <versionNumber>4.5</versionNumber>
   <android>
-    <manifestAdditions>
-      <![CDATA[<manifest>
+    <manifestAdditions><![CDATA[<manifest>
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-</manifest>]]>
-    </manifestAdditions>
+</manifest>]]></manifestAdditions>
   </android>
-  <supportedProfiles>desktop extendedDesktop </supportedProfiles>
+  <supportedLanguages>pt</supportedLanguages>
 </application>
