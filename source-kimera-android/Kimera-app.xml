@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- 
+	Usage:
+
+	To localize the description, use the following format for the description element.
+	<description>
+	<text xml:lang="en">English App description goes here</text>
+	<text xml:lang="fr">French App description goes here</text>
+	<text xml:lang="ja">Japanese App description goes here</text>
+	</description>
+
+	To localize the name, use the following format for the name element.
+	<name>
+	<text xml:lang="en">English App name goes here</text>
+	<text xml:lang="fr">French App name goes here</text>
+	<text xml:lang="ja">Japanese App name goes here</text>
+	</name>
+-->
+<application xmlns="http://ns.adobe.com/air/application/13.0">
+  <id>com.geotec.kimera</id>
+  <versionNumber>1.0.0</versionNumber>
+  <versionLabel></versionLabel>
+  <filename>Kimera</filename>
+  <description/>
+  <name>Kimera</name>
+  <copyright/>
+  <initialWindow>
+    <content>Kimera.swf</content>
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <fullScreen>true</fullScreen>
+    
+    <renderMode>auto</renderMode>
+    <autoOrients>false</autoOrients>
+    <aspectRatio>landscape</aspectRatio>
+  </initialWindow>
+  <icon>
+    
+    
+    
+    
+    <image96x96>AppIconsForPublish/icon96.png</image96x96>
+    <image72x72>AppIconsForPublish/icon72.png</image72x72>
+    <image48x48>AppIconsForPublish/icon48.png</image48x48>
+    <image36x36>AppIconsForPublish/icon36.png</image36x36>
+  </icon>
+  <customUpdateUI>false</customUpdateUI>
+  <allowBrowserInvocation>false</allowBrowserInvocation>
+  <android>
+    <manifestAdditions><![CDATA[<manifest>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.CAMERA"/>
+<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+<uses-permission android:name="android.permission.WAKE_LOCK"/>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+</manifest>]]></manifestAdditions>
+  </android>
+  <supportedLanguages>pt</supportedLanguages>
+</application>

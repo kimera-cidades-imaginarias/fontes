@@ -19,7 +19,7 @@
 <application xmlns="http://ns.adobe.com/air/application/13.0">
   <id>com.geotec.kimera</id>
   <versionNumber>1.0.0</versionNumber>
-  <versionLabel></versionLabel>
+  <versionLabel/>
   <filename>Kimera</filename>
   <description/>
   <name>Kimera</name>
@@ -32,8 +32,19 @@
     <fullScreen>true</fullScreen>
     
     <renderMode>auto</renderMode>
-    <autoOrients>true</autoOrients></initialWindow>
-  <icon/>
+    <autoOrients>true</autoOrients>
+    <width>1024</width>
+    <height>768</height>
+    <maximizable>false</maximizable>
+    <minimizable>true</minimizable>
+    <resizable>false</resizable>
+  </initialWindow>
+  <icon>
+    <image128x128>AppIconsForPublish/icon128.png</image128x128>
+    <image48x48>AppIconsForPublish/icon48.png</image48x48>
+    <image32x32>AppIconsForPublish/icon32.png</image32x32>
+    <image16x16>AppIconsForPublish/icon16.png</image16x16>
+  </icon>
   <customUpdateUI>false</customUpdateUI>
   <allowBrowserInvocation>false</allowBrowserInvocation>
   <android>
@@ -43,4 +54,7 @@
 </manifest>]]></manifestAdditions>
   </android>
   <supportedLanguages>pt</supportedLanguages>
+  <installFolder>geotec/kimera</installFolder>
+  <programMenuFolder>geotec/kimera</programMenuFolder>
+  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice </supportedProfiles>
 </application>

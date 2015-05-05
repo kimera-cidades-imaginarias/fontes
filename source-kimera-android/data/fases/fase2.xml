@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<fase>
+	<tutorial>false</tutorial>
+	<!-- O número da fase -->
+	<numero>2</numero>
+	
+	<texto_descritivo>
+		<![CDATA[Bela cidade que está agora sendo reconstruída. A sua história é contada pelo seu povo, que enfrenta todos os dias pequenos e grandes problemas para mantê-la viva, pujante e magnífica. Bela cidade que conta a história de cada um de nós, que precisa da sua sabedoria e atenção para resolver todo tipo de questão.]]>
+	</texto_descritivo>
+	
+	<!-- Tempo para concluir a fase, em milissegundos -->
+	<tempo>600000</tempo>
+	
+	<!-- População inicial da fase -->
+	<populacao>10000</populacao>
+	
+	<!-- Quantidade de dinheiro inicial do jogador -->
+	<dinheiro>1000000</dinheiro>
+	
+	<!-- Constante utilizada no cálculo do recebimento de dinheiro -->
+	<constante_k>0.10</constante_k>
+	
+	<!-- Índice mínimo de satisfação do jogo, em relação a barra de desempenho -->
+	<indice_minimo>10</indice_minimo>
+	
+	<!-- Porcentagem para cálculo da população considerada -->
+	<populacao_considerada>0.05</populacao_considerada>
+	
+	<!-- Tempo que o jogador levará para ter acesso ao empréstimo -->
+	<tempo_emprestimo>0</tempo_emprestimo>
+	
+	<!-- Tempo que o jogador levará para gastar dinheiro do empréstimo -->
+	<tempo_gastar_emprestimo>0</tempo_gastar_emprestimo>
+	
+	<!-- Valor do empréstimo -->
+	<valor_emprestimo>1000</valor_emprestimo>
+	
+	<!-- Enquadramento inicial da camera.-->
+	<camera>300x2160</camera>
+	
+	<!-- Música de fundo da fase -->
+	<musica>data/musicas/tema1.mp3</musica>
+	
+	<!-- Nível inicial do jogador naquela fase -->
+	<nivel_inicial>2</nivel_inicial>
+	
+	<!-- Nível máximo que o jogador pode atingir naquela fase -->
+	<nivel_max>3</nivel_max>
+	
+	<!-- Objetivos que devem ser completos até o fim da fase -->
+	<objetivos>
+		
+	</objetivos>
+	
+	<!-- Mensagens -->
+	
+	<mensagens>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>1</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Evoluir a cidade</titulo>
+			<texto>
+				<![CDATA[Você tem até 10 minutos para empregar 2 mil habitantes e ajudar a cidade a ser reconstruída!]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone>2</icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>2</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Empregou 2000 habitantes</titulo>
+			<texto>
+				<![CDATA[Parabéns! Você empregou 2000 habitantes de Kimera e agora deverá manter a cidade segura e organizada.]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone>5</icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>3</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Incêndios</titulo>
+			<texto>
+				<![CDATA[Parabéns! Agora a cidade já tem um Corpo de Bombeiros!]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone>5</icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>4</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Violência</titulo>
+			<texto>
+				<![CDATA[Com a construção da Delegacia, os bandidos estão com seus dias contados!]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone>5</icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>5</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Saúde</titulo>
+			<texto>
+				<![CDATA[Parabéns!! Agora poderemos tratar as vítimas da dengue.]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone>5</icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>6</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Lembre-se</titulo>
+			<texto>
+				<![CDATA[Mas lembre-se que para combater a dengue é necessário manter a cidade limpa.]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone></icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>7</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Transporte</titulo>
+			<texto>
+				<![CDATA[Vamos andar de Bicicleta? Construa “Ciclo Parque” para diminuir a quantidade de carros nas estradas e evitar que elas fiquem congestionadas.]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone>5</icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>8</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Não esqueça</titulo>
+			<texto>
+				<![CDATA[Parabéns! Não esqueça... as bicicletas também ajudam a diminuir a poluição das cidades!]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone></icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>9</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Cetus</titulo>
+			<texto>
+				<![CDATA[Forças das águas... inundem essa cidade!]]>
+			</texto>
+			<personagem>Cetus</personagem>
+			<icone></icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>10</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Derrote Cetus</titulo>
+			<texto>
+				<![CDATA[A cidade está sendo alagada! Construa uma Estação de Tratamento de Água e Esgoto e ajude a derrotar Cetus.]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone>5</icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>11</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Tudo sob controle</titulo>
+			<texto>
+				<![CDATA[Parabéns! Agora conseguiremos controlar a inundação.]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone></icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>12</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Chame o guardião</titulo>
+			<texto>
+				<![CDATA[Agora clique na Casa dos Guardiões e invoque Doren! Ele ajudará a derrotar Cetus!]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone>8</icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>13</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Pedra Mágica</titulo>
+			<texto>
+				<![CDATA[Você conseguiu derrotar Cetus! Receba essa pedra que vai ajudar o Prof. Daniel a voltar para casa.]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone></icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+
+		<mensagem>
+			<condicoes>
+				<condicao>
+					<tipo>variavel</tipo>
+					<variavel>Fase2</variavel>
+					<condicao>igual</condicao>
+					<valor>14</valor>
+				</condicao>
+			</condicoes>
+			<titulo>Carta</titulo>
+			<texto>
+				<![CDATA[O Rei Kimera será seu mensageiro e pede que você escreva uma carta para o Prof. Daniel e conte um pouco mais sobre as suas aventuras. Mais uma vez essa carta será enviada ao Prof. Daniel.]]>
+			</texto>
+			<personagem>Jequitibá-Rei</personagem>
+			<icone></icone>
+			<funcao>VerificarNovaMensagem</funcao>
+		</mensagem>
+				
+	</mensagens>
+	
+	<!-- Mapa inicial do jogo -->
+	<mapa>
+		<!-- Tamanho em celulas -->
+		<tamanho>168x144</tamanho>
+		
+		<!-- Elementos que compõem o mapa -->
+		<elementos>
+		
+			<!-- Coluna 1 -->
+			<elemento>
+				<!-- Segunda parte do mapa -->
+				<tipo>textura</tipo>
+				
+				<!-- Arquivo da textura que será aplicada. -->
+				<textura>data/texturas/salvador/4.jpg</textura>
+				
+				<!-- Tamanho que ela deve assumir no mapa (em celulas). -->
+				<tamanho>56x72</tamanho>
+				
+				<!-- Posição do canto superior esquerdo da celula onde a textura será desenhada. -->
+				<posicao>1x1</posicao>
+			</elemento>			
+			
+			<elemento>
+				<!-- Segunda parte do mapa -->
+				<tipo>textura</tipo>
+				
+				<!-- Arquivo da textura que será aplicada. -->
+				<textura>data/texturas/salvador/5.jpg</textura>
+				
+				<!-- Tamanho que ela deve assumir no mapa (em celulas). -->
+				<tamanho>56x72</tamanho>
+				
+				<!-- Posição do canto superior esquerdo da celula onde a textura será desenhada. -->
+				<posicao>57x1</posicao>
+			</elemento>
+		
+			<elemento>
+				<!-- Segunda parte do mapa -->
+				<tipo>textura</tipo>
+				
+				<!-- Arquivo da textura que será aplicada. -->
+				<textura>data/texturas/salvador/6.jpg</textura>
+				
+				<!-- Tamanho que ela deve assumir no mapa (em celulas). -->
+				<tamanho>56x72</tamanho>
+				
+				<!-- Posição do canto superior esquerdo da celula onde a textura será desenhada. -->
+				<posicao>113x1</posicao>
+			</elemento>
+			
+			<!-- Coluna 2 -->
+			<elemento>
+				<!-- Segunda parte do mapa -->
+				<tipo>textura</tipo>
+				
+				<!-- Arquivo da textura que será aplicada. -->
+				<textura>data/texturas/salvador/7.jpg</textura>
+				
+				<!-- Tamanho que ela deve assumir no mapa (em celulas). -->
+				<tamanho>56x72</tamanho>
+				
+				<!-- Posição do canto superior esquerdo da celula onde a textura será desenhada. -->
+				<posicao>1x73</posicao>
+			</elemento>
+			
+			<elemento>
+				<!-- Segunda parte do mapa -->
+				<tipo>textura</tipo>
+				
+				<!-- Arquivo da textura que será aplicada. -->
+				<textura>data/texturas/salvador/8.jpg</textura>
+				
+				<!-- Tamanho que ela deve assumir no mapa (em celulas). -->
+				<tamanho>56x72</tamanho>
+				
+				<!-- Posição do canto superior esquerdo da celula onde a textura será desenhada. -->
+				<posicao>57x73</posicao>
+			</elemento>
+			
+			<elemento>
+				<!-- Segunda parte do mapa -->
+				<tipo>textura</tipo>
+				
+				<!-- Arquivo da textura que será aplicada. -->
+				<textura>data/texturas/salvador/9.jpg</textura>
+				
+				<!-- Tamanho que ela deve assumir no mapa (em celulas). -->
+				<tamanho>56x72</tamanho>
+				
+				<!-- Posição do canto superior esquerdo da celula onde a textura será desenhada. -->
+				<posicao>113x73</posicao>
+			</elemento>
+			
+			<!-- Elementos decorativos. O jogador não pode interagir com eles, nem construir sobre eles. -->
+
+			
+			<!-- Emissores de som que ficarão em um ponto do mapa -->
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>26x78</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>4x57</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>7x33</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>0x12</posicao>
+			</elemento>
+			
+			<elemento>				
+				<tipo>emissor_som</tipo>
+				<nome>Som do Dique</nome>
+				<caminho>data/musicas/dique.mp3</caminho>
+				<posicao>75x100</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>31x105</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>27x122</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar com navio</nome>
+				<caminho>data/musicas/mar_navio.mp3</caminho>
+				<posicao>41x140</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>62x134</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>78x124</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>94x115</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>103x101</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>110x87</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>117x68</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>117x48</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>126x30</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar com navio</nome>
+				<caminho>data/musicas/mar_navio.mp3</caminho>
+				<posicao>137x10</posicao>
+			</elemento>
+			
+			<elemento>
+				<tipo>emissor_som</tipo>
+				<nome>Som do Mar</nome>
+				<caminho>data/musicas/mar.mp3</caminho>
+				<posicao>135x12</posicao>
+			</elemento>
+			
+			<!-- Sons que aparecerão ao clicar na construção -->
+			<elemento>
+				<tipo>som_popup</tipo>
+				<nome_estrutura>Mercado Modelo</nome_estrutura>
+				<caminho>data/musicas/mercado_modelo.mp3</caminho>
+			</elemento>
+			
+			<elemento>
+				<tipo>som_popup</tipo>
+				<nome_estrutura>Favela</nome_estrutura>
+				<caminho>data/musicas/favela.mp3</caminho>
+			</elemento>
+			
+		</elementos>
+	</mapa>
+</fase>
