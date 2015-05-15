@@ -93,28 +93,51 @@
       <h1>Kimera - KEarth</h1>
 
       <div role="tabpanel">
-        <ul class="nav nav-tabs" role="tablist" id="myTab">
-          <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Novo mapa</a></li>
-          <li role="presentation"><a href="#carregarMapa" role="tab" data-toggle="tab">Carregar mapa</a></li>
-        </ul>
-
         <div class="tab-content well">
+
+          <!--menu -->
+          <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li role="presentation"><a href="#sobre" role="tab" data-toggle="tab">K-Earth</a></li>
+            <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Novo mapa</a></li>
+            <li role="presentation"><a href="#carregarMapa" role="tab" data-toggle="tab">Carregar mapa</a></li>
+          </ul>
+
+          <!-- sobre -->
+          <div role="tabpanel" class="tab-pane" id="sobre">
+
+            <h3>O que é o K-Earth?</h3>
+            <p></p>
+
+            <hr />
+
+            <h3>Objetivos</h3>
+            <p></p>
+
+            <hr />
+
+            <h3>Requerimentos</h3>
+            <p></p>
+
+          </div>
+
+          <!-- Novo mapa -->
           <div role="tabpanel" class="tab-pane" id="novoMapa">
             <h2>01.</h2>
-            <p>Digite o edereço desejado para criar seu mapa no campo abaixo, após é só clicar em navegar e começar a diverção.</p>
+            <p>Digite o endereço desejado para criar seu mapa no campo abaixo. Clique em navegar e comece a diversão.</p>
 
             <hr />
 
             <form action="editor.php" method="POST">
               <div class="form-group">
                 <label for="endereco">Endereço</label>
-                <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Brasil, Bahia, Salvador, Centro">
+                <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro">
               </div>
 
               <input type="submit" class="btn btn-primary" value="Navegar" />
             </form>
           </div>
 
+          <!-- carregar mapa -->
           <div role="tabpanel" class="tab-pane" id="carregarMapa">
             <h2>01.</h2>
             <p>Carregue seu arquivo KML no campo abaixo para adiciona-lo a nossa biblioteca.</p>
@@ -131,7 +154,7 @@
             <hr />
 
             <h2>02.</h2>
-            <p>Selecione um dos mapas abaixo para começar a diverção.</p>
+            <p>Selecione um dos mapas abaixo para começar a diversão.</p>
 
             <table class="table table-striped">
               <thead>

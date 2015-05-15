@@ -28,7 +28,7 @@
       <script src="js/bootstrap.js" type="text/javascript"></script> 
       <script src="js/jquery.md5.js" type="text/javascript"></script> 
       <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
-      <script src="//www.google.com/jsapi?key=ABQIAAAA5El50zA4PeDTEMlv-sXFfRSsTL4WIgxhMZ0ZK_kHjwHeQuOD4xTdBhxbkZWuzyYTVeclkwYHpb17ZQ"></script>
+      <script src="https://www.google.com/jsapi?key=ABQIAAAA5El50zA4PeDTEMlv-sXFfRSsTL4WIgxhMZ0ZK_kHjwHeQuOD4xTdBhxbkZWuzyYTVeclkwYHpb17ZQ"></script>
 
       <!-- tabs -->
         <script type="text/javascript">
@@ -349,7 +349,7 @@
                   url: 'action/creat.php',
                   data: { data: kmlFile, name: removeAcento(cameraLocate) }
               }).done(function(data) {
-                $("#info").html('<br /><div class="alert alert-success">Salvo</div>');
+                $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="#" class="inicial">aqui.</a></div>');
               });
             }  
 
@@ -419,6 +419,25 @@
                 return false;
               });
 
+              $( ".inicial" ).click(function(e) {
+                  var r = confirm("Você pode perder o conteúdo criado, deseja salvar suas construções antes de sair?");
+                  
+                  if (r == true) {
+                  
+                    var lookAt = ge.getView().copyAsLookAt(ge.ALTITUDE_RELATIVE_TO_GROUND);
+                
+                    var cameraLat = lookAt.getLatitude();
+                    var cameraLng = lookAt.getLongitude();
+                    
+                    getAddress(cameraLat, cameraLng);
+
+                  } else {
+                    window.location.assign("index.php")
+                  }
+
+                  return false;
+              });
+
             });
         </script>
   </head>
@@ -440,20 +459,25 @@
             
             </ul>
         </div>
+
+        <div class="well span3 panelFerramentas">
+            <p><a href="#" class="btn span12 inicial">Menu Inicial</a></p>
+            <p><a href="#" class="btn span12" id="salvar">Salvar Construções</a></p>
+        </div>
       </div>
 
       <div class="row-fluid">
         <div class="span12">
-          <ul class="nav nav-pills" role="tablist" id="myTab">
-            <li role="presentation"><a href="#tabs1" role="tab" data-toggle="tab"><img width="20" src="img/icone_representa_comercio.png" /> Comércio</a></li>
-            <li role="presentation"><a href="#tabs2" role="tab" data-toggle="tab"><img width="20" src="img/icone_representa_educacao.png" /> Educação</a></li>
-            <li role="presentation"><a href="#tabs3" role="tab" data-toggle="tab"><img width="20" src="img/icone_representa_habitacoes.png" /> Habitações</a></li>
-            <li role="presentation"><a href="#tabs4" role="tab" data-toggle="tab"><img width="20" src="img/icone_representa_infraestrutura.png" /> Infraestrutura</a></li>
-            <li role="presentation"><a href="#tabs5" role="tab" data-toggle="tab"><img width="20" src="img/icone_representa_lazer.png" /> Lazer</a></li>
-            <li role="presentation"><a href="#tabs6" role="tab" data-toggle="tab"><img width="20" src="img/icone_configuracoes.png" /> Ferramentas</a></li>
-          </ul>
-
+          
           <div class="tab-content well">
+            <ul class="nav nav-pills" role="tablist" id="myTab">
+              <li role="presentation"><a href="#tabs1" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_comercio.png" /> Comércio</a></li>
+              <li role="presentation"><a href="#tabs2" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_educacao.png" /> Educação</a></li>
+              <li role="presentation"><a href="#tabs3" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_habitacoes.png" /> Habitações</a></li>
+              <li role="presentation"><a href="#tabs4" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_infraestrutura.png" /> Infraestrutura</a></li>
+              <li role="presentation"><a href="#tabs5" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_lazer.png" /> Lazer</a></li>
+            </ul>
+
             <div role="tabpanel" class="tab-pane" id="tabs1">
               <ul class="lista">
                 <li><a href="banco-01" rel="tooltip" title="Banco 01"><img src="img/icone_comercio_banco01.png" /></a></li>
@@ -508,11 +532,6 @@
                 <li><a href="restaurante-simples" rel="tooltip" title="Restaurante Simples"><img src="img/icone_lazer_restaurantesimples.png" /></a></li>
                 <li><a href="sorveteria" rel="tooltip" title="Sorveteria"><img src="img/icone_lazer_sorveteria.png" /></a></li>
               </ul>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="tabs6">
-              <a href="index.php" class="btn">Menu Inicial</a>
-              <a href="#" class="btn" id="salvar">Salvar Arquivo KML</a>
             </div>
             
           </div>

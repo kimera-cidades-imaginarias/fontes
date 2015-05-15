@@ -6,7 +6,7 @@
 		if($arquivo != '.' && $arquivo != '..'){
 			echo '<tr>';
 				echo '<td>'.$arquivo.'</td>';
-				echo '<td><a href="editor.php?arquivo='.$arquivo.'" class="btn">Jogar</a></td>';
+				echo '<td><a href="editor.php?arquivo='.$arquivo.'" class="btn btn-primary">Jogar</a></td>';
 				echo '<td><a href="kml/'.$arquivo.'" class="btn">Download</a></td>';
 			echo '</tr>';
 		}

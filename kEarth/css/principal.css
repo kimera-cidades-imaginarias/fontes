@@ -12,10 +12,11 @@ body{
 
 h1{
     background:url(../img/logotipo.png) no-repeat center center;
-    width: 100px;
-    height: 78px;
+    width: 160px;
+    height: 125px;
     display: block;
     text-indent: -10000px;
+    margin: 0 auto;
 }
 
 ul.lista{
@@ -36,10 +37,34 @@ ul.lista li img{
     display: block;
 }
 
-#map, .panelContrucao{
+#map{
     height: 500px;
 }
 
-#construcoes, .panelContrucao{
+.panelContrucao{
+    height: 400px;
+}
+
+.panelFerramentas{
+     height: 128px;
+}
+
+.panelFerramentas a{
+    margin-bottom: 6px;
+}
+
+#construcoes, .panelContrucao, .panelFerramentas{
     overflow-y:auto;
+}
+
+.nav-pills li a{
+    background-color: #fff;
+}
+
+.well{
+    border:solid 6px #2D568A;
+}
+
+hr{
+     border:solid 1px #2D568A;
 }
