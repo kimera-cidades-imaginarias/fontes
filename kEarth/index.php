@@ -115,7 +115,7 @@
 
             <hr />
 
-            <h3>Requerimentos</h3>
+            <h3>Requisitos</h3>
             <p></p>
 
           </div>
@@ -159,8 +159,8 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th width="80%">Nome</th>
-                  <th width="20%" colspan="2">Ação</th>
+                  <th width="75%">Nome</th>
+                  <th width="25%" colspan="3">Ação</th>
                 </tr>
               </thead>
               <tbody id="dados">

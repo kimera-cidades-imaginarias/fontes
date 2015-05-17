@@ -349,7 +349,7 @@
                   url: 'action/creat.php',
                   data: { data: kmlFile, name: removeAcento(cameraLocate) }
               }).done(function(data) {
-                $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="#" class="inicial">aqui.</a></div>');
+                $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php">aqui.</a></div>');
               });
             }  
 
