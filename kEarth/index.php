@@ -36,6 +36,12 @@
             });
 
             $('#myTab a:first').tab('show')
+
+            <?php
+              if(isset($_REQUEST['tab'])){
+                echo " $(\"a[href='#".$_REQUEST['tab']."']\").tab('show'); ";
+              }
+            ?>
           })
         </script>
 

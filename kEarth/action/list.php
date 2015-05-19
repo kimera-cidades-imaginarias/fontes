@@ -29,7 +29,8 @@
 	            dataType: "html",
 
 	            success: function(result){
-	               document.location.reload(true);
+	            	window.location = 'index.php?tab=carregarMapa';
+	            	//document.location.reload(true);
 	            },
 	            beforeSend: function(){
 	                
