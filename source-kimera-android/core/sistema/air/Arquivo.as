@@ -69,6 +69,15 @@
 			arquivo.deleteFile(); 
 		}
 		
+		public static function enderecamento(path: String, local: Boolean = true) : String
+		{
+			if(local) { var pastaAplicacao	: File = File.applicationDirectory; } else { var pastaAplicacao	: File = File.documentsDirectory; }
+
+			var arquivo			: File = pastaAplicacao.resolvePath(path);
+
+			return arquivo.url;
+		}
+
 		public static function GetPastaAplicacao(local: Boolean = true) : String
 		{
 			if(local) { var pastaAplicacao	: File = File.applicationDirectory; } else { var pastaAplicacao	: File = File.documentsDirectory; }
