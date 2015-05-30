@@ -476,6 +476,7 @@
               <li role="presentation"><a href="#tabs3" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_habitacoes.png" /> Habitações</a></li>
               <li role="presentation"><a href="#tabs4" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_infraestrutura.png" /> Infraestrutura</a></li>
               <li role="presentation"><a href="#tabs5" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_lazer.png" /> Lazer</a></li>
+              <li role="presentation"><a href="#tabs6" role="tab" data-toggle="tab"><img width="30" src="img/icone_configuracoes.png" /> Testes</a></li>
             </ul>
 
             <div role="tabpanel" class="tab-pane" id="tabs1">
@@ -531,6 +532,20 @@
                 <li><a href="restaurante-luxo" rel="tooltip" title="Restaurante de Luxo"><img src="img/icone_lazer_restauranteluxo.png" /></a></li>
                 <li><a href="restaurante-simples" rel="tooltip" title="Restaurante Simples"><img src="img/icone_lazer_restaurantesimples.png" /></a></li>
                 <li><a href="sorveteria" rel="tooltip" title="Sorveteria"><img src="img/icone_lazer_sorveteria.png" /></a></li>
+              </ul>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="tabs6">
+              <ul class="lista">
+                <li><a href="modelo-01" rel="tooltip" title="Modelo 01"><img src="img/icone_configuracoes.png" /></a></li>
+                <li><a href="modelo-02" rel="tooltip" title="Modelo 02"><img src="img/icone_configuracoes.png" /></a></li>
+                <li><a href="modelo-03" rel="tooltip" title="Modelo 03"><img src="img/icone_configuracoes.png" /></a></li>
+                <li><a href="modelo-04" rel="tooltip" title="Modelo 04"><img src="img/icone_configuracoes.png" /></a></li>
+                <li><a href="modelo-05" rel="tooltip" title="Modelo 05"><img src="img/icone_configuracoes.png" /></a></li>
+                <li><a href="modelo-06" rel="tooltip" title="Modelo 06"><img src="img/icone_configuracoes.png" /></a></li>
+                <li><a href="modelo-07" rel="tooltip" title="Modelo 07"><img src="img/icone_configuracoes.png" /></a></li>
+                <li><a href="modelo-08" rel="tooltip" title="Modelo 08"><img src="img/icone_configuracoes.png" /></a></li>
+                <li><a href="modelo-09" rel="tooltip" title="Modelo 09"><img src="img/icone_configuracoes.png" /></a></li>
               </ul>
             </div>
             
