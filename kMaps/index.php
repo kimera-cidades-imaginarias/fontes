@@ -15,7 +15,7 @@
     <!-- TITLE -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->    
       <link rel="shortcut icon" href="img/favicon.ico" type="img/x-icon" />
-      <title>Kimera - KEarth</title>
+      <title>Kimera - KMaps</title>
       
     <!-- CSS -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
@@ -103,7 +103,7 @@
 
           <!--menu -->
           <ul class="nav nav-tabs" role="tablist" id="myTab">
-            <li role="presentation"><a href="#sobre" role="tab" data-toggle="tab">K-Earth</a></li>
+            <li role="presentation"><a href="#sobre" role="tab" data-toggle="tab">K-Maps</a></li>
             <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Novo mapa</a></li>
             <li role="presentation"><a href="#carregarMapa" role="tab" data-toggle="tab">Carregar mapa</a></li>
           </ul>

@@ -65,13 +65,13 @@
 
               mapTypeId: google.maps.MapTypeId.TERRAIN,
               center: new google.maps.LatLng(0, 0),
-              zoom: 15,
+              zoom: 18,
               tilt: 45,
 
               panControl: true,
-              zoomControl: true,
+              zoomControl: false,
               mapTypeControl: true,
-              scaleControl: true,
+              scaleControl: false,
               streetViewControl: true,
               overviewMapControl: true
 
@@ -81,10 +81,30 @@
             map = new google.maps.Map(mapCanvas, mapOptions)
 
             //listners
-            google.maps.event.addListener(map, 'click', function(event) { addMarker(event.latLng, map); });
+            google.maps.event.addListener(map, 'click', function(event) { 
+              addMarker(event.latLng, map); 
+            });
+
+            google.maps.event.addListener(map, 'zoom_changed', function() {
+              zoomLevel = map.getZoom();
+
+              setAllMap(null);
+    
+              if (zoomLevel >= 18) {
+                setAllMap(map);
+              }
+            });
+
           }
 
           function loadKmlLayer(file, map) {
+            //creat kml layer
+            var kmlLayer = new google.maps.KmlLayer({
+              url: 'https://kimera4.websiteseguro.com/kmaps/kml/'+file
+            });
+
+            //kmlLayer.setMap(map);
+
             $.ajax(
             {
               type: "GET",
@@ -98,6 +118,8 @@
                 processKML(kml);          
               }
             });
+
+            
           }
 
           function processKML(data) {
@@ -113,6 +135,7 @@
                     position: new google.maps.LatLng(latitude, longitude),
                     title: name,
                     icon: icon, 
+                    draggable:true,
                     map: map
                   });
 
@@ -131,13 +154,13 @@
               if(longitude && latitude && tilt){
                 //set
                 map.setCenter( new google.maps.LatLng(latitude, longitude));
-                map.setZoom(15);
+                map.setZoom(18);
                 map.setTilt(tilt);
 
                 //save
                 myMapOptions["latitude"] = latitude;
                 myMapOptions["longitude"] = longitude;
-                myMapOptions["zoom"] = 15;
+                myMapOptions["zoom"] = 18;
                 myMapOptions["tilt"] = tilt;
               }
             })
@@ -190,13 +213,13 @@
               {
                 //set
                 map.setCenter( new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
-                map.setZoom(15);
+                map.setZoom(18);
                 map.setTilt(45);
 
                 //save
                 myMapOptions["latitude"] = results[0].geometry.location.lat();
                 myMapOptions["longitude"] = results[0].geometry.location.lng();
-                myMapOptions["zoom"] = 15;
+                myMapOptions["zoom"] = 18;
                 myMapOptions["tilt"] = 45;
               }
             });
@@ -208,7 +231,7 @@
               var marker = new google.maps.Marker({
                 position: location,
                 title: cursor["title"],
-                icon: 'img/' + cursor["img"] + '.png', //endereco completo
+                icon: 'https://kimera4.websiteseguro.com/kmaps/img/' + cursor["img"] + '.png', //endereco completo
                 map: map
               });
 
@@ -232,6 +255,12 @@
 
             markers.splice(index, 1);
             populateList();
+          }
+
+          function setAllMap(map) {
+            for (var i = 0; i < markers.length; i++) {
+              markers[i].setMap(map);
+            }
           }
 
           function populateList() {
