@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Folder id="results">
+	<name>Walt Disney World Speedway, Orlando, Flórida, Estados Unidos</name>
+	<Placemark id="1.2.2">
+		<name>Walt Disney World Speedway</name>
+		<address>Orlando, FL 32836, Estados Unidos</address>
+		<snippet>Orlando, FL 32836, Estados Unidos</snippet>
+		<description><![CDATA[<!DOCTYPE html><html lang="pt"> <head> <style>body{font-family:Roboto,Arial,sans-serif}._qNc{background-color:#fafafa;border-radius:2px;bottom:2px;left:2px;position:absolute;top:2px}._yNc{font-size:18px;font-weight:bold;line-height:25px;margin-bottom:5px}._pNc{font-size:14px;font-weight:300;line-height:18px;margin-bottom:5px}._vNc{font-size:16px;line-height:normal;color:#e7711b;margin-right:5px}.review-count{font-size:12px;line-height:normal}._wNc,._N8b,._M8b{display:inline-block;background-image:url('//maps.gstatic.com/tactile/omnibox/star-20130618.png');width:13px;height:13px;background-size:36px 12px}._N8b{background-position:-13px 0}._M8b{background-position:-25px 0}._rNc{font-size:12px;margin-bottom:2px}._tNc{font-size:14px;margin-bottom:2px}._xNc{font-size:14px;margin-bottom:2px;margin-top:5px}._i8c{font-size:14px;margin-bottom:2px}._mtd{font-size:14px;padding:6px 15px 2px;margin-bottom:5px}._uNc{overflow:hidden;display:inline-block;vertical-align:top;position:relative}._sNc{background:#686868;background-position:center;background-repeat:no-repeat;background-size:cover}._IGc{font-size:10px;font-style:italic}</style> <meta content="width=device-width, initial-scale=1" name="viewport"> </head> <body> <div class="_qNc"> <div class="_yNc">Walt Disney World Speedway</div> <div class="_pNc"> <div> Orlando, FL 32836 </div><div> Estados Unidos </div> </div>  <div class="_i8c"></div> <div class="_DWd"> <a href="#" target="_blank">  </a> </div> <br> <div class="_ltd"> <div class="_uNc" style="width:374px;height:75px;margin-right:0px"> <div class="_sNc" style="background-image:url(//storage.googleapis.com/static.panoramio.com/photos/medium/51948263.jpg);width:374px;height:75px"> </div> </div> </div> <br>  <span class="_vNc">4.5</span>    <span class="_wNc"></span>    <span class="_wNc"></span>    <span class="_wNc"></span>    <span class="_wNc"></span>   <span class="_N8b"></span>    <span class="reviews"> <a href="/url?q=https://www.google.com/search%3Fq%3DWalt%2BDisney%2BWorld%2BSpeedway,%2BOrlando,%2BFL%2B32836%26ludocid%3D11477421122604483731%23lrd%3D0x88dd7e3da7a0ad8b:0x9f47fdb37667c493,1&amp;sa=U&amp;ei=TfSGVe-cDsyrgwT_s4CQAg&amp;ved=0CAcQwBwoADAA&amp;usg=AFQjCNGM7sVjgRn_wcVY5AEmojI0ByFwCw" target="_blank"> <span class="review-count">11 comentários</span></a> </span> <span class="_rNc">Autódromo</span> <div class="_xNc"></div> <div class="_bpd">  </div> </div> </body> </html>]]></description>
+		<styleUrl>#listing_A</styleUrl>
+		<ExtendedData>
+			<Data name="placepageUri">
+				<value>https://www.google.com/earth/rpc/entity?lat=28.39634465&amp;lng=-81.5779203&amp;fid=0x88dd7e3da7a0ad8b:0x9f47fdb37667c493&amp;q=Walt Disney World Speedway, Orlando, Flórida, Estados Unidos&amp;hl=pt-BR&amp;gl=br&amp;client=earth-client&amp;cv=7.1.5.1557&amp;useragent=GoogleEarth/7.1.5.1557(Windows;Microsoft Windows (6.1.7601.1);pt;kml:2.2;client:Free;type:default)</value>
+			</Data>
+		</ExtendedData>
+		<MultiGeometry>
+			<Point>
+				<coordinates>-81.57620799999999,28.39611,0</coordinates>
+			</Point>
+			<LinearRing>
+				<coordinates>
+					-81.58005692730295,28.39322330452279,0 -81.58005692730295,28.39899669547722,0 -81.57235907269704,28.39899669547722,0 -81.57235907269704,28.39322330452279,0 -81.58005692730295,28.39322330452279,0 
+				</coordinates>
+			</LinearRing>
+		</MultiGeometry>
+	</Placemark>
+</Folder>
+</kml>

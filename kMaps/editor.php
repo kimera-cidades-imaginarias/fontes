@@ -98,13 +98,8 @@
           }
 
           function loadKmlLayer(file, map) {
-            //creat kml layer
-            var kmlLayer = new google.maps.KmlLayer({
-              url: 'https://kimera4.websiteseguro.com/kmaps/kml/'+file
-            });
-
-            //kmlLayer.setMap(map);
-
+            
+            //create placemark
             $.ajax(
             {
               type: "GET",
@@ -119,7 +114,13 @@
               }
             });
 
-            
+            //creat kml layer
+            var kmlLayer = new google.maps.KmlLayer({
+              url: 'https://kimera4.websiteseguro.com/kmaps/kml/'+file,
+              map: map,
+              preserveViewport: true
+            });
+
           }
 
           function processKML(data) {
@@ -195,11 +196,17 @@
             //save
             var kml = "<Document>"+kmlFile+"</Document>"; 
 
+            <?php if(isset($_REQUEST['arquivo'])){ ?>
+              var nome = "<?php echo substr($_REQUEST['arquivo'], 0, -4); ?>";
+            <?php } else { ?>
+              var nome = "" + myMapOptions["longitude"] + myMapOptions["latitude"];
+            <?php } ?>
+
             $.ajax(
             {
                 type: 'POST',
                 url: 'action/creat.php',
-                data: { data: kml, name: '' + myMapOptions["longitude"] + myMapOptions["latitude"] }
+                data: { data: kml, name: nome  }
             }).done(function(data) {
               $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php?tab=carregarMapa">aqui.</a></div>');
             });
