@@ -50,6 +50,7 @@
          
           var map;
           var markers = [];
+          var distances = [];
           var cursor = null;
 
           var myMapOptions = {
@@ -235,21 +236,102 @@
           function addMarker(location, map) {
             if(cursor != null)
             {
-              var marker = new google.maps.Marker({
-                position: location,
-                title: cursor["title"],
-                icon: 'https://kimera4.websiteseguro.com/kmaps/img/' + cursor["img"] + '.png', //endereco completo
-                map: map
-              });
+              if(cursor["img"] == "ponto"){
+                
+                var marker = new google.maps.Marker({
+                  position: location,
+                  title: cursor["title"],
+                  animation: google.maps.Animation.DROP,
+                  icon: 'https://kimera4.websiteseguro.com/kmaps/img/ponto.png', //endereco completo
+                  map: map
+                });
 
-              markers.push(marker);
-              map.panTo(location);
-              
-              cursor = null;
+                distances.push(marker);
+                map.panTo(location);
 
-              populateList();
+                if(distances.length == 2){
+                  setTimeout(function(){
+                    alert("Distancia entre os pontos: " + Math.floor(getDistance(distances[0].position, distances[1].position)) + "m" );
+
+                    distances[0].setMap(null);
+                    distances[1].setMap(null);
+
+                    distances.length = 0;
+                    cursor = null;
+                  }, 1000);
+                  
+                }
+                                
+              } else {
+
+                if( coliderMarkerCheck(location) == true ){
+                  var marker = new google.maps.Marker({
+                    position: location,
+                    title: cursor["title"],
+                    draggable:true,
+                    animation: google.maps.Animation.DROP,
+                    icon: 'https://kimera4.websiteseguro.com/kmaps/img/' + cursor["img"] + '.png', //endereco completo
+                    map: map
+                  });
+
+                  markers.push(marker);
+                  map.panTo(location);
+                  
+                  cursor = null;
+
+                  populateList();
+                } else {
+                  alert("Você não pode inserir uma construção aqui!");
+                }
+
+              }
             }
           }
+
+          function coliderMarkerCheck(location){
+            if(markers.length == 0){
+              return true;
+            } else {
+              var ltemp = 0;
+              
+              for (var i = 0; i < markers.length; i++) {
+
+                if(ltemp == 0){
+                  ltemp = Math.floor(getDistance(location, markers[i].position));
+                }
+
+                if(Math.floor(getDistance(location, markers[i].position)) < ltemp){
+                  ltemp = Math.floor(getDistance(location, markers[i].position));
+                }
+
+              }
+
+              if(ltemp >= 100){
+                return true;
+              }
+
+              return false;
+            }
+          }
+
+          function rad(x) {
+            return x * Math.PI / 180;
+          }
+
+          function getDistance(p1, p2) {
+            var R = 6378137; // Earth’s mean radius in meter
+            
+            var dLat = rad(p2.lat() - p1.lat());
+            var dLong = rad(p2.lng() - p1.lng());
+            
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) *
+              Math.sin(dLong / 2) * Math.sin(dLong / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c;
+
+            return d; // returns the distance in meter
+          };
 
           function focusMarker(index){
             var location = markers[index].getPosition();
@@ -379,6 +461,7 @@
               <li role="presentation"><a href="#tabs3" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_habitacoes.png" /> Habitações</a></li>
               <li role="presentation"><a href="#tabs4" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_infraestrutura.png" /> Infraestrutura</a></li>
               <li role="presentation"><a href="#tabs5" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_lazer.png" /> Lazer</a></li>
+              <li role="presentation"><a href="#tabs6" role="tab" data-toggle="tab"><img width="30" src="img/icone_configuracoes.png" /> Ferramentas</a></li>
             </ul>
 
             <div role="tabpanel" class="tab-pane" id="tabs1">
@@ -434,6 +517,12 @@
                 <li><a href="restaurante-luxo" rel="tooltip" title="Restaurante de Luxo"><img src="img/icone_lazer_restauranteluxo.png" /></a></li>
                 <li><a href="restaurante-simples" rel="tooltip" title="Restaurante Simples"><img src="img/icone_lazer_restaurantesimples.png" /></a></li>
                 <li><a href="sorveteria" rel="tooltip" title="Sorveteria"><img src="img/icone_lazer_sorveteria.png" /></a></li>
+              </ul>
+            </div>
+
+             <div role="tabpanel" class="tab-pane" id="tabs6">
+              <ul class="lista">
+                <li><a href="ponto" rel="tooltip" title="Medir Distâncias"><img src="img/icone_ponto.png" /></a></li>
               </ul>
             </div>
             
