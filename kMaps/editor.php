@@ -86,16 +86,6 @@
               addMarker(event.latLng, map); 
             });
 
-            google.maps.event.addListener(map, 'zoom_changed', function() {
-              zoomLevel = map.getZoom();
-
-              setAllMap(null);
-    
-              if (zoomLevel >= 18) {
-                setAllMap(map);
-              }
-            });
-
           }
 
           function loadKmlLayer(file, map) {
@@ -116,11 +106,14 @@
             });
 
             //creat kml layer
+            /*
             var kmlLayer = new google.maps.KmlLayer({
-              url: 'https://kimera4.websiteseguro.com/kmaps/kml/'+file,
+              url: 'https://kimera4.websiteseguro.com/kmaps/kml/'+file+'?rnd'+Math.random(),
               map: map,
-              preserveViewport: true
+              preserveViewport: false,
+              draggable:true
             });
+            */
 
           }
 
@@ -128,17 +121,22 @@
             //placemark
             $(data).find("Placemark").each(function(index, value){
                 var name = $(this).find("name").text() ;
-                var longitude = $(this).find("longitude").text() ;
-                var latitude = $(this).find("latitude").text() ;
-                var icon = $(this).find("href").text() ;
+                var coordinates = $(this).find("coordinates").text().split(","); 
+                var styleUrl = $(this).find("styleUrl").text();
+
+                var icon = $(data).find(styleUrl).text();
+                icon = icon.substring(icon.indexOf("<href>")+6, icon.indexOf("</href>"));
+
+                var longitude = coordinates[0] ;
+                var latitude = coordinates[1] ;
 
                 if(name && longitude && latitude){
                   var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(latitude, longitude),
                     title: name,
-                    icon: icon, 
-                    draggable:true,
-                    map: map
+                    icon: icon,
+                    map: map, 
+                    draggable:true
                   });
 
                   markers.push(marker);
@@ -166,6 +164,7 @@
                 myMapOptions["tilt"] = tilt;
               }
             })
+
           }
 
           function saveKML(){
@@ -173,17 +172,20 @@
 
             //markers
             for (var i = 0; i < markers.length; i++) {
+              kmlFile += '<Style id="icon'+i+'">';
+                kmlFile += '<IconStyle>';
+                  kmlFile += '<Icon>';
+                    kmlFile += "<href>"+markers[i].getIcon()+"</href>";
+                  kmlFile += '</Icon>';
+                kmlFile += '</IconStyle>';
+              kmlFile += '</Style>';
+
               kmlFile += '<Placemark>';
                 kmlFile += '<name>'+markers[i].getTitle()+'</name>';
-                kmlFile += '<Model>';
-                  kmlFile += '<Location>';
-                      kmlFile += '<longitude>'+markers[i].position.lng()+'</longitude>';
-                      kmlFile += '<latitude>'+markers[i].position.lat()+'</latitude>';
-                  kmlFile += '</Location>';
-                  kmlFile += '<Link>';
-                      kmlFile += "<href>"+markers[i].getIcon()+"</href>";
-                  kmlFile += '</Link>';
-                kmlFile += '</Model>';
+                kmlFile += '<styleUrl>#icon'+i+'</styleUrl>';
+                kmlFile += '<Point>';
+                  kmlFile += '<coordinates>'+markers[i].position.lng()+','+markers[i].position.lat()+',0</coordinates>';
+                kmlFile += '</Point>';                
               kmlFile += '</Placemark>';
             }
 
@@ -200,7 +202,7 @@
             <?php if(isset($_REQUEST['arquivo'])){ ?>
               var nome = "<?php echo substr($_REQUEST['arquivo'], 0, -4); ?>";
             <?php } else { ?>
-              var nome = "" + myMapOptions["longitude"] + myMapOptions["latitude"];
+              var nome = "" + myMapOptions["longitude"] + myMapOptions["latitude"] + "-<?php echo date('d-m-Y-H-i-s'); ?>";
             <?php } ?>
 
             $.ajax(

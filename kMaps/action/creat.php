@@ -8,6 +8,7 @@
 		$content .= '</Document>';
 	$content .= '</kml>';
 	
-	$fp = fopen("../kml/".$_REQUEST['name'].".kml","w+");
+	$fp = fopen("../kml/". $_REQUEST['name'] . ".kml","w+");
+	
 	fwrite($fp,$content);
 	fclose($fp);
