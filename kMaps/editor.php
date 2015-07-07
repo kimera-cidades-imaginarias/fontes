@@ -531,6 +531,8 @@
           </div>
         </div>
       </div>
+
+      <p class="versao">Versão: 4743a11</p>
     </div>
 
   </body>

@@ -68,3 +68,9 @@ ul.lista li img{
 hr{
      border:solid 1px #2D568A;
 }
+
+.versao{
+    float: right;
+    color: #fff;
+    font-size: 14px;
+}
