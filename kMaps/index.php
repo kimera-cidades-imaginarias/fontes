@@ -26,6 +26,8 @@
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
       <script src="js/jquery-latest.js" type="text/javascript"></script>
       <script src="js/bootstrap.js" type="text/javascript"></script> 
+      <script src="js/jquery.validate.min.js"></script>
+      <script src="js/additional-methods.js"></script>
 
       <!-- tabs -->
         <script type="text/javascript">
@@ -42,6 +44,9 @@
                 echo " $(\"a[href='#".$_REQUEST['tab']."']\").tab('show'); ";
               }
             ?>
+
+            $("#criarMapa").validate();
+            $("#file").validate();
           })
         </script>
 
@@ -58,11 +63,22 @@
             });
           }
 
-          $(function () {
+          $(function ()
+          {
+             $("#arquivo").change(function () {
+                var fileExtension = ['kml','kmz'];
+
+                if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                  $( "#arquivo" ).after( "<p>Apenas arquivos no formato '.kml','.kmz' são permitidos.</p>" );
+                  $("#arquivo").val('');
+                }
+            });
+
             $("#file").submit(function(e){
                 e.preventDefault();
 
                 data = new FormData($('#file')[0]);
+
                 var formTemp = $("#file").html();
                 $("#file").html('<p>Aguarde...</p>');
 
@@ -133,10 +149,10 @@
 
             <hr />
 
-            <form action="editor.php" method="POST">
+            <form action="editor.php" method="POST" id="criarMapa">
               <div class="form-group">
                 <label for="endereco">Endereço</label>
-                <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro">
+                <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro" required data-msg-required="Este campo não pode ser vázio!" >
               </div>
 
               <input type="submit" class="btn btn-primary" value="Navegar" />
@@ -151,7 +167,7 @@
             <form action="#" method="POST" id="file" enctype="multipart/form-data">
               <div class="form-group">
                 <label for="endereco">Arquivo</label>
-                <input type="file" name="arquivo" id="arquivo" />
+                <input type="file" name="arquivo" id="arquivo" required data-msg-required="Este campo não pode ser vázio!" accept="application/vnd.google-earth.kml+xml" />
               </div>
 
               <br /><input type="submit" class="btn btn-primary" value="Carregar" />

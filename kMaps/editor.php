@@ -51,7 +51,13 @@
           var map;
           var markers = [];
           var distances = [];
+          var routes = [];
           var cursor = null;
+          var iconTemp = null;
+          var zoomLevel = 0;
+
+          var directionsService = new google.maps.DirectionsService();
+          var directionsDisplay = new google.maps.DirectionsRenderer();
 
           var myMapOptions = {
             latitude: "",
@@ -79,13 +85,18 @@
             }
 
             //map
-            map = new google.maps.Map(mapCanvas, mapOptions)
+            map = new google.maps.Map(mapCanvas, mapOptions);
 
             //listners
             google.maps.event.addListener(map, 'click', function(event) { 
               addMarker(event.latLng, map); 
             });
 
+            google.maps.event.addListener(map, 'zoom_changed', function() {
+              zoomLevel = map.getZoom();
+            });
+
+            zoomLevel = map.getZoom();
           }
 
           function loadKmlLayer(file, map) {
@@ -238,8 +249,78 @@
           function addMarker(location, map) {
             if(cursor != null)
             {
-              if(cursor["img"] == "ponto"){
-                
+              iconTemp.fadeTo( "fast", 1 );
+
+              //ROTA
+              if(cursor["img"] == "rota"){
+                var marker = new google.maps.Marker({
+                  position: location,
+                  title: cursor["title"],
+                  animation: google.maps.Animation.DROP,
+                  icon: 'https://kimera4.websiteseguro.com/kmaps/img/ponto.png', //endereco completo
+                  map: map
+                });
+
+                routes.push(marker);
+                map.panTo(location);
+
+                if(routes.length == 2){
+                  directionsDisplay.setMap(map);
+                  cursor = null;
+
+                  var start =  new google.maps.LatLng(routes[0].position.lat(), routes[0].position.lng());
+                  var end =  new google.maps.LatLng(routes[1].position.lat(), routes[1].position.lng());
+
+                  var request = {
+                    origin:start,
+                    destination:end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                  };
+
+                  directionsService.route(request, function(result, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                      directionsDisplay.setDirections(result);
+
+                      var route = result.routes[0];
+
+                      setTimeout(function(){
+                        alert("Distância entre os pontos: " + route.legs[0].distance.text );
+
+                        routes[0].setMap(null);
+                        routes[1].setMap(null);
+
+                        routes.length = 0;
+                        cursor = null;
+                        directionsDisplay.setMap(null);
+                      }, 1000);
+                    }
+                  });      
+                }          
+              }
+
+              //COORDENADA
+              else if(cursor["img"] == "coordenada"){
+                var marker = new google.maps.Marker({
+                  position: location,
+                  title: cursor["title"],
+                  animation: google.maps.Animation.DROP,
+                  icon: 'https://kimera4.websiteseguro.com/kmaps/img/ponto.png', //endereco completo
+                  map: map
+                });
+
+                map.panTo(location);
+
+                setTimeout(function(){
+                  alert("Coordenadas do ponto: " + location.lng() + " , " + location.lat());
+
+                  marker.setMap(null);
+
+                  cursor = null;
+                }, 1000);
+              }
+
+              //PONTO
+              else if(cursor["img"] == "ponto"){
                 var marker = new google.maps.Marker({
                   position: location,
                   title: cursor["title"],
@@ -252,18 +333,37 @@
                 map.panTo(location);
 
                 if(distances.length == 2){
+                  cursor = null;
+
+                  var flightPlanCoordinates = [
+                    new google.maps.LatLng(distances[0].position.lat(), distances[0].position.lng()),
+                    new google.maps.LatLng(distances[1].position.lat(), distances[1].position.lng())
+                  ];
+
+                  var flightPath = new google.maps.Polyline({
+                    path: flightPlanCoordinates,
+                    geodesic: true,
+                    strokeColor: '#2D568A',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                  });
+
+                  flightPath.setMap(map);
+
                   setTimeout(function(){
-                    alert("Distancia entre os pontos: " + Math.floor(getDistance(distances[0].position, distances[1].position)) + "m" );
+                    alert("Distância entre os pontos: " + Math.floor(getDistance(distances[0].position, distances[1].position)) + "m" );
 
                     distances[0].setMap(null);
                     distances[1].setMap(null);
+                    flightPath.setMap(null);
 
                     distances.length = 0;
                     cursor = null;
                   }, 1000);
                   
                 }
-                                
+              
+              //CONSTRUCAO                  
               } else {
 
                 if( coliderMarkerCheck(location) == true ){
@@ -295,20 +395,43 @@
               return true;
             } else {
               var ltemp = 0;
+              var mtemp = null;
               
               for (var i = 0; i < markers.length; i++) {
 
                 if(ltemp == 0){
+                  mtemp = markers[i];
                   ltemp = Math.floor(getDistance(location, markers[i].position));
                 }
 
                 if(Math.floor(getDistance(location, markers[i].position)) < ltemp){
+                  mtemp = markers[i];
                   ltemp = Math.floor(getDistance(location, markers[i].position));
                 }
 
               }
+              
+              var flightPlanCoordinates = [
+                new google.maps.LatLng(location.lat(), location.lng()),
+                new google.maps.LatLng(mtemp.position.lat(), mtemp.position.lng())
+              ];
 
-              if(ltemp >= 100){
+              var flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+              });
+
+              flightPath.setMap(map);
+
+              setTimeout(function(){
+                flightPath.setMap(null);
+              }, 1000);
+
+
+              if(ltemp >= (80 / zoomLevel) * 10){
                 return true;
               }
 
@@ -348,6 +471,23 @@
             populateList();
           }
 
+          function editMarker(index){
+            $("#construcoes").html("");
+            $("#construcoes").before('<form id="editMarker" action="#"><input type="text" id="nameMarker" value="'+markers[index].getTitle()+'" /> <br /> <input type="submit" class="btn btn-primary" value="Salvar" /> </form>');
+            
+            $("#editMarker").submit(function(e){
+                e.preventDefault();
+
+                markers[index].setTitle($("#nameMarker").val()); 
+
+                $( "#editMarker" ).remove();
+                populateList();
+
+                return false;
+            });
+            //populateList();
+          }
+
           function setAllMap(map) {
             for (var i = 0; i < markers.length; i++) {
               markers[i].setMap(map);
@@ -358,7 +498,7 @@
             $("#construcoes").html('');
 
             for (var i = 0; i < markers.length; i++) {
-              $("#construcoes").append( '<li><a href="javascript:removeMarker('+i+')"><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].getTitle() + '</a></li>');
+              $("#construcoes").append( '<li><a href="javascript:editMarker('+i+')"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')"><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].getTitle() + '</a></li>');
             }
           }
 
@@ -392,9 +532,15 @@
           //jquery
             $(document).ready( function() 
             {
-
               //edificacoes
               $( ".lista a" ).click(function(e) {
+                if(iconTemp != null){
+                  iconTemp.fadeTo( "fast", 1 );
+                }
+
+                iconTemp = $( this );
+                iconTemp.fadeTo( "fast", 0.5 );
+
                 cursor = { 
                   img: $(this).attr('href'), 
                   title: $(this).attr('data-original-title')
@@ -438,7 +584,7 @@
         </div>
 
         <div class="well span3 panelContrucao">
-            <p><b>Contruções Criadas</b></p>
+            <p><b>Construções Criadas</b></p>
             
             <hr />
 
@@ -525,6 +671,8 @@
              <div role="tabpanel" class="tab-pane" id="tabs6">
               <ul class="lista">
                 <li><a href="ponto" rel="tooltip" title="Medir Distâncias"><img src="img/icone_ponto.png" /></a></li>
+                <li><a href="coordenada" rel="tooltip" title="Retornar Coordenadas"><img src="img/icone_coordenada.png" /></a></li>
+                <li><a href="rota" rel="tooltip" title="Calcular Rota"><img src="img/icone_rota.png" /></a></li>
               </ul>
             </div>
             
