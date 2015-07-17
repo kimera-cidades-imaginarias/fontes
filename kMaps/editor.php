@@ -680,7 +680,7 @@
         </div>
       </div>
 
-      <p class="versao">Versão: 4743a11</p>
+      <p class="versao">Versão: d709955</p>
     </div>
 
   </body>
