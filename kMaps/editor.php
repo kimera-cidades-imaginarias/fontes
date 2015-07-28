@@ -52,9 +52,11 @@
           var markers = [];
           var distances = [];
           var routes = [];
+          var area = [];
           var cursor = null;
           var iconTemp = null;
           var zoomLevel = 0;
+          var locationTemp = null;
 
           var directionsService = new google.maps.DirectionsService();
           var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -79,7 +81,7 @@
               zoomControl: false,
               mapTypeControl: true,
               scaleControl: false,
-              streetViewControl: true,
+              streetViewControl: false,
               overviewMapControl: true
 
             }
@@ -148,6 +150,21 @@
                     icon: icon,
                     map: map, 
                     draggable:true
+                  });
+
+                  //colider move check
+                  google.maps.event.addListener(marker, 'mousedown', function() {
+                    locationTemp = marker.position;
+                  });
+
+                  google.maps.event.addListener(marker, 'mouseup', function() {
+                      if( coliderMarkerCheck(marker.position, true) != true ){
+                        alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+
+                        marker.setPosition(locationTemp);
+                        locationTemp = null;
+                      }
+                      locationTemp = null;
                   });
 
                   markers.push(marker);
@@ -222,6 +239,7 @@
                 url: 'action/creat.php',
                 data: { data: kml, name: nome  }
             }).done(function(data) {
+              //alert(data);
               $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php?tab=carregarMapa">aqui.</a></div>');
             });
           }
@@ -284,7 +302,7 @@
                       var route = result.routes[0];
 
                       setTimeout(function(){
-                        alert("Distância entre os pontos: " + route.legs[0].distance.text );
+                        alert("Dist\u00e2ncia entre os pontos seguindo a rota escolhida\u003a " + route.legs[0].distance.text );
 
                         routes[0].setMap(null);
                         routes[1].setMap(null);
@@ -295,6 +313,42 @@
                       }, 1000);
                     }
                   });      
+                }          
+              }
+
+              //AREA
+              else if(cursor["img"] == "area"){
+                var marker = new google.maps.Marker({
+                  position: location,
+                  title: cursor["title"],
+                  animation: google.maps.Animation.DROP,
+                  icon: 'https://kimera4.websiteseguro.com/kmaps/img/ponto.png', //endereco completo
+                  map: map
+                });
+
+                area.push(marker);
+                map.panTo(location);
+
+                if(area.length == 3){
+                  cursor = null;
+
+                  setTimeout(function()
+                  {
+                    var base = Math.floor(getDistance(area[0].position, area[1].position));
+                    var altura = Math.floor(getDistance(area[1].position, area[2].position));
+                    var areaTerreno = Math.floor(base*altura);
+
+                    alert("Área total de: " + areaTerreno + " m²" );
+
+                    area[0].setMap(null);
+                    area[1].setMap(null);
+                    area[2].setMap(null);
+
+                    area.length = 0;
+                    cursor = null;
+
+                  }, 1000);
+                   
                 }          
               }
 
@@ -351,7 +405,7 @@
                   flightPath.setMap(map);
 
                   setTimeout(function(){
-                    alert("Distância entre os pontos: " + Math.floor(getDistance(distances[0].position, distances[1].position)) + "m" );
+                    alert("Dist\u00e2ncia entre os pontos\u003a " + Math.floor(getDistance(distances[0].position, distances[1].position)) + "m" );
 
                     distances[0].setMap(null);
                     distances[1].setMap(null);
@@ -366,7 +420,7 @@
               //CONSTRUCAO                  
               } else {
 
-                if( coliderMarkerCheck(location) == true ){
+                if( coliderMarkerCheck(location, true) == true ){
                   var marker = new google.maps.Marker({
                     position: location,
                     title: cursor["title"],
@@ -376,6 +430,21 @@
                     map: map
                   });
 
+                  //colider move check
+                  google.maps.event.addListener(marker, 'mousedown', function() {
+                    locationTemp = marker.position;
+                  });
+
+                  google.maps.event.addListener(marker, 'mouseup', function() {
+                      if( coliderMarkerCheck(marker.position, false) != true ){
+                        alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+
+                        marker.setPosition(locationTemp);
+                        locationTemp = null;
+                      }
+                      locationTemp = null;
+                  });
+
                   markers.push(marker);
                   map.panTo(location);
                   
@@ -383,21 +452,27 @@
 
                   populateList();
                 } else {
-                  alert("Você não pode inserir uma construção aqui!");
+                  alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
                 }
 
               }
             }
           }
 
-          function coliderMarkerCheck(location){
+          function coliderMarkerCheck(location, lastElement){
             if(markers.length == 0){
               return true;
             } else {
               var ltemp = 0;
               var mtemp = null;
               
-              for (var i = 0; i < markers.length; i++) {
+              if(lastElement){
+                var t = markers.length;
+              } else {
+                 var t = markers.length-1;
+              }
+
+              for (var i = 0; i < t; i++) {
 
                 if(ltemp == 0){
                   mtemp = markers[i];
@@ -411,6 +486,7 @@
 
               }
               
+             /*
               var flightPlanCoordinates = [
                 new google.maps.LatLng(location.lat(), location.lng()),
                 new google.maps.LatLng(mtemp.position.lat(), mtemp.position.lng())
@@ -429,8 +505,8 @@
               setTimeout(function(){
                 flightPath.setMap(null);
               }, 1000);
-
-
+              */       
+      
               if(ltemp >= (80 / zoomLevel) * 10){
                 return true;
               }
@@ -670,6 +746,7 @@
 
              <div role="tabpanel" class="tab-pane" id="tabs6">
               <ul class="lista">
+                <li><a href="area" rel="tooltip" title="Medir Área"><img src="img/icone_area.png" /></a></li>
                 <li><a href="ponto" rel="tooltip" title="Medir Distâncias"><img src="img/icone_ponto.png" /></a></li>
                 <li><a href="coordenada" rel="tooltip" title="Retornar Coordenadas"><img src="img/icone_coordenada.png" /></a></li>
                 <li><a href="rota" rel="tooltip" title="Calcular Rota"><img src="img/icone_rota.png" /></a></li>

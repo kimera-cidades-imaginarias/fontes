@@ -128,17 +128,36 @@
           <div role="tabpanel" class="tab-pane" id="sobre">
 
             <h3>O que é o K-Maps?</h3>
-            <p></p>
+            <p>O K-Maps é uma expansão do jogo-simulador Kimera – Cidades Imaginárias, jogável diretamente através do navegador, sem necessidade de instalação.</p>
+            <p>É possível criar mapas jogáveis a partir de qualquer localidade real de nosso planeta Terra, possibilitando experimentações sobre o espaço e lugar, inserindo novos elementos e modificando a paisagem através de diversos tipos de construções organizadas em 05 diferentes categorias: Comércio, Educação, Habitações, Infraestrutura e Lazer.</p>
+            <p>Também é possível utilizar diversas ferramentas, como cálculo de distâncias, cálculo de área, traçar rotas de trânsito e medir a distância entre dois pontos, graças à integração com a API (Interface de Programação de Aplicativos) do Google Maps.</p>
 
             <hr />
 
             <h3>Objetivos</h3>
-            <p></p>
+            <p>O K-Maps, assim como o jogo-simulador Kimera, tem como objetivos possibilitar a Educação Cartográfica, explorando o entendimento que as crianças de 08 a 12 anos tem sobre o espaço vivido, percebido e concebido, além  de simular a construção de uma cidade, valorizando os aspectos que a criança considera significativos para sua vida e para a harmonia do espaço/lugar vividos.</p>
+            <p>Alguns dos conteúdos pedagógicos abordados:</p>
+            <ul>
+              <li><b>Natureza:</b> Transformação e preservação</li>
+              <li><b>Paisagem:</b> Transformação e leitura</li>
+              <li><b>Lugar:</b> Relações cotidianas e espações de vivências</li>
+              <li><b>Noções cartográficas:</b> Leitura de mapas simples, representações de lugares cotidianos, orientação, localização, distância e leitura de recursos cartográficos</li>
+              <li><b>Meio ambiente:</b> Preservação e manutenção</li>
+              <li><b>Sociedade:</b> Relações de trabalho, grupos sociais e diversidade.</li>
+            </ul>
 
             <hr />
 
             <h3>Requisitos</h3>
-            <p></p>
+            <p>O K-maps é compatível com a grande maioria dos navegadores disponíveis no mercado, sendo recomendados:</p>
+            <ul>
+              <li>Internet Explorer versão 9 ou superior</li>
+              <li>Firefox versão mais atual</li>
+              <li>Chrome versão mais atual</li>
+              <li>Safari versão 5.1 ou superior</li>
+              <li>Opera versão mais atual</li>
+            </ul>
+            <p>A resolução de vídeo recomendada é a partir de 1152x864 (proporção 4:3) ou 1280x720 (proporção 16:9)</p>
 
           </div>
 
@@ -152,7 +171,7 @@
             <form action="editor.php" method="POST" id="criarMapa">
               <div class="form-group">
                 <label for="endereco">Endereço</label>
-                <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro" required data-msg-required="Este campo não pode ser vázio!" >
+                <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro" required data-msg-required="Este campo não pode ser vazio!" >
               </div>
 
               <input type="submit" class="btn btn-primary" value="Navegar" />
@@ -167,7 +186,7 @@
             <form action="#" method="POST" id="file" enctype="multipart/form-data">
               <div class="form-group">
                 <label for="endereco">Arquivo</label>
-                <input type="file" name="arquivo" id="arquivo" required data-msg-required="Este campo não pode ser vázio!" accept="application/vnd.google-earth.kml+xml" />
+                <input type="file" name="arquivo" id="arquivo" required data-msg-required="Este campo não pode ser vazio!" accept="application/vnd.google-earth.kml+xml" />
               </div>
 
               <br /><input type="submit" class="btn btn-primary" value="Carregar" />

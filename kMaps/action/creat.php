@@ -7,8 +7,20 @@
 			$content .= $_REQUEST['data'];
 		$content .= '</Document>';
 	$content .= '</kml>';
+
+	// Preparar objeto DOM
+	$dom = new DOMDocument();
+	$dom->formatOutput = true;
+	$dom->preserveWhiteSpace = false;
+
+	// Carregar o XML ou HTML
+	$dom->loadXML($content);
+	$newContent = $dom->saveXML();
+
+	//echo $newContent;
+	//die();
 	
 	$fp = fopen("../kml/". $_REQUEST['name'] . ".kml","w+");
 	
-	fwrite($fp,$content);
+	fwrite($fp,$newContent);
 	fclose($fp);
