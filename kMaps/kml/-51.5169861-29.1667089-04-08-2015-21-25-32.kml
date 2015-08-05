@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Document>
+      <Style id="icon0">
+        <IconStyle>
+          <Icon>
+            <href>https://kimera4.websiteseguro.com/kmaps/img/lanchonete.png</href>
+          </Icon>
+        </IconStyle>
+      </Style>
+      <Placemark>
+        <name>Lanchonete</name>
+        <styleUrl>#icon0</styleUrl>
+        <Point>
+          <coordinates>-51.51564158499241,-29.164153933278037,0</coordinates>
+        </Point>
+      </Placemark>
+      <Style id="icon1">
+        <IconStyle>
+          <Icon>
+            <href>https://kimera4.websiteseguro.com/kmaps/img/posto-de-gasolina.png</href>
+          </Icon>
+        </IconStyle>
+      </Style>
+      <Placemark>
+        <name>Posto de Gasolina</name>
+        <styleUrl>#icon1</styleUrl>
+        <Point>
+          <coordinates>-51.514960303902626,-29.16443499421397,0</coordinates>
+        </Point>
+      </Placemark>
+      <Style id="icon2">
+        <IconStyle>
+          <Icon>
+            <href>https://kimera4.websiteseguro.com/kmaps/img/banco-02.png</href>
+          </Icon>
+        </IconStyle>
+      </Style>
+      <Placemark>
+        <name>Banco 02</name>
+        <styleUrl>#icon2</styleUrl>
+        <Point>
+          <coordinates>-51.51516951620579,-29.163366958564165,0</coordinates>
+        </Point>
+      </Placemark>
+      <Camera>
+        <longitude>-51.5169861</longitude>
+        <latitude>-29.1667089</latitude>
+        <tilt>45</tilt>
+      </Camera>
+    </Document>
+  </Document>
+</kml>

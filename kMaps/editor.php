@@ -152,22 +152,25 @@
                     draggable:true
                   });
 
+                  markers.push(marker);
+
                   //colider move check
                   google.maps.event.addListener(marker, 'mousedown', function() {
                     locationTemp = marker.position;
                   });
 
                   google.maps.event.addListener(marker, 'mouseup', function() {
-                      if( coliderMarkerCheck(marker.position, true) != true ){
-                        alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+                      if(markers.length > 1){
+                        if( coliderMarkerCheck(marker.position, false, marker) != true ){
+                          alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
 
-                        marker.setPosition(locationTemp);
-                        locationTemp = null;
+                          marker.setPosition(locationTemp);
+                          locationTemp = null;
+                        }
                       }
+
                       locationTemp = null;
                   });
-
-                  markers.push(marker);
 
                   populateList();
                 }
@@ -329,20 +332,27 @@
                 area.push(marker);
                 map.panTo(location);
 
-                if(area.length == 3){
+                if(area.length == 4){
                   cursor = null;
 
                   setTimeout(function()
                   {
-                    var base = Math.floor(getDistance(area[0].position, area[1].position));
-                    var altura = Math.floor(getDistance(area[1].position, area[2].position));
-                    var areaTerreno = Math.floor(base*altura);
+                    var base1 = Math.floor(getDistance(area[0].position, area[1].position));
+                    var altura1 = Math.floor(getDistance(area[1].position, area[2].position));
+                    var areaTerreno1 = Math.floor((base1*altura1)/2);
+
+                    var base2 = Math.floor(getDistance(area[2].position, area[3].position));
+                    var altura2 = Math.floor(getDistance(area[3].position, area[0].position));
+                    var areaTerreno2 = Math.floor((base2*altura2)/2);
+
+                    var areaTerreno = areaTerreno1 + areaTerreno2;
 
                     alert("Área total de: " + areaTerreno + " m²" );
 
                     area[0].setMap(null);
                     area[1].setMap(null);
                     area[2].setMap(null);
+                    area[3].setMap(null);
 
                     area.length = 0;
                     cursor = null;
@@ -420,7 +430,7 @@
               //CONSTRUCAO                  
               } else {
 
-                if( coliderMarkerCheck(location, true) == true ){
+                if( coliderMarkerCheck(location, true, null) == true ){
                   var marker = new google.maps.Marker({
                     position: location,
                     title: cursor["title"],
@@ -430,25 +440,28 @@
                     map: map
                   });
 
+                  markers.push(marker);
+                  map.panTo(location);
+                  
+                  cursor = null;
+
                   //colider move check
                   google.maps.event.addListener(marker, 'mousedown', function() {
                     locationTemp = marker.position;
                   });
 
                   google.maps.event.addListener(marker, 'mouseup', function() {
-                      if( coliderMarkerCheck(marker.position, false) != true ){
-                        alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+                      if(markers.length > 1){
+                        if( coliderMarkerCheck(marker.position, false, marker) != true ){
+                          alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
 
-                        marker.setPosition(locationTemp);
-                        locationTemp = null;
+                          marker.setPosition(locationTemp);
+                          locationTemp = null;
+                        }
                       }
+
                       locationTemp = null;
                   });
-
-                  markers.push(marker);
-                  map.panTo(location);
-                  
-                  cursor = null;
 
                   populateList();
                 } else {
@@ -459,34 +472,56 @@
             }
           }
 
-          function coliderMarkerCheck(location, lastElement){
+          function coliderMarkerCheck(location, lastElement, obj){
+            var ltemp = 0;
+            var mtemp = null;
+
             if(markers.length == 0){
               return true;
             } else {
-              var ltemp = 0;
-              var mtemp = null;
+                            
+              var t = markers.length;
               
-              if(lastElement){
-                var t = markers.length;
-              } else {
-                 var t = markers.length-1;
-              }
-
               for (var i = 0; i < t; i++) {
 
-                if(ltemp == 0){
-                  mtemp = markers[i];
-                  ltemp = Math.floor(getDistance(location, markers[i].position));
-                }
+                if( obj != null ){
+                 
+                 if(obj != markers[i]){
+                    //alert(Math.floor(getDistance(location, markers[i].position)));
 
-                if(Math.floor(getDistance(location, markers[i].position)) < ltemp){
-                  mtemp = markers[i];
-                  ltemp = Math.floor(getDistance(location, markers[i].position));
-                }
+                    if(ltemp == 0){
+                      mtemp = markers[i];
+                      ltemp = Math.floor(getDistance(location, markers[i].position));
 
+                       //alert("f: " +ltemp);
+                    }
+
+                    else if(Math.floor(getDistance(location, markers[i].position)) <= ltemp){
+                      mtemp = markers[i];
+                      ltemp = Math.floor(getDistance(location, markers[i].position));
+
+                      //alert("s: " +ltemp);
+                    }
+                  }
+
+                } else  {
+                  if(ltemp == 0){
+                    mtemp = markers[i];
+                    ltemp = Math.floor(getDistance(location, markers[i].position));
+
+                     //alert("f: " +ltemp);
+                  }
+
+                  else if(Math.floor(getDistance(location, markers[i].position)) <= ltemp){
+                    mtemp = markers[i];
+                    ltemp = Math.floor(getDistance(location, markers[i].position));
+
+                    //alert("s: " +ltemp);
+                  }
+                }
               }
-              
-             /*
+                    
+              /*       
               var flightPlanCoordinates = [
                 new google.maps.LatLng(location.lat(), location.lng()),
                 new google.maps.LatLng(mtemp.position.lat(), mtemp.position.lng())
@@ -505,13 +540,14 @@
               setTimeout(function(){
                 flightPath.setMap(null);
               }, 1000);
-              */       
+              */
       
               if(ltemp >= (80 / zoomLevel) * 10){
                 return true;
+              } else {
+                return false;
               }
-
-              return false;
+              
             }
           }
 
