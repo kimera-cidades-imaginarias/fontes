@@ -122,19 +122,20 @@
             <li role="presentation"><a href="#sobre" role="tab" data-toggle="tab">K-Maps</a></li>
             <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Novo mapa</a></li>
             <li role="presentation"><a href="#carregarMapa" role="tab" data-toggle="tab">Carregar mapa</a></li>
+            <li role="presentation"><a href="#creditos" role="tab" data-toggle="tab">Créditos</a></li>
           </ul>
 
           <!-- sobre -->
           <div role="tabpanel" class="tab-pane" id="sobre">
 
-            <h3>O que é o K-Maps?</h3>
+            <h3>O que é o K-Maps.</h3>
             <p>O K-Maps é uma expansão do jogo-simulador Kimera – Cidades Imaginárias, jogável diretamente através do navegador, sem necessidade de instalação.</p>
             <p>É possível criar mapas jogáveis a partir de qualquer localidade real de nosso planeta Terra, possibilitando experimentações sobre o espaço e lugar, inserindo novos elementos e modificando a paisagem através de diversos tipos de construções organizadas em 05 diferentes categorias: Comércio, Educação, Habitações, Infraestrutura e Lazer.</p>
             <p>Também é possível utilizar diversas ferramentas, como cálculo de distâncias, cálculo de área, traçar rotas de trânsito e medir a distância entre dois pontos, graças à integração com a API (Interface de Programação de Aplicativos) do Google Maps.</p>
 
             <hr />
 
-            <h3>Objetivos</h3>
+            <h3>Objetivos.</h3>
             <p>O K-Maps, assim como o jogo-simulador Kimera, tem como objetivos possibilitar a Educação Cartográfica, explorando o entendimento que as crianças de 08 a 12 anos tem sobre o espaço vivido, percebido e concebido, além  de simular a construção de uma cidade, valorizando os aspectos que a criança considera significativos para sua vida e para a harmonia do espaço/lugar vividos.</p>
             <p>Alguns dos conteúdos pedagógicos abordados:</p>
             <ul>
@@ -148,7 +149,7 @@
 
             <hr />
 
-            <h3>Requisitos</h3>
+            <h3>Requisitos.</h3>
             <p>O K-maps é compatível com a grande maioria dos navegadores disponíveis no mercado, sendo recomendados:</p>
             <ul>
               <li>Internet Explorer versão 9 ou superior</li>
@@ -208,6 +209,123 @@
 
               </tbody>
             </table>
+          </div>
+
+          <!-- Creditos -->
+          <div role="tabpanel" class="tab-pane" id="creditos">
+            <h3>Créditos.</h3>
+            
+            <div class="row-fluid">
+              <div class="span4">
+                <h5>Conteúdo</h5>
+                <ul>
+                  <li>André Luiz Andrade Rezende</li>
+                  <li>Fabiana dos Santos Nascimento</li>
+                  <li>Fernando Kiffer de Souza Toledo</li>
+                  <li>Inaiá Brandão Pereira</li>
+                  <li>Gustavo Erick de Andrade</li>
+                  <li>Walter Von Czékus Garrido</li>
+                </ul>
+
+                <h5>Arte e Design</h5>
+                <ul>
+                  <li>Josemeira Machado Dias</li>
+                  <li>Taís Rocha Ribeiro</li>
+                </ul>
+
+                <h5>Edição e Diagramação</h5>
+                <ul>
+                  <li>Josemeire Machado Dias</li>
+                  <li>Taís Rocha Ribeiro</li>
+                </ul>
+
+                <h5>Coordenação Geral</h5>
+                <ul>
+                  <li>Tânia Maria Hetkowski</li>
+                </ul>
+              </div>
+
+              <div class="span4">
+                <h5>Game Design</h5>
+                <ul>
+                  <li>Mariano Maia</li>
+                  <li>André Luiz Andrade Rezende</li>
+                </ul>
+
+                <h5>Pedagógico</h5>
+                <ul>
+                  <li>Fabiana dos Santos Nascimento</li>
+                  <li>Inaiá Brandão Pereira</li>
+                  <li>Tânia Regina Dias Silva Pereira</li>
+                  <li>Walter Von Czékus Garrido</li>
+                </ul>
+
+                <h5>Design</h5>
+                <ul>
+                  <li>Josemeire Machado Dias Betonnasi</li>
+                  <li>André Luiz Souza da Silva </li>
+                  <li>Édson José Dias Machado Filho</li>
+                  <li>Fabiana Barreto de Carvalhal</li>
+                  <li>Gabriele Falcão Duque</li>
+                  <li>Gabriel Soares Torres</li>
+                  <li>George Chaves</li>
+                  <li>Ila Mascarenhas Muniz</li>
+                  <li>Marcus Vinicius Souza Santos</li>
+                  <li>Rafaella Moraes Borges Vieira</li>
+                  <li>Yuri Carneiro de Carvalho</li>
+                </ul>
+              </div>
+
+              <div class="span4">
+                <h5>Programação</h5>
+                <ul>
+                  <li>André Luiz Andrade Rezende</li>
+                  <li>David da Silva Lima Souza</li>
+                  <li>Diego de Oliveira Potapczuk</li>
+                  <li>Fernando Kiffer de Souza Toledo</li>
+                  <li>Jason Scalco Piloti</li>
+                  <li>Humberto Ataide Santiago Junior</li>
+                  <li>Saulo Leal dos Santos</li>
+                  <li>Victor Borges</li>
+                </ul>
+
+                <h5>Roteiro</h5>
+                <ul>
+                  <li>Gustavo Erick de Andrade</li>
+                </ul>
+
+                <h5>Design de Áudio</h5>
+                <ul>
+                  <li>Eliaquim Aciole dos Santos Junior</li>
+                </ul>
+
+                <h5>Transmídia</h5>
+                <ul>
+                  <li>André Luiz Souza da Silva Betonnasi</li>
+                  <li>Acácia Angélica Monteiro</li>
+                  <li>Ana Vitória da Paixão Silva</li>
+                  <li>Gilvania Clemente Viana</li>
+                  <li>Maria Cristina Ribeiro de Jesus Mota</li>
+                  <li>Tais Rocha Ribeiro</li>
+                </ul>
+              </div>
+            </div>
+
+            <hr />
+
+            <h3>Realização.</h3>
+            <center><img src="img/realizacao.jpg" /></center>
+
+            <hr />
+
+            <h3>Financiamento.</h3>
+            <center><img src="img/financiamento.jpg" /></center>
+
+            <hr />
+
+            <h3>Apoio.</h3>
+            <center><img src="img/apoio.jpg" /></center>
+
           </div>
 
         </div>

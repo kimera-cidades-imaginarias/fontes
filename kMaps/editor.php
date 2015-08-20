@@ -658,6 +658,27 @@
                   title: $(this).attr('data-original-title')
                 };  
 
+                //help
+                  if( $(this).attr('href') == "area" ){
+                    $( "#help .balao" ).html("Aplique 4 pontos no mapa para <br />calcular a área do terreno.");
+                    $( "#help" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+                  }
+
+                  if( $(this).attr('href') == "ponto" ){
+                    $( "#help .balao" ).html("Aplique 2 pontos no mapa para <br />medir a distância entre eles.");
+                    $( "#help" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+                  }
+
+                  if( $(this).attr('href') == "coordenada" ){
+                    $( "#help .balao" ).html("Aplique um ponto na tela para <br />saber a coordenada do local.");
+                    $( "#help" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+                  }
+
+                  if( $(this).attr('href') == "rota" ){
+                    $( "#help .balao" ).html("Aplique 2 pontos no mapa para <br />medir a distância entre a <br />rota demarcada.");
+                    $( "#help" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+                  }
+
                 return false;
               });
 
@@ -693,6 +714,10 @@
         <div class="well span9">
           <div id="map"></div>  
           <div id="info"></div>
+          <div id="help">
+            <img src="img/help.png">
+            <p class="balao"></p>
+          </div>
         </div>
 
         <div class="well span3 panelContrucao">
