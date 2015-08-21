@@ -793,6 +793,8 @@
                 <li><a href="posto-de-saude" rel="tooltip" title="Posto de Saúde"><img src="img/icone_infraestrutura_postodesaude.png" /></a></li>
                 <li><a href="termo-eletrica" rel="tooltip" title="Termoelétrica"><img src="img/icone_infraestrutura_termoeletrica.png" /></a></li>
                 <li><a href="usina-eolica" rel="tooltip" title="Usina Eólica"><img src="img/icone_infraestrutura_usina_eolica.png" /></a></li>
+                <li><a href="rodoviaria" rel="tooltip" title="Rodoviária"><img src="img/icone_rodoviaria.png" /></a></li>
+                <li><a href="aeroporto" rel="tooltip" title="Aeroporto"><img src="img/icone_aeroporto.png" /></a></li>
               </ul>
             </div>
 
@@ -802,6 +804,7 @@
                 <li><a href="restaurante-luxo" rel="tooltip" title="Restaurante de Luxo"><img src="img/icone_lazer_restauranteluxo.png" /></a></li>
                 <li><a href="restaurante-simples" rel="tooltip" title="Restaurante Simples"><img src="img/icone_lazer_restaurantesimples.png" /></a></li>
                 <li><a href="sorveteria" rel="tooltip" title="Sorveteria"><img src="img/icone_lazer_sorveteria.png" /></a></li>
+                <li><a href="teatro" rel="tooltip" title="Teatro"><img src="img/icone_teatro.png" /></a></li>
               </ul>
             </div>
 
