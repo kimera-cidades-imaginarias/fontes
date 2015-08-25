@@ -661,22 +661,22 @@
                 //help
                   if( $(this).attr('href') == "area" ){
                     $( "#help .balao" ).html("Aplique 4 pontos no mapa para <br />calcular a área do terreno.");
-                    $( "#help" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+                    $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
                   }
 
                   if( $(this).attr('href') == "ponto" ){
                     $( "#help .balao" ).html("Aplique 2 pontos no mapa para <br />medir a distância entre eles.");
-                    $( "#help" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+                    $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
                   }
 
                   if( $(this).attr('href') == "coordenada" ){
                     $( "#help .balao" ).html("Aplique um ponto na tela para <br />saber a coordenada do local.");
-                    $( "#help" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+                    $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
                   }
 
                   if( $(this).attr('href') == "rota" ){
                     $( "#help .balao" ).html("Aplique 2 pontos no mapa para <br />medir a distância entre a <br />rota demarcada.");
-                    $( "#help" ).fadeIn( 400 ).delay( 2000 ).fadeOut( 400 );
+                    $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
                   }
 
                 return false;
