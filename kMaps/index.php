@@ -141,7 +141,7 @@
             <ul>
               <li><b>Natureza:</b> Transformação e preservação</li>
               <li><b>Paisagem:</b> Transformação e leitura</li>
-              <li><b>Lugar:</b> Relações cotidianas e espações de vivências</li>
+              <li><b>Lugar:</b> Relações cotidianas e espaços de vivências</li>
               <li><b>Noções cartográficas:</b> Leitura de mapas simples, representações de lugares cotidianos, orientação, localização, distância e leitura de recursos cartográficos</li>
               <li><b>Meio ambiente:</b> Preservação e manutenção</li>
               <li><b>Sociedade:</b> Relações de trabalho, grupos sociais e diversidade.</li>
@@ -182,7 +182,7 @@
           <!-- carregar mapa -->
           <div role="tabpanel" class="tab-pane" id="carregarMapa">
             <h2>01.</h2>
-            <p>Carregue seu arquivo KML no campo abaixo para adiciona-lo a nossa biblioteca.</p>
+            <p>Carregue seu arquivo KML no campo abaixo para adicioná-lo à nossa biblioteca.</p>
 
             <form action="#" method="POST" id="file" enctype="multipart/form-data">
               <div class="form-group">

@@ -78,7 +78,7 @@
               tilt: 45,
 
               panControl: true,
-              zoomControl: false,
+              zoomControl: true,
               mapTypeControl: true,
               scaleControl: false,
               streetViewControl: false,
@@ -99,6 +99,10 @@
             });
 
             zoomLevel = map.getZoom();
+
+            //prof. daniel
+            $( "#help .balao" ).html("Agora é com você!<br /> Use sua criatividade para modificar o mapa, <br />adicionando novas construções e explorando<br /> as ferramentas de geolocalização.");
+            $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
           }
 
           function loadKmlLayer(file, map) {
@@ -691,13 +695,11 @@
 
               //inicial
               $( ".inicial" ).click(function(e) {
-                  var r = confirm("Você pode perder o conteúdo criado, deseja salvar suas construções antes de sair?");
+                  var r = confirm("Todas as alterações não salvas serão perdidas, deseja mesmo sair para o Menu Principal?");
                   
                   if (r == true) {
-                    saveKML();
-                  } else {
                     window.location.assign("index.php?tab=novoMapa")
-                  }
+                  } 
 
                   return false;
               });
