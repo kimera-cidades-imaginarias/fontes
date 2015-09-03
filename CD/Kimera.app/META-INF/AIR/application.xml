@@ -17,7 +17,7 @@
 	</name>
 -->
 <application xmlns="http://ns.adobe.com/air/application/13.0">
-  <id>Kimera</id>
+  <id>br.pro.kimera</id>
   <versionNumber>1.0.0</versionNumber>
   <versionLabel/>
   <filename>Kimera</filename>
@@ -28,7 +28,7 @@
     <content>Kimera.swf</content>
     <systemChrome>standard</systemChrome>
     <transparent>false</transparent>
-    <visible>false</visible>
+    <visible>true</visible>
     <fullScreen>true</fullScreen>
     <aspectRatio>portrait</aspectRatio>
     <renderMode>cpu</renderMode>
@@ -37,8 +37,19 @@
     <maximizable>true</maximizable>
     <minimizable>true</minimizable>
     <resizable>false</resizable>
-    <autoOrients>false</autoOrients></initialWindow>
+    <autoOrients>false</autoOrients>
+    <x>0</x>
+    <y>0</y>
+  </initialWindow>
   <icon>
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -57,7 +68,7 @@
   <allowBrowserInvocation>false</allowBrowserInvocation>
   <installFolder>Geotec/Kimera</installFolder>
   <programMenuFolder>Geotec/Kimera</programMenuFolder>
-  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice </supportedProfiles>
+  
   <android>
     <manifestAdditions><![CDATA[<manifest>
 <uses-permission android:name="android.permission.INTERNET"/>
