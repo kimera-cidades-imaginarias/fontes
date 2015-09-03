@@ -200,6 +200,7 @@
 				CarregarConstrucoes(save);
 			}
 			
+			trace("montanto mapa");
 			for each (var element2:XML in xml.mapa.elementos.elemento)
 			{
 				switch(String(element2.tipo))
@@ -421,7 +422,8 @@
 				var loader = new Loader();
 				loader.contentLoaderInfo.addEventListener( Event.COMPLETE, FimLoadTextura );
 				
-				loader.load( new URLRequest( texturas[indiceLoad].caminho ) );
+				//loader.load( new URLRequest( texturas[indiceLoad].caminho ) );
+				loader.load( new URLRequest( Arquivo.enderecamento(texturas[indiceLoad].caminho )) );
 				
 				dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS, false, false, indiceLoad, texturas.length + construcoes.length + emissores.length + sonsPopup.length + 1) );
 			}

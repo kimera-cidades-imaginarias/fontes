@@ -17,9 +17,9 @@
 	</name>
 -->
 <application xmlns="http://ns.adobe.com/air/application/13.0">
-  <id>com.geotec.kimera</id>
+  <id>Kimera</id>
   <versionNumber>1.0.0</versionNumber>
-  <versionLabel/>
+  <versionLabel></versionLabel>
   <filename>Kimera</filename>
   <description/>
   <name>Kimera</name>
@@ -28,33 +28,47 @@
     <content>Kimera.swf</content>
     <systemChrome>standard</systemChrome>
     <transparent>false</transparent>
-    <visible>true</visible>
+    <visible>false</visible>
     <fullScreen>true</fullScreen>
-    
-    <renderMode>auto</renderMode>
-    <autoOrients>true</autoOrients>
+    <aspectRatio>portrait</aspectRatio>
+    <renderMode>cpu</renderMode>
     <width>1024</width>
     <height>768</height>
-    <maximizable>false</maximizable>
+    <maximizable>true</maximizable>
     <minimizable>true</minimizable>
     <resizable>false</resizable>
-  </initialWindow>
+    <autoOrients>false</autoOrients></initialWindow>
   <icon>
-    <image128x128>AppIconsForPublish/icon128.png</image128x128>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <image36x36>AppIconsForPublish/icon36.png</image36x36>
     <image48x48>AppIconsForPublish/icon48.png</image48x48>
-    <image32x32>AppIconsForPublish/icon32.png</image32x32>
-    <image16x16>AppIconsForPublish/icon16.png</image16x16>
+    <image72x72>AppIconsForPublish/icon72.png</image72x72>
+    <image96x96>AppIconsForPublish/icon96.png</image96x96>
   </icon>
   <customUpdateUI>false</customUpdateUI>
   <allowBrowserInvocation>false</allowBrowserInvocation>
+  <installFolder>Geotec/Kimera</installFolder>
+  <programMenuFolder>Geotec/Kimera</programMenuFolder>
+  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice </supportedProfiles>
   <android>
     <manifestAdditions><![CDATA[<manifest>
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+<uses-permission android:name="android.permission.WAKE_LOCK"/>
 </manifest>]]></manifestAdditions>
   </android>
   <supportedLanguages>pt</supportedLanguages>
-  <installFolder>geotec/kimera</installFolder>
-  <programMenuFolder>geotec/kimera</programMenuFolder>
-  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice </supportedProfiles>
 </application>

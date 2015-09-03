@@ -290,7 +290,8 @@
 			// Inicializações e variáveis									
 			stage.align     = StageAlign.TOP;
 			stage.quality 	= StageQuality.BEST;
-			stage.scaleMode = StageScaleMode.NO_BORDER;
+			stage.scaleMode = StageScaleMode.EXACT_FIT;
+			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE; 
 
 			
 			TweenPlugin.activate([AutoAlphaPlugin, ColorMatrixFilterPlugin, VisiblePlugin]);
@@ -1161,22 +1162,26 @@
 
 			if( evt.target.name == "btn_rotas" ){
 				//loaderMap.load( new URLRequest( simulador.GetFase().texturas[0].caminho + "&tipo=roadmap" ) );
-				loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'.jpg' ) );
+				//loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'.jpg' ) );
+				loaderMap.load( new URLRequest( Arquivo.enderecamento( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'.jpg' )) );
 			}
 
 			if( evt.target.name == "btn_satelite" ){
 				//loaderMap.load( new URLRequest( simulador.GetFase().texturas[0].caminho + "&tipo=satellite" ) );
-				loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-satellite.jpg' ) );
+				//loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-satellite.jpg' ) );
+				loaderMap.load( new URLRequest( Arquivo.enderecamento( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-satellite.jpg' )) );
 			}
 
 			if( evt.target.name == "btn_tereno" ){
 				//loaderMap.load( new URLRequest( simulador.GetFase().texturas[0].caminho + "&tipo=terrain" ) );
-				loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-terrain.jpg' ) );
+				//loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-terrain.jpg' ) );
+				loaderMap.load( new URLRequest( Arquivo.enderecamento( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-terrain.jpg' )) );
 			}
 
 			if( evt.target.name == "btn_hibrido" ){
 				//loaderMap.load( new URLRequest( simulador.GetFase().texturas[0].caminho + "&tipo=hybrid" ) );
-				loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-hybrid.jpg' ) );
+				//loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-hybrid.jpg' ) );
+				loaderMap.load( new URLRequest( Arquivo.enderecamento( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-hybrid.jpg' )) );
 			}
 
 			TweenLite.to(fade_mc, 4, {autoAlpha: 0, onComplete:OcultarPainelVisualizacao });
@@ -4002,7 +4007,7 @@
 
 		public function salvarArquivoMapa(nome:String){
 			//gera o xml do mapa
-			var arquivo:String = Arquivo.GetPastaAplicacao(false) + Arquivo.GetSeparador() + "data" + Arquivo.GetSeparador() + "fases" +Arquivo.GetSeparador() + nome + '.xml';
+			var arquivo:String = Arquivo.GetPastaAplicacao(false) + "data" + Arquivo.GetSeparador() + "fases" + Arquivo.GetSeparador() + nome + '.xml';
           
 		  	var outputString:String = '<?xml version="1.0" encoding="utf-8"?>\n';
 		  	outputString +='<fase>';
@@ -4019,7 +4024,7 @@
 		  	outputString +='	<tempo_gastar_emprestimo>0</tempo_gastar_emprestimo>'
 		  	outputString +='	<valor_emprestimo>0</valor_emprestimo>'
 		  	outputString +='	<camera>28x36</camera>'
-		  	outputString +='	<musica>'+Arquivo.GetPastaAplicacao()+'data'+Arquivo.GetSeparador()+'musicas'+Arquivo.GetSeparador()+'tema1.mp3</musica>'
+		  	outputString +='	<musica>'+Arquivo.GetPastaAplicacao() +'data'+Arquivo.GetSeparador()+'musicas'+Arquivo.GetSeparador()+'tema1.mp3</musica>'
 		  	outputString +='	<nivel_inicial>0</nivel_inicial>'
 		  	outputString +='	<nivel_max>3</nivel_max>'
 		  	outputString +='	<objetivos></objetivos>'

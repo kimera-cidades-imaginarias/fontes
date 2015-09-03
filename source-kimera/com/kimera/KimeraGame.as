@@ -88,9 +88,9 @@
 		public function iniciarCineMundoKimera() : void
 		{
 			//ludens
-			if(Global.variables.ludens == true){
-				_game.EmitirRelatorio('TCMG01', String(cronometro.GetTempoPassado()));
-			}
+			//if(Global.variables.ludens == true){
+				//_game.EmitirRelatorio('TCMG01', String(cronometro.GetTempoPassado()));
+			//}
 
 			_game.MostrarTelaPreta(true);
 			var abertura = new ScreenLoader("data/cinematicas/cinematic02.swf", novoJogo);
@@ -593,7 +593,7 @@
 						_game.PausarSons();
 						_game.PausarMusica();
 
-						var abertura = new ScreenLoader("data/cinematicas/Cinematic03.swf", f1FimCutscene1);
+						var abertura = new ScreenLoader("data/cinematicas/cinematic03.swf", f1FimCutscene1);
 						_game.stageObj.addChild(abertura);
 						
 						//destruir driade					
@@ -603,9 +603,9 @@
 						//eludens
 						_game.simulador.setTempoFinalBoss(Number(_game.simulador.GetTempoTotalFase()));
 						
-						if(Global.variables.ludens == true){
-							_game.EmitirRelatorio('TDL01', String(_game.simulador.getTempoTotalBoss()));
-						}
+						//if(Global.variables.ludens == true){
+							//_game.EmitirRelatorio('TDL01', String(_game.simulador.getTempoTotalBoss()));
+						//}
 					}
 
 					return;
@@ -622,9 +622,9 @@
 					_game.SalvarConstrucaoArquivo(1);
 
 					//envia dados ludens
-					if(Global.variables.ludens == true){
-						_game.EmitirRelatorio('TCF01', String(_game.simulador.GetTempoTotalFase()));
-					}
+					//if(Global.variables.ludens == true){
+						//_game.EmitirRelatorio('TCF01', String(_game.simulador.GetTempoTotalFase()));
+					//}
 					
 					_game.FimFase();
 
@@ -642,7 +642,7 @@
 						_game.PausarSons();
 						_game.PausarMusica();
 
-						var abertura = new ScreenLoader("data/cinematicas/Cinematic04.swf", f2FimCutscene1);
+						var abertura = new ScreenLoader("data/cinematicas/cinematic04.swf", f2FimCutscene1);
 						_game.stageObj.addChild(abertura);
 						
 						//destruir cetus
@@ -651,9 +651,9 @@
 						//ludens
 						_game.simulador.setTempoFinalBoss(Number(_game.simulador.GetTempoTotalFase()));
 						
-						if(Global.variables.ludens == true){
-							_game.EmitirRelatorio('TDL02', String(_game.simulador.getTempoTotalBoss()));
-						}
+						//if(Global.variables.ludens == true){
+							//_game.EmitirRelatorio('TDL02', String(_game.simulador.getTempoTotalBoss()));
+						//}
 					}
 
 					return;
@@ -670,9 +670,9 @@
 					_game.SalvarConstrucaoArquivo(2);
 					
 					//envia dados ludens
-					if(Global.variables.ludens == true){
-						_game.EmitirRelatorio('TCF02', String(_game.simulador.GetTempoTotalFase()));
-					}
+					//if(Global.variables.ludens == true){
+					//	_game.EmitirRelatorio('TCF02', String(_game.simulador.GetTempoTotalFase()));
+					//}
 
 					_game.FimFase();
 					
@@ -687,9 +687,9 @@
 						_game.RemoverFiltros(3);
 
 						//ludens
-						if(Global.variables.ludens == true){
-							_game.EmitirRelatorio('TCMG01', String(cronometro.GetTempoPassado()));
-						}
+						//if(Global.variables.ludens == true){
+						//	_game.EmitirRelatorio('TCMG01', String(cronometro.GetTempoPassado()));
+						//}
 
 						_game.simulador.SetVariavel("Fase3", "3");	
 					}
@@ -705,7 +705,7 @@
 						_game.PausarSons();
 						_game.PausarMusica();
 
-						var abertura = new ScreenLoader("data/cinematicas/Cinematic05.swf", f3FimCutscene2);
+						var abertura = new ScreenLoader("data/cinematicas/cinematic05.swf", f3FimCutscene2);
 						_game.stageObj.addChild(abertura);
 						
 						//destruir kaos
@@ -714,9 +714,9 @@
 						//ludens
 						_game.simulador.setTempoFinalBoss(Number(_game.simulador.getTempoTotalBoss()));
 
-						if(Global.variables.ludens == true){
-							_game.EmitirRelatorio('TDL03', String(_game.simulador.getTempoTotalBoss()));
-						}
+						//if(Global.variables.ludens == true){
+						//	_game.EmitirRelatorio('TDL03', String(_game.simulador.getTempoTotalBoss()));
+						//}
 					}
 
 					return;
@@ -862,9 +862,9 @@
 						);
 
 						//envia relatorio
-						if(Global.variables.ludens == true){
-							_game.EmitirRelatorio('QTJR', '1');
-						}
+						//if(Global.variables.ludens == true){
+						//	_game.EmitirRelatorio('QTJR', '1');
+						//}
 					}
 				}
 			}
@@ -940,9 +940,9 @@
 			_game.SalvarConstrucaoArquivo(3);
 
 			//envia dados ludens
-			if(Global.variables.ludens == true){
-				_game.EmitirRelatorio('TCF03', String(_game.simulador.GetTempoTotalFase()));
-			}
+			//if(Global.variables.ludens == true){
+			//	_game.EmitirRelatorio('TCF03', String(_game.simulador.GetTempoTotalFase()));
+			//}
 
 			_game.FimFase();
 		}

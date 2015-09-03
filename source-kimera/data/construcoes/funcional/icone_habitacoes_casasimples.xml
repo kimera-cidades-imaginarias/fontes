@@ -73,7 +73,6 @@
 					<!-- Em qual categoria esse atendimento será aplicado. -->
 					<categoria>Moradia</categoria>
 				</contribuicao>
-
 			</contribuicoes>
 		</nivel>
 	</niveis>
