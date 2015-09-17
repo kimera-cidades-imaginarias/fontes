@@ -333,7 +333,7 @@ package com.kimera.screens
 			Game.getInstance().gestorSom.Parar( 'musica-menu-principal');
 			Game.getInstance().gestorSom.Reproduzir( 'musica-password' , 99999999);
 			
-			Game.getInstance().MudarEstadoInterface("estado_carregar_jogo");
+			Game.getInstance().MudarEstadoInterface("estado_menu_principal");
 
 			TweenLite.to(this, 0.5, {autoAlpha: 1});
 		}

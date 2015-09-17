@@ -23,6 +23,8 @@
 		
 		public function abrir(evt = null)
 		{
+			Game.getInstance().MudarEstadoInterface("estado_menu_principal");
+
 			TweenLite.to(this, 0.5, {autoAlpha: 1});
 			this.gotoAndPlay(2);
 		}

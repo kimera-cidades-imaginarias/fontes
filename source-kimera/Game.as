@@ -38,6 +38,8 @@
 	import core.util.EventoLudens;
 	import core.sistema.air.Arquivo;
 
+	import flash.ui.Multitouch;
+	import flash.ui.MultitouchInputMode;
 	import flash.ui.Mouse;
 	import flash.display.BitmapData;
 	import flash.display.MovieClip;
@@ -53,6 +55,7 @@
 	import flash.events.MouseEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.TimerEvent;
+	import flash.events.TransformGestureEvent;
 
 	import com.adobe.images.JPGEncoder;
 	
@@ -86,6 +89,10 @@
 	import gs.plugins.ColorMatrixFilterPlugin;
 	import gs.plugins.TweenPlugin;
 	import gs.plugins.VisiblePlugin;
+	import flash.ui.Keyboard;
+
+	//ENABLE GESTURES
+	Multitouch.inputMode = MultitouchInputMode.GESTURE;
 
 	public class Game extends MovieClip
 	{
@@ -153,7 +160,7 @@
 		
 		// //-------------------------------- Globais -------------------------------//
 
-		Global.variables.android = false;
+		Global.variables.android = false; //jason teste
 		Global.variables.modoEditor = false; 
 		Global.variables.ludens = true; 
 		Global.variables.faseConstrucao = "";
@@ -267,12 +274,13 @@
 			
 		protected function init(evt:Event = null):void
 		{	
-
 			//Android detect
 			trace('OS: ' + Capabilities.manufacturer);
 
 			if((Capabilities.manufacturer == 'Android Linux'))
  			{
+				NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN,checkKeypress);
+				
 				Global.variables.android = true;
 			}
 
@@ -541,10 +549,10 @@
 			hand.visible= false;
 			processar_mv.visible = false;
 
-			btNorte.visible = false;
-			btSul.visible = false;
-			btLeste.visible = false;
-			btOeste.visible = false;
+			btNorte.visible = false; btNorte.alpha = 0;
+			btSul.visible = false; btSul.alpha = 0;
+			btLeste.visible = false; btLeste.alpha = 0;
+			btOeste.visible = false; btOeste.alpha = 0;
 
 			salvar_btn.visible = false;
 			alterar_visualizacao_btn.visible = false;
@@ -601,41 +609,87 @@
 		public function bloquearInterface(){
 			trace('bloqueou');
 
-			adicionar_btn.removeEventListener(MouseEvent.MOUSE_OVER, MouseOverAdicionar);
-			adicionar_btn.removeEventListener(MouseEvent.MOUSE_OUT , MouseOutAdicionar);
-			adicionar_btn.removeEventListener(MouseEvent.CLICK, MenuAddConstrucao);
-			
-			mensagem_btn.removeEventListener(MouseEvent.MOUSE_OVER, MouseOverMsg);
-			mensagem_btn.removeEventListener(MouseEvent.MOUSE_OUT , MouseOutMsg);
-			mensagem_btn.removeEventListener(MouseEvent.CLICK, MostrarMensagens);
-			
-			carta_btn.removeEventListener(MouseEvent.MOUSE_OVER, MouseOverCarta);
-			carta_btn.removeEventListener(MouseEvent.MOUSE_OUT , MouseOutCarta);
-			carta_btn.removeEventListener(MouseEvent.CLICK, MostrarCarta);
+			if( Global.variables.android == true )
+			{
+				adicionar_btn.removeEventListener(MouseEvent.MOUSE_DOWN, MouseOverAdicionar);
+				adicionar_btn.removeEventListener(MouseEvent.MOUSE_UP , MouseOutAdicionar);
+				adicionar_btn.removeEventListener(MouseEvent.DOUBLE_CLICK, MenuAddConstrucao);
+ 
+				carta_btn.removeEventListener(MouseEvent.MOUSE_DOWN, MouseOverCarta);
+				carta_btn.removeEventListener(MouseEvent.MOUSE_UP , MouseOutCarta);
+				carta_btn.removeEventListener(MouseEvent.DOUBLE_CLICK, MostrarCarta);
 
-			botaoPausa_btn.removeEventListener(MouseEvent.MOUSE_OVER, MouseOverConfiguracoes);
-			botaoPausa_btn.removeEventListener(MouseEvent.MOUSE_OUT , MouseOutConfiguracoes);
-			botaoPausa_btn.removeEventListener(MouseEvent.CLICK, Pausar);
+				mensagem_btn.removeEventListener(MouseEvent.MOUSE_DOWN, MouseOverMsg);
+				mensagem_btn.removeEventListener(MouseEvent.MOUSE_UP , MouseOutMsg);
+				mensagem_btn.removeEventListener(MouseEvent.DOUBLE_CLICK, MostrarMensagens);
+
+				botaoPausa_btn.removeEventListener(MouseEvent.MOUSE_DOWN, MouseOverConfiguracoes);
+				botaoPausa_btn.removeEventListener(MouseEvent.MOUSE_UP , MouseOutConfiguracoes);
+				botaoPausa_btn.removeEventListener(MouseEvent.DOUBLE_CLICK, Pausar);
+			}
+			else
+			{
+				adicionar_btn.removeEventListener(MouseEvent.MOUSE_OVER, MouseOverAdicionar);
+				adicionar_btn.removeEventListener(MouseEvent.MOUSE_OUT , MouseOutAdicionar);
+				adicionar_btn.removeEventListener(MouseEvent.CLICK, MenuAddConstrucao);
+
+				carta_btn.removeEventListener(MouseEvent.MOUSE_OVER, MouseOverCarta);
+				carta_btn.removeEventListener(MouseEvent.MOUSE_OUT , MouseOutCarta);
+				carta_btn.removeEventListener(MouseEvent.CLICK, MostrarCarta);
+
+				mensagem_btn.removeEventListener(MouseEvent.MOUSE_OVER, MouseOverMsg);
+				mensagem_btn.removeEventListener(MouseEvent.MOUSE_OUT , MouseOutMsg);
+				mensagem_btn.removeEventListener(MouseEvent.CLICK, MostrarMensagens);
+				
+				botaoPausa_btn.removeEventListener(MouseEvent.MOUSE_OVER, MouseOverConfiguracoes);
+				botaoPausa_btn.removeEventListener(MouseEvent.MOUSE_OUT , MouseOutConfiguracoes);
+				botaoPausa_btn.removeEventListener(MouseEvent.CLICK, Pausar);
+			}
 		}
 
 		public function liberarInterface(){
 			trace('liberou');
 
-			adicionar_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverAdicionar);
-			adicionar_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutAdicionar);
-			adicionar_btn.addEventListener(MouseEvent.CLICK, MenuAddConstrucao);
-			
-			mensagem_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverMsg);
-			mensagem_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutMsg);
-			mensagem_btn.addEventListener(MouseEvent.CLICK, MostrarMensagens);
-			
-			carta_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverCarta);
-			carta_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutCarta);
-			carta_btn.addEventListener(MouseEvent.CLICK, MostrarCarta);
+			if( Global.variables.android == true )
+			{
+				adicionar_btn.doubleClickEnabled = true; 
+				adicionar_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverAdicionar);
+				adicionar_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutAdicionar);
+				adicionar_btn.addEventListener(MouseEvent.DOUBLE_CLICK, MenuAddConstrucao);
 
-			botaoPausa_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverConfiguracoes);
-			botaoPausa_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutConfiguracoes);
-			botaoPausa_btn.addEventListener(MouseEvent.CLICK, Pausar);
+				carta_btn.doubleClickEnabled = true; 
+				carta_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverCarta);
+				carta_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutCarta);
+				carta_btn.addEventListener(MouseEvent.DOUBLE_CLICK, MostrarCarta);
+
+				mensagem_btn.doubleClickEnabled = true; 
+				mensagem_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverMsg);
+				mensagem_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutMsg);
+				mensagem_btn.addEventListener(MouseEvent.DOUBLE_CLICK, MostrarMensagens);
+
+				botaoPausa_btn.doubleClickEnabled = true; 
+				botaoPausa_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverConfiguracoes);
+				botaoPausa_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutConfiguracoes);
+				botaoPausa_btn.addEventListener(MouseEvent.DOUBLE_CLICK, Pausar);
+			}
+			else
+			{
+				adicionar_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverAdicionar);
+				adicionar_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutAdicionar);
+				adicionar_btn.addEventListener(MouseEvent.CLICK, MenuAddConstrucao);
+
+				carta_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverCarta);
+				carta_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutCarta);
+				carta_btn.addEventListener(MouseEvent.CLICK, MostrarCarta);
+				
+				mensagem_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverMsg);
+				mensagem_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutMsg);
+				mensagem_btn.addEventListener(MouseEvent.CLICK, MostrarMensagens);
+				
+				botaoPausa_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverConfiguracoes);
+				botaoPausa_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutConfiguracoes);
+				botaoPausa_btn.addEventListener(MouseEvent.CLICK, Pausar);
+			}
 		}
 		
 		/**
@@ -869,6 +923,11 @@
 		{
 		   	initialPanPoint = new Point(stage.mouseX, stage.mouseY);
 
+		   	if(Global.variables.android == true)
+			{
+		   		showAndroidMoveControl();
+		   	}
+
 		   	stage.addEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 		   	stage.addEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
 		}
@@ -894,6 +953,11 @@
 
 		   	hand.visible= false;
 		   	Mouse.show();
+
+		   	if(Global.variables.android == true)
+			{
+		   		hideAndroidMoveControl(true);
+		   	}
 		   	//Mouse.cursor ="arrow"
 		}
 		//fim mapa pam
@@ -903,6 +967,69 @@
 			keyRolamento = null;
 		}
 		
+		public function showAndroidMoveControl(e:Event = null){
+			btNorte.visible = true;
+			btSul.visible 	= true;
+			btLeste.visible = true;
+			btOeste.visible = true;
+
+			TweenLite.to(btNorte, 0.5, {alpha: 1});
+			TweenLite.to(btSul, 0.5, {alpha: 1});
+			TweenLite.to(btLeste, 0.5, {alpha: 1});
+			TweenLite.to(btOeste, 0.5, {alpha: 1});
+
+			btNorte.addEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
+			btNorte.addEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
+
+			btSul.addEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
+			btSul.addEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
+
+			btLeste.addEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
+			btLeste.addEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
+
+			btOeste.addEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
+			btOeste.addEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);	
+		}
+
+		
+
+		public function hideAndroidMoveControl(janela:Boolean = false){
+			if(janela == false){
+				TweenLite.to(btNorte, 0.5, {alpha: 0});
+				TweenLite.to(btSul, 0.5, {alpha: 0});
+				TweenLite.to(btLeste, 0.5, {alpha: 0});
+				TweenLite.to(btOeste, 0.5, {alpha: 0, onComplete:hideListnerMoveControl});
+			}
+			else
+			{
+				TweenLite.to(btNorte, 0.5, {alpha: 0, delay:2});
+				TweenLite.to(btSul, 0.5, {alpha: 0, delay:2});
+				TweenLite.to(btLeste, 0.5, {alpha: 0, delay:2});
+				TweenLite.to(btOeste, 0.5, {alpha: 0, onComplete:hideListnerMoveControl, delay:2});
+			}
+		}
+
+		public function hideListnerMoveControl(e:Event = null){
+			btNorte.visible = false;
+			btSul.visible 	= false;
+			btLeste.visible = false;
+			btOeste.visible = false;
+
+			btNorte.removeEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
+			btNorte.removeEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
+
+			btSul.removeEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
+			btSul.removeEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
+
+			btLeste.removeEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
+			btLeste.removeEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
+
+			btOeste.removeEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
+			btOeste.removeEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
+
+			keyRolamento = null;
+		}
+
 		public function ListenersInterface( ativados: Boolean )
 		{
 			trace("ListenersInterface: "+ativados);
@@ -918,55 +1045,73 @@
 				salvar_btn.useHandCursor     			= true;
 				alterar_visualizacao_btn.useHandCursor  = true;
 				barra.visible 							= true;
-
-
-				if(Global.variables.android == true)
-				{
-					btNorte.visible = true;
-					btSul.visible 	= true;
-					btLeste.visible = true;
-					btOeste.visible = true;
-
-					btNorte.addEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
-					btNorte.addEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
-
-					btSul.addEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
-					btSul.addEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
-
-					btLeste.addEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
-					btLeste.addEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
-
-					btOeste.addEventListener(MouseEvent.MOUSE_DOWN, movimentarMapaPress);
-					btOeste.addEventListener(MouseEvent.MOUSE_UP , movimentarMapaOut);
-				}
 								
 				liberarInterface();
 
-				zoomIn_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverZoomIn);
-				zoomIn_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutZoomIn);
-				zoomIn_btn.addEventListener(MouseEvent.CLICK , ZoomInOut);
-				
-				zoomOut_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverZoomOut);
-				zoomOut_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutZoomOut);
-				zoomOut_btn.addEventListener(MouseEvent.CLICK, ZoomInOut);
+				if(Global.variables.android == true)
+				{
+					zoomIn_btn.doubleClickEnabled=true; 
+					zoomIn_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverZoomIn);
+					zoomIn_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutZoomIn);
+					zoomIn_btn.addEventListener(MouseEvent.DOUBLE_CLICK , ZoomInOut);
+					
+					zoomOut_btn.doubleClickEnabled=true; 
+					zoomOut_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverZoomOut);
+					zoomOut_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutZoomOut);
+					zoomOut_btn.addEventListener(MouseEvent.DOUBLE_CLICK, ZoomInOut);
+				}
+				else
+				{
+					
+					zoomIn_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverZoomIn);
+					zoomIn_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutZoomIn);
+					zoomIn_btn.addEventListener(MouseEvent.CLICK , ZoomInOut);
+					
+					zoomOut_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverZoomOut);
+					zoomOut_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutZoomOut);
+					zoomOut_btn.addEventListener(MouseEvent.CLICK, ZoomInOut);
+				}
 
+				container_mc.addEventListener(TransformGestureEvent.GESTURE_ZOOM, onZoom);
 				container_mc.addEventListener(MouseEvent.MOUSE_WHEEL, WhellZoom);
 				container_mc.addEventListener(MouseEvent.MOUSE_DOWN, mapaPam);
-				
+
 				if(Global.variables.modoEditor == true){
 					barra.visible = true;
 					//nomeDoMapa.visible = true;
 
 					salvar_btn.visible = true;
-					salvar_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverSalvar);
-					salvar_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutSalvar);
-					salvar_btn.addEventListener(MouseEvent.CLICK, Salvar);
+
+					if(Global.variables.android == true)
+					{
+						salvar_btn.doubleClickEnabled=true; 
+						salvar_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverSalvar);
+						salvar_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutSalvar);
+						salvar_btn.addEventListener(MouseEvent.DOUBLE_CLICK, Salvar);
+					}
+					else
+					{
+						salvar_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverSalvar);
+						salvar_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutSalvar);
+						salvar_btn.addEventListener(MouseEvent.CLICK, Salvar);
+					}
 
 					if( Arquivo.ExisteArquivo(Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-satellite.jpg', false) && Arquivo.ExisteArquivo(Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-terrain.jpg', false) && Arquivo.ExisteArquivo(Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-hybrid.jpg', false) ){
 						alterar_visualizacao_btn.visible = true;
-						alterar_visualizacao_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverAlterarVisualizacao);
-						alterar_visualizacao_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutAlterarVisualizacao);
-						alterar_visualizacao_btn.addEventListener(MouseEvent.CLICK, AbrirPainelVisualizacao);
+
+						if(Global.variables.android == true)
+						{
+							alterar_visualizacao_btn.doubleClickEnabled=true; 
+							alterar_visualizacao_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverAlterarVisualizacao);
+							alterar_visualizacao_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutAlterarVisualizacao);
+							alterar_visualizacao_btn.addEventListener(MouseEvent.DOUBLE_CLICK, AbrirPainelVisualizacao);
+						}
+						else
+						{
+							alterar_visualizacao_btn.addEventListener(MouseEvent.MOUSE_OVER, MouseOverAlterarVisualizacao);
+							alterar_visualizacao_btn.addEventListener(MouseEvent.MOUSE_OUT , MouseOutAlterarVisualizacao);
+							alterar_visualizacao_btn.addEventListener(MouseEvent.CLICK, AbrirPainelVisualizacao);
+						}
 					} else {
 						alterar_visualizacao_btn.visible = false;
 					}
@@ -981,6 +1126,36 @@
 
 			
 		}
+
+		public function checkKeypress(event:KeyboardEvent):void
+		{
+			switch (event.keyCode)
+		 	{
+				case Keyboard.BACK:
+					event.preventDefault();
+					
+					if(estadoInterface == (ESTADO_MENU_PRINCIPAL || ESTADO_CARREGAR_JOGO || ESTADO_CONFIGURACOES || ESTADO_CARREGANDO) ){
+						Sair();
+					} else {
+						SairJogo();
+					}
+					
+					break;
+				
+				case Keyboard.MENU:
+					event.preventDefault();					
+					break;
+				
+				case Keyboard.SEARCH:
+					event.preventDefault();
+					break;
+
+				default:
+					event.preventDefault();
+					Sair();
+                    break;
+			}
+		} 
 		
 		// Esses eventos são criados apenas uma vez, afinal, servem para todas as fases.
 		function CriarListeners()
@@ -1017,20 +1192,40 @@
 			simulador.addEventListener(EventoSimulador.INICIO_CONSERTO		, InicioConserto);
 			simulador.addEventListener(EventoSimulador.FIM_CONSERTO			, FimConserto);			
 			
-			populacao_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
-			populacao_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
-			habitados_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
-			habitados_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
-			empregados_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
-			empregados_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
-			//metas_mc.addEventListener(MouseEvent.MOUSE_OVER	   , MouseOver);
-			//metas_mc.addEventListener(MouseEvent.MOUSE_OUT	   , MouseOut);
-			
-			dinheiro_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
-			dinheiro_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
-			
-			pontos_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
-			pontos_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
+			if( Global.variables.android == true )
+			{
+				populacao_mc.addEventListener(MouseEvent.MOUSE_DOWN, MouseOver);
+				populacao_mc.addEventListener(MouseEvent.MOUSE_UP , MouseOut);
+
+				habitados_mc.addEventListener(MouseEvent.MOUSE_DOWN, MouseOver);
+				habitados_mc.addEventListener(MouseEvent.MOUSE_UP , MouseOut);
+
+				empregados_mc.addEventListener(MouseEvent.MOUSE_DOWN, MouseOver);
+				empregados_mc.addEventListener(MouseEvent.MOUSE_UP , MouseOut);
+
+				dinheiro_mc.addEventListener(MouseEvent.MOUSE_DOWN, MouseOver);
+				dinheiro_mc.addEventListener(MouseEvent.MOUSE_UP , MouseOut);
+				
+				pontos_mc.addEventListener(MouseEvent.MOUSE_DOWN, MouseOver);
+				pontos_mc.addEventListener(MouseEvent.MOUSE_UP , MouseOut);
+			}
+			else
+			{
+				populacao_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
+				populacao_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
+
+				habitados_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
+				habitados_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
+
+				empregados_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
+				empregados_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
+
+				dinheiro_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
+				dinheiro_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
+
+				pontos_mc.addEventListener(MouseEvent.MOUSE_OVER, MouseOver);
+				pontos_mc.addEventListener(MouseEvent.MOUSE_OUT , MouseOut);
+			}
 			
 			// Construção será destruída por eventos?
 			//simulador.addEventListener(EventoSimulador.CONSTRUCAO_DESTRUIDA	, ConstrucaoDestruida);			
@@ -1128,13 +1323,24 @@
 			tooltipAlterarVisualizacao.visible = false;
 		}
 
-		function AbrirPainelVisualizacao(evt = null){
+		function AbrirPainelVisualizacao(evt = null)
+		{
+			if( Global.variables.android == true ){ hideAndroidMoveControl(); }				
+
 			menu_visualizacao.visible = true;
+			tooltipAlterarVisualizacao.visible = false;
 
 			menu_visualizacao.btn_rotas.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_satelite.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_tereno.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_hibrido.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
+
+			if(Global.variables.android == true)
+			{
+				alterar_visualizacao_btn.removeEventListener(MouseEvent.MOUSE_DOWN, MouseOverAlterarVisualizacao);
+				alterar_visualizacao_btn.removeEventListener(MouseEvent.MOUSE_UP , MouseOutAlterarVisualizacao);
+				alterar_visualizacao_btn.removeEventListener(MouseEvent.DOUBLE_CLICK, AbrirPainelVisualizacao);
+			}
 
 		}
 
@@ -1145,6 +1351,14 @@
 			menu_visualizacao.btn_satelite.removeEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_tereno.removeEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_hibrido.removeEventListener(MouseEvent.CLICK, AlterarVisualizacao);
+
+			if(Global.variables.android == true)
+			{
+				alterar_visualizacao_btn.doubleClickEnabled=true; 
+				alterar_visualizacao_btn.addEventListener(MouseEvent.MOUSE_DOWN, MouseOverAlterarVisualizacao);
+				alterar_visualizacao_btn.addEventListener(MouseEvent.MOUSE_UP , MouseOutAlterarVisualizacao);
+				alterar_visualizacao_btn.addEventListener(MouseEvent.DOUBLE_CLICK, AbrirPainelVisualizacao);
+			}
 		}
 
 		var loaderMap = new Loader();
@@ -1198,6 +1412,8 @@
 		
 		function Salvar(evt)
 		{
+			tooltipSalvar.visible = false;
+
 			MudarEstadoInterface(ESTADO_PAUSA);
 
 			OcultarTodas();
@@ -1750,6 +1966,9 @@
 		
 		function ZoomInOut(evt)
 		{
+			tooltipZoomIn.visible = false;
+			tooltipZoomOut.visible = false;
+
 			evt.stopPropagation();
 			
 			if (render.IsZooming()) return;
@@ -1790,6 +2009,8 @@
 		function WhellZoom(event:MouseEvent){
 			event.stopPropagation();
 
+			trace('zoom scrooll ' + event.delta);
+
 			if (render.IsZooming()) return;
 
 			if ( event.delta > 0 ) {
@@ -1800,6 +2021,44 @@
 				zoomIndex--;
 			}
 
+			if (zoomIndex < 0) 
+			{
+				zoomIndex = 0;
+				return ;
+			}
+			else if (zoomIndex >= zoomFactors.length)
+			{
+				zoomIndex = zoomFactors.length - 1;
+				return ;
+			}
+			
+			if(zoomIndex >= 3)	// sons vão se tornar audíveis
+			{
+				gestorSom.SetVolumeGrupo('efeitos', opcoes.volume);
+				dataLoader.SetVolumeSomPopup( opcoes.volume );
+			}
+			else	// sons vão se tornar inaudíveis
+			{
+				var emissores = dataLoader.GetEmissores();
+				for(var i = 0; i < emissores.length; i++)
+				{
+					emissores[i].GetSom().SetVolume(0);
+				}
+				dataLoader.SetVolumeSomPopup( 0 );
+				gestorSom.SetVolumeGrupo('efeitos', 0);
+			}
+			
+			render.SetZoom( zoomFactors[zoomIndex] );
+		}
+
+		function onZoom(event:TransformGestureEvent):void
+		{
+			trace("zoom taps "+ event.scaleX);
+
+		    if (render.IsZooming()) return;
+
+			zoomIndex = event.scaleX;
+			
 			if (zoomIndex < 0) 
 			{
 				zoomIndex = 0;
@@ -1973,6 +2232,10 @@
 		
 		function MenuAddConstrucao(evt)
 		{
+			if( Global.variables.android == true ){ hideAndroidMoveControl(); }
+
+			tooltipConstrucoes_mc.visible = false;
+
 			MudarEstadoInterface(ESTADO_MENU_ADICIONAR_CONSTRUCAO);
 			OcultarTodas();
 			fade_mc.alpha = adicionar_mc.alpha = 0;
@@ -1982,7 +2245,7 @@
 			TweenLite.to(fadeSuperior_mc, 0.5, {autoAlpha: 1});
 
 			ExibirMenuAdicionarEstrutura();
-			atualizarMenu = setInterval(AtualizarMenuAdicionarEstrutura, 1500);
+			//atualizarMenu = setInterval(AtualizarMenuAdicionarEstrutura, 1500);
 			TweenLite.to(adicionar_mc	, 0.5, {autoAlpha: 1});
 			gestorSom.Reproduzir( 'click-construcao' );
 			
@@ -2002,6 +2265,10 @@
 		
 		function MostrarMensagens(evt = null)
 		{
+			if( Global.variables.android == true ){ hideAndroidMoveControl(); }
+
+			tooltipMsg_mc.visible = false;
+
 			if (estadoInterface == ESTADO_MENSAGENS) return;
 			
 			OcultarTodas();
@@ -2035,7 +2302,11 @@
 		}
 		
 		public function MostrarCarta(evt = null, arquivo = null, inGame = false)
-		{			
+		{	
+			if( Global.variables.android == true ){ hideAndroidMoveControl(); }
+
+			tooltipCartaVoadora_mc.visible = false;
+
 			if (estadoInterface == ESTADO_CARTA_VOADORA) return;
 			
 			OcultarTodas();
@@ -2698,6 +2969,7 @@
 				{
 					icone.alpha = 1;
 					icone.buttonMode = true;
+					
 					if(!icone.hasEventListener(MouseEvent.CLICK)) icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
 				}
 			}
@@ -2757,9 +3029,28 @@
 								icone.alpha = 0.3;
 								icone.buttonMode = false;
 							}
-							else icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
+							else
+							{
+								if( Global.variables.android == true )
+								{
+									icone.doubleClickEnabled = true; 
+									icone.addEventListener(MouseEvent.DOUBLE_CLICK, AcoplarEstruturaSeletor);
+								}
+								else
+								{
+									icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
+								}
+							} 
 						} else {
-							icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
+							if( Global.variables.android == true )
+							{
+								icone.doubleClickEnabled = true; 
+								icone.addEventListener(MouseEvent.DOUBLE_CLICK, AcoplarEstruturaSeletor);
+							}
+							else
+							{
+								icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
+							}
 						} 
 						
 						var mascara = new MaskIcone();
@@ -2771,8 +3062,16 @@
 
 						icone.mask = adicionar_mc.containerMask_mc.getChildAt( adicionar_mc.containerMask_mc.numChildren - 1 );
 						
-						icone.addEventListener(MouseEvent.MOUSE_OVER, MostrarTooltip);
-						icone.addEventListener(MouseEvent.MOUSE_OUT, OcultarTooltip);
+						if( Global.variables.android == true )
+						{
+							icone.addEventListener(MouseEvent.MOUSE_DOWN, MostrarTooltip);
+							icone.addEventListener(MouseEvent.MOUSE_UP, OcultarTooltip);
+						}
+						else
+						{
+							icone.addEventListener(MouseEvent.MOUSE_OVER, MostrarTooltip);
+							icone.addEventListener(MouseEvent.MOUSE_OUT, OcultarTooltip);
+						}
 						
 						adicionar_mc.container_mc.addChild( icone );
 					}
@@ -3308,7 +3607,9 @@
 		{
 			if( !aplicacaoAtiva ) return ;
 			
-			if(!emTutorial || estadoInterface == ESTADO_TUTORIAL_PARTE_I ) ScrollMap();
+			if(!emTutorial || estadoInterface == ESTADO_TUTORIAL_PARTE_I ){
+				ScrollMap();
+			}
 			
 			if ((estadoInterface == ESTADO_ADICIONAR_CONSTRUCAO) || (estadoInterface == ESTADO_ADICIONAR_EMISSOR))
 			{
@@ -3323,8 +3624,16 @@
 				if((custo <= simulador.GetDinheiroDisponivel()) && (shiftPressed || vaiAdicionar))
 				{
 					// Posição do cursor em coordenadas isométricas.
-					var mousePos 	  = new Point((container_mc.mouseX - 1024/2) / render.GetZoom(),
-												  (container_mc.mouseY - 768/2)  / render.GetZoom());
+					if( Global.variables.android == true )
+					{
+						var mousePos 	  = new Point((container_mc.x /2) / render.GetZoom(),
+													  (container_mc.y /2)  / render.GetZoom());
+					}
+					else
+					{
+						var mousePos 	  = new Point((container_mc.mouseX - 1024/2) / render.GetZoom(),
+													  (container_mc.mouseY - 768/2)  / render.GetZoom());
+					}
 					
 					var mouseIsoPoint = IsoMath.screenToIso(new Pt(mousePos.x  + render.pan.x, 
 																   mousePos.y  + render.pan.y), false);
@@ -3363,10 +3672,13 @@
 		{	
 			if(keyRolamento) var r = keyRolamento;
 			else r = new Point(0, 0);
-			if (mouseX < LIMITE_ESQUERDA) 		r.x = -ROLAMENTO;
-			else if(mouseX > LIMITE_DIREITA)	r.x = ROLAMENTO;
-			if (mouseY < LIMITE_SUPERIOR) 		r.y = -ROLAMENTO;
-			else if(mouseY > LIMITE_INFERIOR)	r.y = ROLAMENTO;
+
+			if( Global.variables.android != true ){
+				if (mouseX < LIMITE_ESQUERDA) 		r.x = -ROLAMENTO;
+				else if(mouseX > LIMITE_DIREITA)	r.x = ROLAMENTO;
+				if (mouseY < LIMITE_SUPERIOR) 		r.y = -ROLAMENTO;
+				else if(mouseY > LIMITE_INFERIOR)	r.y = ROLAMENTO;
+			}
 				
 			var size    			= new Point( simulador.GetTamanhoFase().x * FaseRender.CELL_SIZE, 
 										   		 simulador.GetTamanhoFase().y * FaseRender.CELL_SIZE );
@@ -3621,6 +3933,10 @@
 				
 		function Pausar(evt = null)
 		{
+			if( Global.variables.android == true ){ hideAndroidMoveControl(); }
+
+			tooltipConfiguracoes.visible = false;
+
 			if(timerMouse != null)
 				timerMouse.reset();
 			
@@ -3705,7 +4021,7 @@
 		// <19> Funções de encerramento do jogo.
 		//---------------------------------------
 		
-		public function Sair(evt)
+		public function Sair(evt = null)
 		{
 			menu_mc.mouseChildren = false;
 			menu_mc.mouseEnabled  = false;
@@ -4161,9 +4477,19 @@
 		{
 			while (adicionar_mc.container_mc.numChildren > 0)
 			{
-				adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
-				adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.MOUSE_OVER, MostrarTooltip);
-				adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.MOUSE_OUT, OcultarTooltip);
+				if( Global.variables.android == true )
+				{
+					adicionar_mc.container_mc.getChildAt(0).doubleClickEnabled = true; 
+					adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.DOUBLE_CLICK, AcoplarEstruturaSeletor);
+					adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.MOUSE_DOWN, MostrarTooltip);
+					adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.MOUSE_UP, OcultarTooltip);
+				}
+				else
+				{
+					adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
+					adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.MOUSE_OVER, MostrarTooltip);
+					adicionar_mc.container_mc.getChildAt(0).removeEventListener(MouseEvent.MOUSE_OUT, OcultarTooltip);
+				}
 				
 				adicionar_mc.container_mc.removeChildAt(0);
 			}
