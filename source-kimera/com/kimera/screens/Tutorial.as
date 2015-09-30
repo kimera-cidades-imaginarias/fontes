@@ -17,12 +17,6 @@
 
 			this.conteudoPc.visible = false;
 			this.conteudoAndroid.visible = false;
-
-			if( Global.variables.android == true ){ 
-				this.conteudoAndroid.visible = true;
-			} else {
-				this.conteudoPc.visible = true;
-			}
 			
 			this.visible = false;
 		}
@@ -32,7 +26,16 @@
 			Game.getInstance().MudarEstadoInterface("estado_menu_principal");
 			
 			TweenLite.to(this, 0.5, {autoAlpha: 1});
-			this.conteudoAndroid.gotoAndPlay(2);
+
+			if( Global.variables.android == true ){ 
+				this.conteudoAndroid.visible = true;
+				this.conteudoPc.visible = false;
+
+				this.conteudoAndroid.gotoAndPlay(2);
+			} else {
+				this.conteudoPc.visible = true;
+				this.conteudoAndroid.visible = false;
+			}
 		}
 		
 		function sair(evt = null)
