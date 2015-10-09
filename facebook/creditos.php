@@ -1,6 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR">
+
+	<?php
+		//error_reporting(E_ALL);
+  		//ini_set("display_errors", 1);
+	?>
 	
 	<?php include('admin/config/config.php'); ?>
 	<?php $result = mysql_query("SELECT * FROM `paginas` WHERE id=1") or trigger_error(mysql_error());  ?>
@@ -32,12 +37,14 @@
   			<p class="desc">Kimera - Cidades Imaginárias é um jogo de simulação de cidades em que o jogador executa a construção de uma cidade, considerando ainda a execução de quests que trabalham elementos humano-criativos de cada jogador e convidam o mesmo ao exercício da imaginação.</p>
 
   			<div id="window">
-				<?php $row = mysql_fetch_array($result); ?>
+  				<div id="dinamicPage">
+					<?php $row = mysql_fetch_array($result); ?>
 
-				<h2><span><?php echo $row['titulo']; ?></span></h2>
-				<p><?php echo nl2br($row['descricao']); ?></p>
+					<h2><span><?php echo $row['titulo']; ?></span></h2>
+					<p><?php echo nl2br($row['descricao']); ?></p>
 
-				<a href="index.php" class="bt-voltar">Voltar</a>
+					<a href="index.php" class="bt-voltar">Voltar</a>
+				</div>
 			</div>
 
 			<ul id="apoiadores">

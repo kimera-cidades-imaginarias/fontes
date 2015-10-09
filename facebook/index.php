@@ -48,35 +48,30 @@
     	<!-- PHP CONFIG -->
     	<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
     	 <?php
-			require_once('php-sdk/facebook.php');
 
-			$config = array(
-				'appId' => '649094798460813',
-				'secret' => '3fed1ccadef808154d441d4c13055af0',
-				'allowSignedRequest' => false
-			);
+    	 	//error_reporting(E_ALL);
+ 			//ini_set("display_errors", 1);
 
-			$facebook = new Facebook($config);
+    	 	session_start();
+
+			require_once('facebook-php-sdk-v4-5.0-dev/src/Facebook/autoload.php');
+
+			$fb = new Facebook\Facebook([
+			  'app_id' => '649094798460813',
+			  'app_secret' => '3fed1ccadef808154d441d4c13055af0',
+			  'default_graph_version' => 'v2.4',
+			]);
 		?>
 	</head>
   	
   	<body>
+
   			<h1>Kimera - Cidades Imaginárias | Jogo da Memoria</h1>
   			<p class="desc">Kimera - Cidades Imaginárias é um jogo de simulação de cidades em que o jogador executa a construção de uma cidade, considerando ainda a execução de quests que trabalham elementos humano-criativos de cada jogador e convidam o mesmo ao exercício da imaginação.</p>
 
   			<div id="window">
-				<?php
-					$user_id = $facebook->getUser();
 
-					if( $user_id )
-					//if( 1==1 )
-					{
-						//bloco de autenticacao
-						try
-						{
-							//$user_profile = $facebook->api('/me','GET');
-							//echo "Bem-vindo: " . $user_profile['name'];
-				?>
+			<?php if(isset($_SESSION['facebook_access_token'])){ ?>
 
 				<div class="alert alert-error">
 					Figuras não coincidem!
@@ -95,46 +90,23 @@
 	        	?>
 		        </div>
 
+		    <?php } ?>
+
+		    <?php if(!isset($_SESSION['facebook_access_token'])){ ?>
+
 				<?php
-							//bloco de publicacao
-							try
-							{
-								$ret_obj = $facebook->api('/me/feed', 'POST',
-									array(
-										'link' => 'www.kimera.pro.br',
-										'message' => 'Estou jogando Kimera - Cidades Imáginárias, venha você também conhecer esse novo mundo!'
-									));
-							} 
-							catch(FacebookApiException $e) 
-							{
-								//$login_url = $facebook->getLoginUrl( array('scope' => 'publish_stream')); 
-								//echo 'Por-favor, efetue seu <a href="' . $login_url . '">login.</a>';
-								
-								error_log($e->getType());
-								error_log($e->getMessage());
-							}
-						} 
-						catch(FacebookApiException $e)
-						{
-							//$login_url = $facebook->getLoginUrl(); 
-							//echo 'Por-favor, efetue seu <a href="' . $login_url . '">login.</a>';
-							
-							error_log($e->getType());
-							error_log($e->getMessage());
-						}
-					} 
-					else 
-					{
-						$login_url = $facebook->getLoginUrl();
+					$helper = $fb->getRedirectLoginHelper();
+					$permissions = ['email'];
+					$loginUrl = $helper->getLoginUrl('https://kimera4.websiteseguro.com/facebook/login-callback.php', $permissions);
 				?>
 				
 				<h2>Prove que você tem boa memória, para entrar nessa nova aventura no <span>REINO DE KIMERA!</span></h2>
 
-				<?php
-						echo '<a href="' . $login_url . '" class="bt-facebook">login.</a>';
-						echo '<a href="creditos.php" class="bt-creditos">Créditos</a>';
-					}
-				?>
+				<a href="<?php echo $loginUrl; ?>" class="bt-facebook">Login</a>
+				<a href="creditos.php" class="bt-creditos">Créditos</a>
+
+			<?php } ?>
+
 			</div>
 
 			<ul id="apoiadores">
