@@ -2313,7 +2313,7 @@
 				cartaVoadora_mc.caixa_txt.needsSoftKeyboard = true;
 			}
 
-			if(inGame == true){
+			if(inGame == true || estadoInterface == ESTADO_CARTA_VOADORA){
 				cartaVoadora_mc.enviar_btn.visible = true;
 			}
 			
