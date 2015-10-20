@@ -80,7 +80,9 @@
 	import flash.media.SoundTransform;
 	import flash.system.Security;
 	import flash.system.Capabilities;
+	
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 
 	import flash.desktop.NativeApplication;
 	
@@ -3013,6 +3015,21 @@
 							//icone.habitados			= 0;
 						//}
 
+						if( Global.variables.android == true )
+						{
+							icone.addEventListener(MouseEvent.CLICK, seletorBotaoMobile);
+
+							icone.addEventListener(MouseEvent.MOUSE_DOWN, function(evt)	{ MostrarTooltip(evt, nivel.GetCusto(), nivel.GetDesabitados(), nivel.GetHabitados()) });
+							icone.addEventListener(MouseEvent.MOUSE_UP, OcultarTooltip);
+						}
+						else
+						{
+							icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
+
+							icone.addEventListener(MouseEvent.MOUSE_OVER, function(evt)	{ MostrarTooltip(evt, nivel.GetCusto(), nivel.GetDesabitados(), nivel.GetHabitados()) });
+							icone.addEventListener(MouseEvent.MOUSE_OUT, OcultarTooltip);
+						}
+
 						if(Global.variables.modoEditor == false)
 						{
 							if((nivel.GetCusto() > simulador.GetDinheiroDisponivel()) || 
@@ -3021,38 +3038,36 @@
 							{
 								icone.alpha = 0.3;
 								icone.buttonMode = false;
+
+								if( Global.variables.android == true )
+								{
+									icone.removeEventListener(MouseEvent.CLICK, seletorBotaoMobile);
+								}
+								else
+								{
+									icone.removeEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
+								}
 							}
 							else
 							{
 								if( Global.variables.android == true )
 								{
-									icone.addEventListener(MouseEvent.CLICK, seletorBotaoMobile); //jason
-
-									icone.addEventListener(MouseEvent.MOUSE_DOWN, MostrarTooltip);
-									icone.addEventListener(MouseEvent.MOUSE_UP, OcultarTooltip);
+									icone.addEventListener(MouseEvent.CLICK, seletorBotaoMobile);
 								}
 								else
 								{
 									icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
-
-									icone.addEventListener(MouseEvent.MOUSE_OVER, MostrarTooltip);
-									icone.addEventListener(MouseEvent.MOUSE_OUT, OcultarTooltip);
 								}
 							} 
 						} else {
 							if( Global.variables.android == true )
 							{
-								icone.addEventListener(MouseEvent.CLICK, seletorBotaoMobile); //jason
+								icone.addEventListener(MouseEvent.CLICK, seletorBotaoMobile);
 
-								icone.addEventListener(MouseEvent.MOUSE_DOWN, MostrarTooltip);
-								icone.addEventListener(MouseEvent.MOUSE_UP, OcultarTooltip);
 							}
 							else
 							{
 								icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
-
-								icone.addEventListener(MouseEvent.MOUSE_OVER, MostrarTooltip);
-								icone.addEventListener(MouseEvent.MOUSE_OUT, OcultarTooltip);
 							}
 						} 
 						
@@ -3866,8 +3881,15 @@
 		// <17> Tooltips diversos
 		//-----------------------------------
 		
-		function MostrarTooltip(evt)
+		function MostrarTooltip(evt, pr1 = null, pr2 = null, pr3 = null)
 		{
+			var tfn:TextFormat = new TextFormat();
+			tfn.color = 0x000000;
+
+			var tfr:TextFormat = new TextFormat();
+			tfr.color = 0xFF0000;
+
+
 			if( Global.variables.android == true ){
 				adicionar_mc.addMobile.visible = true;
 				adicionar_mc.addMobile.nomeConstrucao.text = "POSICIONAR NO MAPA: " + evt.target.nomeEstrutura;
@@ -3877,6 +3899,14 @@
 
 			adicionar_mc.tooltipG_mc.nome_txt.text = 'Construção: ' + evt.target.nomeEstrutura;
 			adicionar_mc.tooltipG_mc.custo_txt.text = NumberFormat.FormatCurrency( evt.target.custo, 2, ',' , '.', 'K$ ' );
+
+
+			if( (Global.variables.modoEditor == false) && (pr1 > simulador.GetDinheiroDisponivel()) ){
+				adicionar_mc.tooltipG_mc.custo_txt.setTextFormat(tfr);
+			} else {
+				adicionar_mc.tooltipG_mc.custo_txt.setTextFormat(tfn);
+			}
+
 
 			//if(Global.variables.modoEditor == false)
 			//{	
@@ -3900,6 +3930,13 @@
 				{
 					adicionar_mc.tooltipG_mc.requisito_txt.text = "Pessoas sem casa: " + evt.target.desabitados;
 				}
+
+				if( (Global.variables.modoEditor == false) && ( (pr2 > simulador.GetPopulacao()) || (pr3 > simulador.GetHabitados()) ) ){
+					adicionar_mc.tooltipG_mc.requisito_txt.setTextFormat(tfr);
+				} else {
+					adicionar_mc.tooltipG_mc.requisito_txt.setTextFormat(tfn);
+				}
+
 			//}
 			//else
 			//{

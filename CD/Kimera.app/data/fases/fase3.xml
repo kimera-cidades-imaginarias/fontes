@@ -10,7 +10,7 @@
 	</texto_descritivo>
 	
 	<!-- Tempo para concluir a fase, em milissegundos -->
-	<tempo>600000</tempo>
+	<tempo>1200000</tempo>
 	
 	<!-- População inicial da fase -->
 	<populacao>10000</populacao>

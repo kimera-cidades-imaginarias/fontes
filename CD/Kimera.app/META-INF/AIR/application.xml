@@ -86,4 +86,4 @@
 </manifest>]]></manifestAdditions>
   </android>
   <supportedLanguages>pt</supportedLanguages>
-</application>
+  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice </supportedProfiles></application>
