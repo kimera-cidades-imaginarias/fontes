@@ -1,3 +1,50 @@
+<?php
+
+  /*
+  * Tratamento de Strings
+  */
+  function is_utf8($string)
+  {
+    return preg_match('%^(?:
+      [\x09\x0A\x0D\x20-\x7E] |
+      [\xC2-\xDF][\x80-\xBF] |
+      \xE0[\xA0-\xBF][\x80-\xBF] |
+      [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2} |
+      \xED[\x80-\x9F][\x80-\xBF] |
+      \xF0[\x90-\xBF][\x80-\xBF]{2} |
+      [\xF1-\xF3][\x80-\xBF]{3} |
+      \xF4[\x80-\x8F][\x80-\xBF]{2})*$%xs', $string);
+  }
+  function remove_diacritics($string)
+  {
+    return preg_replace(array(
+        '/\xc3[\x80-\x85]/',  // upper case
+        '/\xc3\x87/',
+        '/\xc3[\x88-\x8b]/',
+        '/\xc3[\x8c-\x8f]/',
+        '/\xc3([\x92-\x96]|\x98)/',
+        '/\xc3[\x99-\x9c]/',
+        '/\xc3[\xa0-\xa5]/',  // lower case
+        '/\xc3\xa7/',
+        '/\xc3[\xa8-\xab]/',
+        '/\xc3[\xac-\xaf]/',
+        '/\xc3([\xb2-\xb6]|\xb8)/',
+        '/\xc3[\xb9-\xbc]/'
+      ), str_split('ACEIOUaceiou', 1), is_utf8($string) ? $string : utf8_encode($string));
+  }
+  function removerCaracter($string, $slug = '-'){
+    $string = remove_diacritics($string);
+    $string = preg_replace(array(
+        '/[^A-Za-z0-9]/',
+        '/' . $slug . '{2,}/'
+      ), $slug, $string);
+    $string = trim($string, $slug);
+
+    return strlen($string) ? $string : $slug;
+  }
+  
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR">
@@ -237,7 +284,7 @@
             <?php if(isset($_REQUEST['arquivo'])){ ?>
               var nome = "<?php echo substr($_REQUEST['arquivo'], 0, -4); ?>";
             <?php } else { ?>
-              var nome = "" + myMapOptions["longitude"] + myMapOptions["latitude"] + "-<?php echo date('d-m-Y-H-i-s'); ?>";
+              var nome = "<?php echo removerCaracter($_REQUEST['nome']); ?>-<?php echo date('d-m-Y-H-i-s'); ?>";
             <?php } ?>
 
             $.ajax(
@@ -379,7 +426,9 @@
                 map.panTo(location);
 
                 setTimeout(function(){
-                  alert("Coordenadas do ponto: " + location.lng() + " , " + location.lat());
+                  var mylat = location.lat() + "";
+                  var mylng = location.lng() + "";
+                  alert( "Coordenadas do ponto:  Latitude: " + mylat.substr(0, 7) + " , Longitude:" + mylng.substr(0, 7) );
 
                   marker.setMap(null);
 
@@ -626,7 +675,7 @@
         <script type="text/javascript">
             
           //get adress
-            <?php if(isset($_REQUEST['endereco'])){   
+            <?php if(isset($_REQUEST['endereco']) && isset($_REQUEST['nome'])){  
               echo "
               google.maps.event.addDomListener(window, 'load', function () 
               {

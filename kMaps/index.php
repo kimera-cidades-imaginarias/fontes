@@ -165,12 +165,15 @@
           <!-- Novo mapa -->
           <div role="tabpanel" class="tab-pane" id="novoMapa">
             <h2>01.</h2>
-            <p>Digite o endereço desejado para criar seu mapa no campo abaixo. Clique em navegar e comece a diversão.</p>
+            <p>Digite o nome e endereço desejado para criar seu mapa no campo abaixo. Clique em navegar e comece a diversão.</p>
 
             <hr />
 
             <form action="editor.php" method="POST" id="criarMapa">
               <div class="form-group">
+                <label for="endereco">Nome</label>
+                <input type="text" class="form-control input-large" id="nome" name="nome" placeholder="Nome: Salvador" required data-msg-required="Este campo não pode ser vazio!" >
+
                 <label for="endereco">Endereço</label>
                 <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro" required data-msg-required="Este campo não pode ser vazio!" >
               </div>
