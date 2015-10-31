@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<data>
+	<construcao>
+		<nome>Hotel</nome>
+		<categoria>Moradia</categoria>
+		<!-- Texto descritivo -->
+		<descricao>
+			<![CDATA[Hotel]]>
+		</descricao>
+		
+		<!-- Tamanho: quantas células do mapa a construção ocupará -->
+		<tamanho>3x3</tamanho>
+		
+		<tamanho_perspectiva/>
+		<areas_livres/>
+		
+		<!-- Arquivo SWF que representa visualmente a atualização. -->
+		<grafico>data/construcoes/funcional/icone_habitacoes_hotel.swf</grafico>
+	</construcao>
+
+	<niveis>
+		<nivel>
+			<nivel>1</nivel>
+			<nome>Hotel</nome>
+			
+			<!-- Exigências para que esse nível seja construido -->
+			<exigencias_construcao>
+			
+				<!-- Custo em dinheiro para fazer a atualização. -->
+				<custo>600</custo>
+				
+				<desabitados>20</desabitados>
+				
+				<habitados></habitados>
+				
+				<!-- Nível necessário para que o jogador adquira essa atualização -->
+				<nivel_jogador>1</nivel_jogador>
+				
+				<!-- Tempo que deve ter passado para que a construção esteja disponível.
+					 0 caso não tenha tempo.  -->
+				<tempo>0</tempo>
+				
+			</exigencias_construcao>
+			
+			<!-- Exigências para que esse nível seja demolido. -->
+			<exigencias_demolicao>
+			
+				<!-- Custo em dinheiro para fazer a demolição. -->
+				<custo>300</custo>
+						
+			</exigencias_demolicao>
+
+			<!-- Custo mensal de manutenção -->
+			<custo_manutencao>580</custo_manutencao>
+			
+			<!-- Tempo em milissegundos que a atualização levará para ficar pronta. -->
+			<tempo>10000</tempo>
+					
+			<!-- XPs que o jogador receberá ao adquirir esse nível -->
+			<xps>100</xps>
+			
+			<!-- Como aquela construção contribui com os níveis da cidade -->
+			<contribuicoes>
+				<contribuicao>
+					<!-- Esse nível atende a uma certa quantidade de pessoas
+						 em uma determinada área -->
+					<tipo>atendimento</tipo>
+					
+					<!-- Quantidade de pessoas atendida -->
+					<quantidade>100</quantidade>
+					
+					<!-- Em qual categoria esse atendimento será aplicado. -->
+					<categoria>Moradia</categoria>
+				</contribuicao>
+			</contribuicoes>
+		</nivel>
+	</niveis>
+</data>

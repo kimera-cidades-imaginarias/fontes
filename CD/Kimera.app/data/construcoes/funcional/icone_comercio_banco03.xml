@@ -2,11 +2,11 @@
 
 <data>
 	<construcao>
-		<nome>Banco</nome>
+		<nome>Banco Y</nome>
 		<categoria>Comércio</categoria>
 		<!-- Texto descritivo -->
 		<descricao>
-			<![CDATA[Banco]]>
+			<![CDATA[Banco Y]]>
 		</descricao>
 		
 		<!-- Tamanho: quantas células do mapa a construção ocupará -->
@@ -22,7 +22,7 @@
 	<niveis>
 		<nivel>
 			<nivel>1</nivel>
-			<nome>Banco</nome>
+			<nome>Banco Y</nome>
 			
 			<!-- Exigências para que esse nível seja construido -->
 			<exigencias_construcao>

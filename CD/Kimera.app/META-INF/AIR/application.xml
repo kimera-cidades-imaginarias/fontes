@@ -67,6 +67,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
     <image16x16>AppIconsForPublish/icon16.png</image16x16>
     <image32x32>AppIconsForPublish/icon32.png</image32x32>
     <image48x48>AppIconsForPublish/icon48.png</image48x48>
@@ -86,4 +94,5 @@
 </manifest>]]></manifestAdditions>
   </android>
   <supportedLanguages>pt</supportedLanguages>
-  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice </supportedProfiles></application>
+  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice </supportedProfiles>
+</application>

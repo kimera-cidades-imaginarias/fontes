@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<data>
+	<construcao>
+		<nome>Zoológico</nome>
+		<categoria>Lazer</categoria>
+		<!-- Texto descritivo -->
+		<descricao>
+			<![CDATA[Zoológico]]>
+		</descricao>
+		
+		<!-- Tamanho: quantas células do mapa a construção ocupará -->
+		<tamanho>5x5</tamanho>
+		
+		<tamanho_perspectiva/>
+		<areas_livres/>
+		
+		<!-- Arquivo SWF que representa visualmente a atualização. -->
+		<grafico>data/construcoes/funcional/icone_lazer_Zoologico.swf</grafico>
+	</construcao>
+
+	<niveis>
+		<nivel>
+			<nivel>1</nivel>
+			<nome>Zoológico</nome>
+			
+			<!-- Exigências para que esse nível seja construido -->
+			<exigencias_construcao>
+			
+				<!-- Custo em dinheiro para fazer a atualização. -->
+				<custo>100000</custo>
+				
+				<desabitados></desabitados>
+				
+				<habitados>5000</habitados>
+				
+				<!-- Nível necessário para que o jogador adquira essa atualização -->
+				<nivel_jogador>3</nivel_jogador>
+				
+				<!-- Tempo que deve ter passado para que a construção esteja disponível.
+					 0 caso não tenha tempo.  -->
+				<tempo>0</tempo>
+				
+			</exigencias_construcao>
+			
+			<!-- Exigências para que esse nível seja demolido. -->
+			<exigencias_demolicao>
+			
+				<!-- Custo em dinheiro para fazer a demolição. -->
+				<custo>500000</custo>
+						
+			</exigencias_demolicao>
+
+			<!-- Custo mensal de manutenção -->
+			<custo_manutencao>800000</custo_manutencao>
+			
+			<!-- Tempo em milissegundos que a atualização levará para ficar pronta. -->
+			<tempo>40000</tempo>
+					
+			<!-- XPs que o jogador receberá ao adquirir esse nível -->
+			<xps>800</xps>
+			
+			<!-- Como aquela construção contribui com os níveis da cidade -->
+			<contribuicoes>
+				<contribuicao>
+					<!-- Esse nível atende a uma certa quantidade de pessoas
+						 em uma determinada área -->
+					<tipo>atendimento</tipo>
+					
+					<!-- Quantidade de pessoas atendida -->
+					<quantidade>5000</quantidade>
+					
+					<!-- Em qual categoria esse atendimento será aplicado. -->
+					<categoria>Infraestrutura</categoria>
+				</contribuicao>
+			</contribuicoes>
+		</nivel>
+	</niveis>
+</data>
