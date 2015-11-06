@@ -1,11 +1,11 @@
 <?php
 	$name = $_REQUEST['name'];
+	$cidade = $_REQUEST['cidade'];
 	
 	$content =  '<?xml version="1.0" encoding="UTF-8"?>';
 	$content .= '<kml xmlns="http://www.opengis.net/kml/2.2">';
-		$content .= '<Document>';
+			$content .= '<cidade>' . $cidade . '</cidade>';
 			$content .= $_REQUEST['data'];
-		$content .= '</Document>';
 	$content .= '</kml>';
 
 	// Preparar objeto DOM

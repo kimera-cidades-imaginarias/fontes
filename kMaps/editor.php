@@ -108,6 +108,8 @@
           var directionsService = new google.maps.DirectionsService();
           var directionsDisplay = new google.maps.DirectionsRenderer();
 
+          var nomeCidade = "";
+
           var myMapOptions = {
             latitude: "",
             longitude: "",
@@ -182,6 +184,12 @@
           }
 
           function processKML(data) {
+            //nome da cidade
+            $(data).find("Cidade").each(function(index, value){
+              nomeCidade = $(this).text() ;
+              $('.nomeCidade').html("("+nomeCidade+")");
+            });
+            
             //placemark
             $(data).find("Placemark").each(function(index, value){
                 var name = $(this).find("name").text() ;
@@ -225,7 +233,7 @@
 
                   populateList();
                 }
-            })
+            });
 
             //camera
             $(data).find("Camera").each(function(index, value){
@@ -283,15 +291,17 @@
 
             <?php if(isset($_REQUEST['arquivo'])){ ?>
               var nome = "<?php echo substr($_REQUEST['arquivo'], 0, -4); ?>";
+              var cidade = nomeCidade;
             <?php } else { ?>
               var nome = "<?php echo removerCaracter($_REQUEST['nome']); ?>-<?php echo date('d-m-Y-H-i-s'); ?>";
+              var cidade = "<?php echo $_REQUEST['nome']; ?>";
             <?php } ?>
 
             $.ajax(
             {
                 type: 'POST',
                 url: 'action/creat.php',
-                data: { data: kml, name: nome  }
+                data: { data: kml, name: nome, cidade: cidade  }
             }).done(function(data) {
               //alert(data);
               $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php?tab=carregarMapa">aqui.</a></div>');
@@ -772,7 +782,7 @@
         </div>
 
         <div class="well span3 panelContrucao">
-            <p><b>Construções Criadas</b></p>
+            <p><b>Construções Criadas</b><br /><small <?php if(!isset($_REQUEST['nome'])){ echo 'class="nomeCidade"'; } ?> >(<?php if(isset($_REQUEST['nome'])){ echo $_REQUEST['nome']; } ?>)</small></p>
             
             <hr />
 
@@ -802,6 +812,7 @@
 
             <div role="tabpanel" class="tab-pane" id="tabs1">
               <ul class="lista">
+                <li><a href="academia" rel="tooltip" title="Academia"><img src="img/icone_comercio_academia.png" /></a></li>
                 <li><a href="banco-01" rel="tooltip" title="Banco 01"><img src="img/icone_comercio_banco01.png" /></a></li>
                 <li><a href="banco-02" rel="tooltip" title="Banco 02"><img src="img/icone_comercio_banco02.png" /></a></li>
                 <li><a href="banco-03" rel="tooltip" title="Banco 03"><img src="img/icone_comercio_banco03.png" /></a></li>
@@ -825,6 +836,7 @@
                 <li><a href="casa-de-luxo" rel="tooltip" title="Casa de Luxo"><img src="img/icone_habitacoes_casaluxo.png" /></a></li>
                 <li><a href="casa-media" rel="tooltip" title="Casa Média"><img src="img/icone_habitacoes_casamedia.png" /></a></li>
                 <li><a href="casa-simples" rel="tooltip" title="Casa Simples"><img src="img/icone_habitacoes_casasimples.png" /></a></li>
+                <li><a href="hotel" rel="tooltip" title="Hotel"><img src="img/icone_habitacoes_hotel.png" /></a></li>
                 <li><a href="predio-de-luxo" rel="tooltip" title="Prédio de Luxo"><img src="img/icone_habitacoes_predioluxo.png" /></a></li>
                 <li><a href="predio-medio" rel="tooltip" title="Prédio Medio"><img src="img/icone_habitacoes_prediomedio.png" /></a></li>
                 <li><a href="predio-simples" rel="tooltip" title="Prédio Simples"><img src="img/icone_habitacoes_prediosimples.png" /></a></li>
@@ -833,6 +845,7 @@
 
             <div role="tabpanel" class="tab-pane" id="tabs4">
               <ul class="lista">
+                <li><a href="aeroporto" rel="tooltip" title="Aeroporto"><img src="img/icone_infraestrutura_aeroporto.png" /></a></li>
                 <li><a href="bombeiros" rel="tooltip" title="Bombeiros"><img src="img/icone_infraestrutura_bombeiros.png" /></a></li>
                 <li><a href="ciclo-paque" rel="tooltip" title="Ciclo Parque"><img src="img/icone_infraestrutura_ciclo_paque.png" /></a></li>
                 <li><a href="delegacia" rel="tooltip" title="Delegacia"><img src="img/icone_infraestrutura_delegacia.png" /></a></li>
@@ -842,20 +855,22 @@
                 <li><a href="industria-de-reciclagem-de-lixo" rel="tooltip" title="Indùstria de Reciclagem de Lixo"><img src="img/icone_infraestrutura_industria_de_reciclagem_de_lixo.png" /></a></li>
                 <li><a href="parque-ecologico" rel="tooltip" title="Parque Ecológico"><img src="img/icone_infraestrutura_parque_ecologico.png" /></a></li>
                 <li><a href="posto-de-saude" rel="tooltip" title="Posto de Saúde"><img src="img/icone_infraestrutura_postodesaude.png" /></a></li>
+                <li><a href="rodoviaria" rel="tooltip" title="Rodoviária"><img src="img/icone_infraestrutura_rodoviaria.png" /></a></li>
                 <li><a href="termo-eletrica" rel="tooltip" title="Termoelétrica"><img src="img/icone_infraestrutura_termoeletrica.png" /></a></li>
                 <li><a href="usina-eolica" rel="tooltip" title="Usina Eólica"><img src="img/icone_infraestrutura_usina_eolica.png" /></a></li>
-                <li><a href="rodoviaria" rel="tooltip" title="Rodoviária"><img src="img/icone_rodoviaria.png" /></a></li>
-                <li><a href="aeroporto" rel="tooltip" title="Aeroporto"><img src="img/icone_aeroporto.png" /></a></li>
               </ul>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="tabs5">
               <ul class="lista">
                 <li><a href="estadio-de-futibol" rel="tooltip" title="Estádio de Futebol"><img src="img/icone_lazer_estadiofutebol.png" /></a></li>
+                <li><a href="praia" rel="tooltip" title="Praia"><img src="img/icone_lazer_praia.png" /></a></li>
                 <li><a href="restaurante-luxo" rel="tooltip" title="Restaurante de Luxo"><img src="img/icone_lazer_restauranteluxo.png" /></a></li>
                 <li><a href="restaurante-simples" rel="tooltip" title="Restaurante Simples"><img src="img/icone_lazer_restaurantesimples.png" /></a></li>
+                <li><a href="shopping" rel="tooltip" title="Shopping"><img src="img/icone_lazer_shopping.png" /></a></li>
                 <li><a href="sorveteria" rel="tooltip" title="Sorveteria"><img src="img/icone_lazer_sorveteria.png" /></a></li>
-                <li><a href="teatro" rel="tooltip" title="Teatro"><img src="img/icone_teatro.png" /></a></li>
+                <li><a href="teatro" rel="tooltip" title="Teatro"><img src="img/icone_lazer_teatro.png" /></a></li>
+                <li><a href="zoologico" rel="tooltip" title="Zoologico"><img src="img/icone_lazer_zoologico.png" /></a></li>
               </ul>
             </div>
 
