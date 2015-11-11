@@ -2123,6 +2123,7 @@
 				var n = 0;
 				var icone = new MovieClip();
 				var texto = new TextField();
+
 				texto.text = estrutura.GetNome();
 				icone.addChild(texto);
 				
@@ -2161,6 +2162,7 @@
 			{
 				var icone = new MovieClip();
 				var texto = new TextField();
+
 				texto.text = arrayEmissores[i].nome;
 				icone.addChild(texto);
 				
@@ -3019,16 +3021,17 @@
 						{
 							icone.addEventListener(MouseEvent.CLICK, seletorBotaoMobile);
 
-							icone.addEventListener(MouseEvent.MOUSE_DOWN, function(evt)	{ MostrarTooltip(evt, nivel.GetCusto(), nivel.GetDesabitados(), nivel.GetHabitados()) });
+							icone.addEventListener(MouseEvent.MOUSE_DOWN, function(evt)	{ MostrarTooltip(evt) });
 							icone.addEventListener(MouseEvent.MOUSE_UP, OcultarTooltip);
 						}
 						else
 						{
 							icone.addEventListener(MouseEvent.CLICK, AcoplarEstruturaSeletor);
 
-							icone.addEventListener(MouseEvent.MOUSE_OVER, function(evt)	{ MostrarTooltip(evt, nivel.GetCusto(), nivel.GetDesabitados(), nivel.GetHabitados()) });
+							icone.addEventListener(MouseEvent.MOUSE_OVER, function(evt)	{ MostrarTooltip(evt) });
 							icone.addEventListener(MouseEvent.MOUSE_OUT, OcultarTooltip);
 						}
+
 
 						if(Global.variables.modoEditor == false)
 						{
@@ -3881,15 +3884,9 @@
 		// <17> Tooltips diversos
 		//-----------------------------------
 		
-		function MostrarTooltip(evt, pr1 = null, pr2 = null, pr3 = null)
+		function MostrarTooltip(evt)
 		{
-			var tfn:TextFormat = new TextFormat();
-			tfn.color = 0x000000;
-
-			var tfr:TextFormat = new TextFormat();
-			tfr.color = 0xFF0000;
-
-
+			
 			if( Global.variables.android == true ){
 				adicionar_mc.addMobile.visible = true;
 				adicionar_mc.addMobile.nomeConstrucao.text = "POSICIONAR NO MAPA: " + evt.target.nomeEstrutura;
@@ -3900,13 +3897,9 @@
 			adicionar_mc.tooltipG_mc.nome_txt.text = 'Construção: ' + evt.target.nomeEstrutura;
 			adicionar_mc.tooltipG_mc.custo_txt.text = NumberFormat.FormatCurrency( evt.target.custo, 2, ',' , '.', 'K$ ' );
 
-
-			if( (Global.variables.modoEditor == false) && (pr1 > simulador.GetDinheiroDisponivel()) ){
-				adicionar_mc.tooltipG_mc.custo_txt.setTextFormat(tfr);
-			} else {
-				adicionar_mc.tooltipG_mc.custo_txt.setTextFormat(tfn);
-			}
-
+			var tfn:TextFormat = new TextFormat();
+			tfn.color = 0x000000;
+			adicionar_mc.tooltipG_mc.requisito_txt.setTextFormat(tfn);
 
 			//if(Global.variables.modoEditor == false)
 			//{	
@@ -3929,13 +3922,17 @@
 				if(evt.target.desabitados > 0)
 				{
 					adicionar_mc.tooltipG_mc.requisito_txt.text = "Pessoas sem casa: " + evt.target.desabitados;
+				} 
+
+				if( (evt.target.desabitados > simulador.GetPopulacao()) || (evt.target.habitados > simulador.GetHabitados())) 
+				{
+					if(Global.variables.modoEditor == false){
+						var tfr:TextFormat = new TextFormat();
+						tfr.color = 0xFF0000;
+						adicionar_mc.tooltipG_mc.requisito_txt.setTextFormat(tfr);
+					}
 				}
 
-				if( (Global.variables.modoEditor == false) && ( (pr2 > simulador.GetPopulacao()) || (pr3 > simulador.GetHabitados()) ) ){
-					adicionar_mc.tooltipG_mc.requisito_txt.setTextFormat(tfr);
-				} else {
-					adicionar_mc.tooltipG_mc.requisito_txt.setTextFormat(tfn);
-				}
 
 			//}
 			//else

@@ -55,7 +55,7 @@
 			<custo_manutencao>800000</custo_manutencao>
 			
 			<!-- Tempo em milissegundos que a atualização levará para ficar pronta. -->
-			<tempo>40000</tempo>
+			<tempo>10000</tempo>
 					
 			<!-- XPs que o jogador receberá ao adquirir esse nível -->
 			<xps>800</xps>
