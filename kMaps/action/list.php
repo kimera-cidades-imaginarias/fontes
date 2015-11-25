@@ -19,26 +19,34 @@
 <script type="text/javascript">
 	$(function(){
 	    $(".delete").click(function(){
-	 
-	        var a = $(this).attr('title');
 
-	        $.ajax({
-	            type: "POST",
-	            data: { name:a },
-	            url: "action/delete.php",
-	            dataType: "html",
+	    	s=prompt('Senha de confirmação: ','*****');
 
-	            success: function(result){
-	            	window.location = 'index.php?tab=carregarMapa';
-	            	//document.location.reload(true);
-	            },
-	            beforeSend: function(){
-	                
-	            },
-	            complete: function(msg){
-	                
-	            }
-	        });
+	    	if(s == "123@kmaps"){
+	    		var a = $(this).attr('title');
+
+		        $.ajax({
+		            type: "POST",
+		            data: { name:a },
+		            url: "action/delete.php",
+		            dataType: "html",
+
+		            success: function(result){
+		            	window.location = 'index.php?tab=carregarMapa';
+		            	//document.location.reload(true);
+		            },
+		            beforeSend: function(){
+		                
+		            },
+		            complete: function(msg){
+		                
+		            }
+		        });
+	    	}
+	    	else
+	    	{
+	    		alert("Senha incorreta!");
+	    	}
 
 	    });	     
 	});

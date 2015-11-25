@@ -130,7 +130,7 @@
               zoomControl: true,
               mapTypeControl: true,
               scaleControl: false,
-              streetViewControl: false,
+              streetViewControl: true,
               overviewMapControl: true
 
             }
@@ -145,6 +145,8 @@
 
             google.maps.event.addListener(map, 'zoom_changed', function() {
               zoomLevel = map.getZoom();
+
+              resizeAllMarkers(map);
             });
 
             zoomLevel = map.getZoom();
@@ -203,10 +205,18 @@
                 var latitude = coordinates[1] ;
 
                 if(name && longitude && latitude){
+                  var image = {
+                    url: icon,
+                    size: new google.maps.Size(150, 150),
+                    origin: new google.maps.Point(0,0),
+                    anchor: new google.maps.Point(0, 0),
+                    scaledSize: new google.maps.Size(100, 100)
+                  };
+
                   var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(latitude, longitude),
                     title: name,
-                    icon: icon,
+                    icon: image,
                     map: map, 
                     draggable:true
                   });
@@ -265,7 +275,7 @@
               kmlFile += '<Style id="icon'+i+'">';
                 kmlFile += '<IconStyle>';
                   kmlFile += '<Icon>';
-                    kmlFile += "<href>"+markers[i].getIcon()+"</href>";
+                    kmlFile += "<href>"+markers[i].getIcon().url+"</href>";
                   kmlFile += '</Icon>';
                 kmlFile += '</IconStyle>';
               kmlFile += '</Style>';
@@ -304,7 +314,7 @@
                 data: { data: kml, name: nome, cidade: cidade  }
             }).done(function(data) {
               //alert(data);
-              $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php?tab=carregarMapa">aqui.</a></div>');
+              $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php?tab=carregarMapa">aqui.</a></div>').delay( 4000 ).fadeOut( 400 );
             });
           }
 
@@ -494,12 +504,21 @@
               } else {
 
                 if( coliderMarkerCheck(location, true, null) == true ){
+                  var image = {
+                    url: 'https://kimera4.websiteseguro.com/kmaps/img/' + cursor["img"] + '.png',
+                    size: new google.maps.Size(150, 150),
+                    origin: new google.maps.Point(0,0),
+                    anchor: new google.maps.Point(0, 0),
+                    scaledSize: new google.maps.Size(100, 100)
+                  };
+
                   var marker = new google.maps.Marker({
                     position: location,
                     title: cursor["title"],
                     draggable:true,
                     animation: google.maps.Animation.DROP,
-                    icon: 'https://kimera4.websiteseguro.com/kmaps/img/' + cursor["img"] + '.png', //endereco completo
+                    //icon: 'https://kimera4.websiteseguro.com/kmaps/img/' + cursor["img"] + '.png', //endereco completo
+                    icon: image,
                     map: map
                   });
 
@@ -640,10 +659,14 @@
           }
 
           function removeMarker(index){
-            markers[index].setMap(null);
+            var r = confirm("Voce tem certeza que deseja remover esta construção?");
+                  
+            if (r == true) {
+              markers[index].setMap(null);
 
-            markers.splice(index, 1);
-            populateList();
+              markers.splice(index, 1);
+              populateList();
+            } 
           }
 
           function editMarker(index){
@@ -666,6 +689,22 @@
           function setAllMap(map) {
             for (var i = 0; i < markers.length; i++) {
               markers[i].setMap(map);
+            }
+          }
+
+          function resizeAllMarkers(map) {
+            for (var i = 0; i < markers.length; i++) {
+
+              if(zoomLevel < 17){
+                markers[i].getIcon().scaledSize = new google.maps.Size(zoomLevel, zoomLevel);
+               markers[i].setMap(map);
+              }
+              else
+              {
+                markers[i].getIcon().scaledSize = new google.maps.Size(4*zoomLevel, 4*zoomLevel);
+               markers[i].setMap(map);
+              }
+             
             }
           }
 
@@ -744,6 +783,22 @@
 
                 return false;
               });
+
+              //auto save
+              time =1;
+
+              setInterval( function() {
+                  
+                  time++;
+                  
+                  $('#time').html(time);
+                  
+                  if (time % 300 == 0) {
+                     saveKML();
+                  }    
+                  
+                  
+              }, 1000 );
 
               //salvar
               $( "#salvar" ).click(function(e) {
