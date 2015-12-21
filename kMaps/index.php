@@ -232,6 +232,7 @@
 
                 <h5>Arte e Design</h5>
                 <ul>
+                  <li>Evaldo Nascimento</li>
                   <li>Josemeira Machado Dias</li>
                   <li>Taís Rocha Ribeiro</li>
                 </ul>

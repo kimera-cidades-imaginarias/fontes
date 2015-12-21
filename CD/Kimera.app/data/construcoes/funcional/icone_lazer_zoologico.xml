@@ -16,7 +16,7 @@
 		<areas_livres/>
 		
 		<!-- Arquivo SWF que representa visualmente a atualização. -->
-		<grafico>data/construcoes/funcional/icone_lazer_Zoologico.swf</grafico>
+		<grafico>data/construcoes/funcional/icone_lazer_zoologico.swf</grafico>
 	</construcao>
 
 	<niveis>

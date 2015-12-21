@@ -240,6 +240,7 @@
 		
 		// Se o jogador ficar tanto tempo sem interagir com o jogo, pausará automaticamente.
 		var timerMouse : Timer = new Timer(1000);
+		var timerGame : Timer = new Timer(1000);
 		
 		// Ludens
 		var ludensUtil : LudensUtil = new LudensUtil('KIMERA');
@@ -484,6 +485,7 @@
 			//botaoPausa_btn.addEventListener( MouseEvent.CLICK, Pausar );
 
 			timerMouse.addEventListener(TimerEvent.TIMER, controleOcioso);
+			timerGame.addEventListener(TimerEvent.TIMER, AtualizaTurno);//pedro
 		}
 
 		public function controleOcioso(e:TimerEvent):void{
@@ -880,6 +882,8 @@
 			cronometroFase.Iniciar();
 			
 			VerificarNovaFase(fase.GetNumero());
+		
+			timerGame.start();
 		}
 		
 		function ZerarValores()
@@ -1157,7 +1161,7 @@
 			
 			simulador.addEventListener(EventoSimulador.MENSAGEM			   , ReceberMensagem);
 			
-			simulador.addEventListener(EventoSimulador.TURNO			   , AtualizaTurno);
+			//simulador.addEventListener(EventoSimulador.TURNO			   , AtualizaTurno);
 			simulador.addEventListener(EventoSimulador.INDICE			   , AtualizaIndice);
 			simulador.addEventListener(EventoSimulador.DESEMPENHO		   , AtualizaBarraDesempenho);
 			simulador.addEventListener(EventoSimulador.POPULACAO		   , MudancaPopulacao);
@@ -1323,7 +1327,7 @@
 			menu_visualizacao.visible = true;
 			tooltipAlterarVisualizacao.visible = false;
 
-			menu_visualizacao.btn_rotas.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
+			//menu_visualizacao.btn_rotas.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_satelite.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_tereno.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_hibrido.addEventListener(MouseEvent.CLICK, AlterarVisualizacao);
@@ -1340,7 +1344,7 @@
 		function OcultarPainelVisualizacao(evt = null){
 			menu_visualizacao.visible = false;
 
-			menu_visualizacao.btn_rotas.removeEventListener(MouseEvent.CLICK, AlterarVisualizacao);
+			//menu_visualizacao.btn_rotas.removeEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_satelite.removeEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_tereno.removeEventListener(MouseEvent.CLICK, AlterarVisualizacao);
 			menu_visualizacao.btn_hibrido.removeEventListener(MouseEvent.CLICK, AlterarVisualizacao);
@@ -1367,12 +1371,14 @@
 
 			loaderMap.contentLoaderInfo.addEventListener( Event.COMPLETE, alteraTextura );
 
+			/*
 			if( evt.target.name == "btn_rotas" ){
 				//loaderMap.load( new URLRequest( simulador.GetFase().texturas[0].caminho + "&tipo=roadmap" ) );
 				//loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'.jpg' ) );
 				loaderMap.load( new URLRequest( Arquivo.enderecamento( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'.jpg' )) );
 			}
-
+			*/
+			
 			if( evt.target.name == "btn_satelite" ){
 				//loaderMap.load( new URLRequest( simulador.GetFase().texturas[0].caminho + "&tipo=satellite" ) );
 				//loaderMap.load( new URLRequest( Arquivo.GetPastaAplicacao(false) + 'data' + Arquivo.GetSeparador() + 'texturas' + Arquivo.GetSeparador() + Global.variables.faseConstrucao +'-satellite.jpg' ) );
@@ -1521,6 +1527,7 @@
 		
 		public function FimFase()
 		{
+			timerGame.stop();
 			if(timerMouse != null)
 				timerMouse.stop();
 			timerMouse = null;
@@ -3254,7 +3261,7 @@
 					castelo_mc.atualizar();
 					//castelo_mc.visible = true;
 					
-					if(evt)
+					if(evt) //jason
 					{						
 						graficoClicado = evt.data.grafico;
 						
@@ -3429,7 +3436,7 @@
 			fade_mc.alpha 	= atualizar_mc.alpha = 0;
 			fadeSuperior_mc.alpha = atualizar_mc.alpha = 0;
 						
-			if(evt)
+			if(evt)//jason
 			{
 				ReproduzirEmissorInterno();
 				
@@ -3499,13 +3506,50 @@
 		*	disparado pelo simulador.
 		*
 		*******/
-		function AtualizaTurno(evt)
+
+		var minuto = 0;		
+		var segundo = 0;
+
+		var minutosrt:String = "";
+		var segundosrt:String = "";
+
+		function AtualizaTurno(evt = null)
 		{
-			var turno = evt.data.turno < 10 ? "0" + evt.data.turno : evt.data.turno;
-			relogio_mc.placa_mc.turnos_txt.text = turno;
+			//var turno = evt.data.turno < 10 ? "0" + evt.data.turno : evt.data.turno;
+			//relogio_mc.placa_mc.turnos_txt.text = turno;
 						
 			// Acaba fase baseado nas metas cumpridas
 			//VerificarMetasCumpridas();
+
+			if(segundo < 60)
+			{
+				segundo++;
+			}
+			else
+			{
+				segundo = 0;
+				minuto++;
+			}
+
+			if(segundo<10){
+				segundosrt = "0"+segundo;
+			}
+			else
+			{
+				segundosrt = segundo;
+			}
+
+			if(minuto<10){
+				minutosrt = "0"+minuto;
+			}
+			else
+			{
+				minutosrt = minutosrt;
+			}
+
+			relogio_mc.placa_mc.turnos_txt.text = minutosrt + ":" + segundosrt;
+
+
 		}
 		
 		/***
@@ -3517,20 +3561,24 @@
 		function ProgressoTurno(evt)
 		{
 			/**** Calculando porcentagem da placa e frame do brilho do relógio ****/
-			var frameBrilho = Math.floor(evt.data.percentagem * 100);
+			//var frameBrilho = Math.floor(evt.data.percentagem * 100);
 			var tempoFase = dataLoader.GetFase().GetTempoConclusao();
 			var tempoCorrido = simulador.GetTempoTotalFase();
 			var porcentagem = Math.floor( ( tempoCorrido / tempoFase ) * 100 );
 			
-			if(porcentagem <= 100) /*logio_mc.placa_mc.porcentagem_txt.text = porcentagem + "%";*/
+			//if(porcentagem <= 100) /*logio_mc.placa_mc.porcentagem_txt.text = porcentagem + "%";*/
 			
-			if((( porcentagem / 100 ) * CELULAS_RELOGIO) <= 16) /*logio_mc.brilho_mc.gotoAndStop( frameBrilho );*/
+			//if((( porcentagem / 100 ) * CELULAS_RELOGIO) <= 16) /*logio_mc.brilho_mc.gotoAndStop( frameBrilho );*/
 						
 			/***** Calculando o a cor da célula do relógio e o possível fim de jogo *****/
-			var frameCelula = Math.floor( ( porcentagem / 100 ) * CELULAS_RELOGIO );
+			//var frameCelula = Math.floor( ( porcentagem / 100 ) * CELULAS_RELOGIO );
 			//relogio_mc.barraCores_mc.gotoAndStop( frameCelula );
 
-			if( frameCelula >= CELULAS_RELOGIO )
+			//trace(tempoFase);
+			//trace(tempoCorrido);
+
+			if( !Global.variables.modoEditor && tempoCorrido >= tempoFase ) //jason
+			//if( frameCelula >= CELULAS_RELOGIO )
 			{
 //				var turnoAtual = simulador.GetTurnoAtual() + 1;
 //				if(turnoAtual < 10) turnoAtual = "0" + turnoAtual;
@@ -3632,7 +3680,7 @@
 					custo = estrutura.GetNivel(0).GetCusto();
 				}
 				
-				if((custo <= simulador.GetDinheiroDisponivel()) && (shiftPressed || vaiAdicionar))
+				if((custo <= simulador.GetDinheiroDisponivel()) && (shiftPressed || vaiAdicionar)) //jason
 				{
 					// Posição do cursor em coordenadas isométricas.
 					if( Global.variables.android == true )
@@ -3642,12 +3690,15 @@
 					}
 					else
 					{
-						var mousePos 	  = new Point((container_mc.mouseX - 1024/2) / render.GetZoom(),
-													  (container_mc.mouseY - 768/2)  / render.GetZoom());
+						
+						var mousePos 	  = new Point(((container_mc.mouseX/ render.GetZoom()) - (1024/2)),
+													  ((container_mc.mouseY/ render.GetZoom()) - (768/2)) 
+												);
+					
 					}
 					
-					var mouseIsoPoint = IsoMath.screenToIso(new Pt(mousePos.x  + render.pan.x, 
-																   mousePos.y  + render.pan.y), false);
+					var mouseIsoPoint = IsoMath.screenToIso(new Pt((mousePos.x  + (render.pan.x)), 
+																   (mousePos.y  + (render.pan.y))), false);
 						
 					// Identifica a célula sobre a qual o cursor do mouse se encontra.
 					var mouseCellPos = new Point( Math.floor( mouseIsoPoint.x / FaseRender.CELL_SIZE ),
@@ -3738,7 +3789,7 @@
 			trace('fase render size: '+FaseRender.CELL_SIZE);
 
 			//Configura o tamanho do seletor e o exibe.
-			seletor.setSize(tamanhoSeletor.x * FaseRender.CELL_SIZE, tamanhoSeletor.y * FaseRender.CELL_SIZE, 0); 
+			seletor.setSize(tamanhoSeletor.x * FaseRender.CELL_SIZE, tamanhoSeletor.y * FaseRender.CELL_SIZE, 0);
 			seletor.container.visible = true;
 			
 			OcultarMenuConstrucao(null);

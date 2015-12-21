@@ -207,7 +207,7 @@
                 if(name && longitude && latitude){
                   var image = {
                     url: icon,
-                    size: new google.maps.Size(150, 150),
+                    size: new google.maps.Size(150, 90),
                     origin: new google.maps.Point(0,0),
                     anchor: new google.maps.Point(0, 0),
                     scaledSize: new google.maps.Size(100, 100)
@@ -314,7 +314,8 @@
                 data: { data: kml, name: nome, cidade: cidade  }
             }).done(function(data) {
               //alert(data);
-              $("#info").html('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php?tab=carregarMapa">aqui.</a></div>').delay( 4000 ).fadeOut( 400 );
+              var item = $('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php?tab=carregarMapa">aqui.</a></div>').delay( 4000 ).fadeOut( 400 );
+              $("#info").append(item);
             });
           }
 
@@ -506,7 +507,7 @@
                 if( coliderMarkerCheck(location, true, null) == true ){
                   var image = {
                     url: 'https://kimera4.websiteseguro.com/kmaps/img/' + cursor["img"] + '.png',
-                    size: new google.maps.Size(150, 150),
+                    size: new google.maps.Size(150, 90),
                     origin: new google.maps.Point(0,0),
                     anchor: new google.maps.Point(0, 0),
                     scaledSize: new google.maps.Size(100, 100)
