@@ -880,7 +880,7 @@
 			qtdVezesEmprestimoFase = 0;
 			cronometroFase = new Cronometro();
 			cronometroFase.Iniciar();
-			
+			 
 			VerificarNovaFase(fase.GetNumero());
 		
 			timerGame.start();
@@ -888,6 +888,8 @@
 		
 		function ZerarValores()
 		{
+			timerGame.reset();
+			
 			relogio_mc.placa_mc.turnos_txt.text = 0;
 			populacao_mc.quantidade_txt.text = 0;
 			habitados_mc.quantidade_txt.text = 0;
@@ -3544,12 +3546,10 @@
 			}
 			else
 			{
-				minutosrt = minutosrt;
+				minutosrt = minuto;
 			}
 
 			relogio_mc.placa_mc.turnos_txt.text = minutosrt + ":" + segundosrt;
-
-
 		}
 		
 		/***
@@ -3691,10 +3691,10 @@
 					else
 					{
 						
-						var mousePos 	  = new Point(((container_mc.mouseX/ render.GetZoom()) - (1024/2)),
-													  ((container_mc.mouseY/ render.GetZoom()) - (768/2)) 
+						var mousePos 	  = new Point(((container_mc.mouseX/ render.GetZoom()) - ((1024/2)/ render.GetZoom())),
+													  ((container_mc.mouseY/ render.GetZoom()) - ((768/2)/ render.GetZoom())) 
 												);
-					
+						
 					}
 					
 					var mouseIsoPoint = IsoMath.screenToIso(new Pt((mousePos.x  + (render.pan.x)), 
