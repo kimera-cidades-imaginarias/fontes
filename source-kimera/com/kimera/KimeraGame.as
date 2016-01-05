@@ -145,15 +145,16 @@
 					if(nomeEstrutura == "Universidade"){
 						universidade = true;
 					}
+					
 					if(nomeEstrutura == "Termoelétrica") {
 						usina = true;
 					}
 					
 					if(universidade && usina){
 						_game.simulador.SetVariavel("Fase1", "6");
+						
+						return;
 					}
-
-					return;
 				}
 				
 				if(_game.simulador.GetVariavel("Fase1") == "7"){
@@ -176,9 +177,9 @@
 						_game.RemoverFiltros(3);
 						
 						_game.simulador.SetVariavel("Fase2", "3");
-					}
-
-					return;
+						
+						return;
+					}					
 				}
 
 				if(_game.simulador.GetVariavel("Fase2") == "3"){
@@ -187,15 +188,16 @@
 						_game.RemoverFiltros(3);
 						
 						_game.simulador.SetVariavel("Fase2", "4");
+						
+						return;
 					}
-
-					return;
 				}
 
 				if(_game.simulador.GetVariavel("Fase2") == "4"){
 					if(nomeEstrutura == "Posto de Saúde"){
 						estacaoTratamento = true;
 					}
+					
 					if(nomeEstrutura == "Hospital") {
 						hospital = true;
 					}
@@ -205,9 +207,9 @@
 						_game.RemoverFiltros(3);
 
 						_game.simulador.SetVariavel("Fase2", "5");
-					}
-
-					return;
+						
+						return;
+					}	
 				}
 
 				if(_game.simulador.GetVariavel("Fase2") == "7"){
@@ -216,18 +218,18 @@
 						_game.RemoverFiltros(3);
 						
 						_game.simulador.SetVariavel("Fase2", "8");
+						
+						return;
 					}
-
-					return;
 				}
 
 				if(_game.simulador.GetVariavel("Fase2") == "10"){
 					if(nomeEstrutura == "Estação de Tratamento de Água")
 					{
 						_game.simulador.SetVariavel("Fase2", "11");
-					}
-
-					return;
+						
+						return;
+					}	
 				}
 			}
 
@@ -238,18 +240,18 @@
 					if(nomeEstrutura == "Indústria de Reciclagem de Lixo"){
 						
 						_game.simulador.SetVariavel("Fase3", "2");
+						
+						return;
 					}
-
-					return;
 				}
 
 				if(_game.simulador.GetVariavel("Fase3") == "4"){
 					if(nomeEstrutura == "Usina Eólica")
 					{
 						_game.simulador.SetVariavel("Fase3", "5");
-					}
-
-					return;
+						
+						return;
+					}					
 				}
 			}
 		}
