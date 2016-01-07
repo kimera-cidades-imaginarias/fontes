@@ -890,6 +890,8 @@
 		{
 			timerGame.reset();
 			
+			this.RessetarTurno();
+			
 			relogio_mc.placa_mc.turnos_txt.text = 0;
 			populacao_mc.quantidade_txt.text = 0;
 			habitados_mc.quantidade_txt.text = 0;
@@ -3348,7 +3350,7 @@
 						stageObj.addChild(minigame);
 						OcultarTodas();
 					}
-				}
+				} else {
 
 				atualizar_mc.descricao_txt.text		= construcaoClicada.GetNivel().GetDescricao();
 				atualizar_mc.excluir_btn.visible 	= true;
@@ -3416,6 +3418,7 @@
 				
 				ValidarBotaoAtualizar();
 				atualizarPopupEstrutura = setInterval(ValidarBotaoAtualizar, 1000);
+				}
 			}
 			
 			/******** Caso 2: construção decorativa *******/
@@ -3514,6 +3517,12 @@
 
 		var minutosrt:String = "";
 		var segundosrt:String = "";
+		
+		function RessetarTurno(evt = null)
+		{
+			minuto = 0;
+			segundo = 0;
+		}
 
 		function AtualizaTurno(evt = null)
 		{
@@ -3523,14 +3532,14 @@
 			// Acaba fase baseado nas metas cumpridas
 			//VerificarMetasCumpridas();
 
-			if(segundo < 60)
-			{
-				segundo++;
-			}
-			else
+			if(segundo == 59)
 			{
 				segundo = 0;
 				minuto++;
+			}
+			else
+			{
+				segundo++;
 			}
 
 			if(segundo<10){

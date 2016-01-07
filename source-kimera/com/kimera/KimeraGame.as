@@ -109,8 +109,14 @@
 			this.jequitibaConstruido = false;
 			this.usina 				 = false;
 			this.universidade		 = false;
-			this.estacaoTratamento 	 = false;
+			this.bombeiros 			 = false;
+			this.delegacia			 = false;
+			this.postoSaude			 = false;
 			this.hospital			 = false;
+			this.cicloParque		 = false;
+			this.estacaoTratamento 	 = false;
+			this.industriaReciclagem = false;
+			this.usinaEolica		 = false;
 
 			trace('reiniciada ' + jequitibaConstruido);
 		}
@@ -173,6 +179,10 @@
 
 				if(_game.simulador.GetVariavel("Fase2") == "2"){
 					if(nomeEstrutura == "Bombeiros"){
+						this.bombeiros = true;
+					}
+					
+					if(this.bombeiros){
 						_game.MostrarAlertaDesastre(2);
 						_game.RemoverFiltros(3);
 						
@@ -184,6 +194,10 @@
 
 				if(_game.simulador.GetVariavel("Fase2") == "3"){
 					if(nomeEstrutura == "Delegacia"){
+						this.delegacia = true;
+					}
+					
+					if(this.delegacia){
 						_game.MostrarAlertaDesastre(2);
 						_game.RemoverFiltros(3);
 						
@@ -195,14 +209,14 @@
 
 				if(_game.simulador.GetVariavel("Fase2") == "4"){
 					if(nomeEstrutura == "Posto de Saúde"){
-						estacaoTratamento = true;
+						this.postoSaude = true;
 					}
 					
 					if(nomeEstrutura == "Hospital") {
-						hospital = true;
+						this.hospital = true;
 					}
 					
-					if(estacaoTratamento && hospital){
+					if(this.postoSaude && this.hospital){
 						_game.MostrarAlertaDesastre(2);
 						_game.RemoverFiltros(3);
 
@@ -214,6 +228,10 @@
 
 				if(_game.simulador.GetVariavel("Fase2") == "7"){
 					if(nomeEstrutura == "Ciclo Parque"){
+						this.cicloParque = true;
+					}
+					
+					if(this.cicloParque){
 						_game.MostrarAlertaDesastre(2);
 						_game.RemoverFiltros(3);
 						
@@ -226,6 +244,10 @@
 				if(_game.simulador.GetVariavel("Fase2") == "10"){
 					if(nomeEstrutura == "Estação de Tratamento de Água")
 					{
+						this.estacaoTratamento = true;
+					}
+					
+					if(this.estacaoTratamento){
 						_game.simulador.SetVariavel("Fase2", "11");
 						
 						return;
@@ -238,7 +260,10 @@
 
 				if(_game.simulador.GetVariavel("Fase3") == "1"){
 					if(nomeEstrutura == "Indústria de Reciclagem de Lixo"){
-						
+						this.industriaReciclagem = true;
+					}
+					
+					if(this.industriaReciclagem){
 						_game.simulador.SetVariavel("Fase3", "2");
 						
 						return;
@@ -248,6 +273,10 @@
 				if(_game.simulador.GetVariavel("Fase3") == "4"){
 					if(nomeEstrutura == "Usina Eólica")
 					{
+						this.usinaEolica = true;
+					}
+					
+					if(this.usinaEolica){
 						_game.simulador.SetVariavel("Fase3", "5");
 						
 						return;
@@ -751,9 +780,7 @@
 		var jequitibaConstruido : Boolean = false;
 		var usina 				: Boolean = false;
 		var universidade		: Boolean = false;
-		var estacaoTratamento 	: Boolean = false;
-		var hospital			: Boolean = false;
-
+		
 		var posicaoNorte : Point;
 
 		public function f1PlantarSemente() : void
@@ -902,6 +929,12 @@
 		/******************************
 		 * Fase 2 
 		 ******************************/
+		var bombeiros			: Boolean = false;
+		var delegacia			: Boolean = false;
+		var postoSaude			: Boolean = false;
+		var hospital			: Boolean = false;
+		var cicloParque			: Boolean = false;
+		var estacaoTratamento 	: Boolean = false;
 
 		protected function f2FimCutscene1() : void
 		{
@@ -918,6 +951,9 @@
 		 * Fase 3 
 		 ******************************/
 
+		var industriaReciclagem	: Boolean = false;
+		var usinaEolica		 	: Boolean = false;
+		
 		protected function f3FimCutscene2() : void
 		{
 			_game.MostrarTelaPreta(false);
