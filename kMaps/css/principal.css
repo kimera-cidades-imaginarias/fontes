@@ -43,7 +43,7 @@ ul.lista li img{
 }
 
 #map{
-    height: 500px;
+    height: 520px;
 }
 
 .panelContrucao{
@@ -51,7 +51,7 @@ ul.lista li img{
 }
 
 .panelFerramentas{
-     height: 128px;
+     height: 150px;
 }
 
 .panelFerramentas a{
@@ -92,4 +92,10 @@ hr{
     float: right;
     margin-top: 40px;
      box-shadow: 5px 5px 5px #888888;
+}
+
+#help #closeHelp{
+    position: absolute;
+    margin-top: -410px;
+    margin-left: 150px;
 }

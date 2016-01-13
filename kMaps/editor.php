@@ -104,6 +104,7 @@
           var iconTemp = null;
           var zoomLevel = 0;
           var locationTemp = null;
+          var my_timer = null;
 
           var directionsService = new google.maps.DirectionsService();
           var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -153,7 +154,11 @@
 
             //prof. daniel
             $( "#help .balao" ).html("Agora é com você!<br /> Use sua criatividade para modificar o mapa, <br />adicionando novas construções e explorando<br /> as ferramentas de geolocalização.");
-            $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
+            $( "#help" ).fadeIn( 400 );
+
+            my_timer = setTimeout(function () {
+                $( "#help" ).fadeOut( 400 );
+            }, 6000);
           }
 
           function loadKmlLayer(file, map) {
@@ -314,7 +319,7 @@
                 data: { data: kml, name: nome, cidade: cidade  }
             }).done(function(data) {
               //alert(data);
-              var item = $('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas clicando <a href="index.php?tab=carregarMapa">aqui.</a></div>').delay( 4000 ).fadeOut( 400 );
+              var item = $('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas através da aba Carregar Mapa na página inicial.</div>').delay( 12000 ).fadeOut( 400 );
               $("#info").append(item);
             });
           }
@@ -764,22 +769,38 @@
                 //help
                   if( $(this).attr('href') == "area" ){
                     $( "#help .balao" ).html("Aplique 4 pontos no mapa para <br />calcular a área do terreno.");
-                    $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
+                    $( "#help" ).fadeIn( 400 );
+
+                    my_timer = setTimeout(function () {
+                        $( "#help" ).fadeOut( 400 );
+                    }, 6000);
                   }
 
                   if( $(this).attr('href') == "ponto" ){
                     $( "#help .balao" ).html("Aplique 2 pontos no mapa para <br />medir a distância entre eles.");
-                    $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
+                    $( "#help" ).fadeIn( 400 );
+
+                    my_timer = setTimeout(function () {
+                        $( "#help" ).fadeOut( 400 );
+                    }, 6000);
                   }
 
                   if( $(this).attr('href') == "coordenada" ){
                     $( "#help .balao" ).html("Aplique um ponto na tela para <br />saber a coordenada do local.");
-                    $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
+                    $( "#help" ).fadeIn( 400 );
+
+                    my_timer = setTimeout(function () {
+                        $( "#help" ).fadeOut( 400 );
+                    }, 6000);
                   }
 
                   if( $(this).attr('href') == "rota" ){
                     $( "#help .balao" ).html("Aplique 2 pontos no mapa para <br />medir a distância entre a <br />rota demarcada.");
-                    $( "#help" ).fadeIn( 400 ).delay( 6000 ).fadeOut( 400 );
+                    $( "#help" ).fadeIn( 400 );
+
+                    my_timer = setTimeout(function () {
+                        $( "#help" ).fadeOut( 400 );
+                    }, 6000);
                   }
 
                 return false;
@@ -804,6 +825,14 @@
               //salvar
               $( "#salvar" ).click(function(e) {
                 saveKML();
+
+                return false;
+              });
+
+              //ajuda
+              $( "#closeHelp" ).click(function(e) {
+                $( "#help" ).fadeOut( 400 );
+                clearTimeout(my_timer);
 
                 return false;
               });
@@ -834,6 +863,7 @@
           <div id="help">
             <img src="img/help.png">
             <p class="balao"></p>
+            <a href="#" id="closeHelp"><img src="img/close_icon.png" /></a>
           </div>
         </div>
 
@@ -850,6 +880,7 @@
         <div class="well span3 panelFerramentas">
             <p><a href="#" class="btn span12 inicial">Menu Inicial</a></p>
             <p><a href="#" class="btn span12" id="salvar">Salvar Construções</a></p>
+            <p><a href="files/manual.pdf" class="btn span12" id="manual" target="_blank">Manual de Acesso e Uso</a></p>
         </div>
       </div>
 

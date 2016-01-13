@@ -132,6 +132,7 @@
             <p>O K-Maps é uma expansão do jogo-simulador Kimera – Cidades Imaginárias, jogável diretamente através do navegador, sem necessidade de instalação.</p>
             <p>É possível criar mapas jogáveis a partir de qualquer localidade real de nosso planeta Terra, possibilitando experimentações sobre o espaço e lugar, inserindo novos elementos e modificando a paisagem através de diversos tipos de construções organizadas em 05 diferentes categorias: Comércio, Educação, Habitações, Infraestrutura e Lazer.</p>
             <p>Também é possível utilizar diversas ferramentas, como cálculo de distâncias, cálculo de área, traçar rotas de trânsito e medir a distância entre dois pontos, graças à integração com a API (Interface de Programação de Aplicativos) do Google Maps.</p>
+            <p>Para visualizar o Manual de acesso e uso, <a href="files/manual.pdf" target="_blank">clique aqui</a>.</p>
 
             <hr />
 

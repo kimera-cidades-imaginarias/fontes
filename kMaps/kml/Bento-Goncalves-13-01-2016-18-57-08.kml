@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <cidade>Bento Gonçalves</cidade>
+  <Document>
+    <Camera>
+      <longitude>-51.5169861</longitude>
+      <latitude>-29.1667089</latitude>
+      <tilt>45</tilt>
+    </Camera>
+  </Document>
+</kml>
