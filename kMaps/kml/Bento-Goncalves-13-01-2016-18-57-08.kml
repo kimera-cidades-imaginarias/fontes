@@ -2,6 +2,34 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <cidade>Bento Gonçalves</cidade>
   <Document>
+    <Style id="icon0">
+      <IconStyle>
+        <Icon>
+          <href>https://kimera4.websiteseguro.com/kmaps/img/hospital.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Hospital</name>
+      <styleUrl>#icon0</styleUrl>
+      <Point>
+        <coordinates>-51.515449762355274,-29.16771866580653,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon1">
+      <IconStyle>
+        <Icon>
+          <href>https://kimera4.websiteseguro.com/kmaps/img/industria-de-reciclagem-de-lixo.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Indùstria de Reciclagem de Lixo</name>
+      <styleUrl>#icon1</styleUrl>
+      <Point>
+        <coordinates>-51.51422131062645,-29.167768318265647,0</coordinates>
+      </Point>
+    </Placemark>
     <Camera>
       <longitude>-51.5169861</longitude>
       <latitude>-29.1667089</latitude>

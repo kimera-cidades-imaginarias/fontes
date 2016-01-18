@@ -72,8 +72,16 @@
     <!-- JS -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
       <script src="js/jquery-latest.js" type="text/javascript"></script>
+      <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+      <script>
+        $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uitooltip', $.ui.tooltip);
+      </script>
       <script src="js/bootstrap.js" type="text/javascript"></script> 
       <script src="js/jquery.md5.js" type="text/javascript"></script>
+      
+
+      
       <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
       <!-- tabs -->
@@ -105,6 +113,9 @@
           var zoomLevel = 0;
           var locationTemp = null;
           var my_timer = null;
+
+          var isDrag = false;
+          var myGlobalPos = null;
 
           var directionsService = new google.maps.DirectionsService();
           var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -144,11 +155,15 @@
               addMarker(event.latLng, map); 
             });
 
+            google.maps.event.addListener(map, 'mousemove', function(event) { 
+                myGlobalPos = event.latLng;              
+            });
+
             google.maps.event.addListener(map, 'zoom_changed', function() {
               zoomLevel = map.getZoom();
 
               resizeAllMarkers(map);
-            });
+            }); 
 
             zoomLevel = map.getZoom();
 
@@ -159,6 +174,9 @@
             my_timer = setTimeout(function () {
                 $( "#help" ).fadeOut( 400 );
             }, 6000);
+
+            map.setTilt(45);
+            map.setHeading(90);
           }
 
           function loadKmlLayer(file, map) {
@@ -752,6 +770,10 @@
           //jquery
             $(document).ready( function() 
             {
+
+              //drag
+              myDrager();
+
               //edificacoes
               $( ".lista a" ).click(function(e) {
                 if(iconTemp != null){
@@ -848,6 +870,75 @@
                   return false;
               });
           });
+
+          function myDrager() {
+            $('.lista a').draggable( {
+              cursor: 'move',
+              containment: 'document',
+              start: handleDragStart,
+              stop: handleDragStop,
+              helper: myHelper
+            } );
+
+            $('#map').droppable( {
+              drop: handleDropEvent
+            } );
+          }
+
+          function myHelper( event ) {
+            if( $(this).attr('href') == "rota" || $(this).attr('href') == "area" || $(this).attr('href') == "ponto" || $(this).attr('href') == "coordenada" )
+            {
+              return null;
+            }
+            else{
+              return '<div id="draggableHelper"><img src="https://kimera4.websiteseguro.com/kmaps/img/' + $(this).attr('href') + '.png" width="100" /></div>';
+            }
+          }
+
+          function handleDragStart( event, ui ) {
+            //alert($(this).attr('href'));
+            if( $(this).attr('href') == "rota" || $(this).attr('href') == "area" || $(this).attr('href') == "ponto" || $(this).attr('href') == "coordenada" )
+            {
+              isDrag = false;
+            }
+            else
+            {
+              isDrag = true;
+
+              if(iconTemp != null){
+                iconTemp.fadeTo( "fast", 1 );
+              }
+
+              iconTemp = $( this );
+              iconTemp.fadeTo( "fast", 0.5 );
+
+              cursor = { 
+                img: $(this).attr('href'), 
+                title: $(this).attr('data-original-title')
+              };
+            }
+          }
+
+          function handleDragStop( event, ui ) {
+            //var offsetXPos = parseInt( ui.offset.left );
+            //var offsetYPos = parseInt( ui.offset.top );
+            //alert( "Drag stopped!\n\nOffset: (" + offsetXPos + ", " + offsetYPos + ")\n");
+
+            iconTemp.fadeTo( "fast", 1 );            
+          }
+
+          function handleDropEvent( event, ui ) {
+            var draggable = ui.draggable;
+            //alert( 'The square with ID "' + draggable.attr('id') + '" was dropped onto me!' );
+
+            if(isDrag){
+              //add marker
+              addMarker(myGlobalPos, map);
+              isDrag = false;
+            }
+
+
+          }
 
         </script>
   </head>
@@ -976,7 +1067,6 @@
 
       <p class="versao">Versão: d709955</p>
     </div>
-
   </body>
 
 </html>
