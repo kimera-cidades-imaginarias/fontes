@@ -175,8 +175,8 @@
                 $( "#help" ).fadeOut( 400 );
             }, 6000);
 
-            map.setTilt(45);
-            map.setHeading(90);
+            //map.setTilt(45);
+            //map.setHeading(90);
           }
 
           function loadKmlLayer(file, map) {
@@ -861,7 +861,7 @@
 
               //inicial
               $( ".inicial" ).click(function(e) {
-                  var r = confirm("Todas as alterações não salvas serão perdidas, deseja mesmo sair para o Menu Principal?");
+                  var r = confirm("Todas as alterações não salvas serão perdidas, deseja mesmo sair para o Página Inicial?");
                   
                   if (r == true) {
                     window.location.assign("index.php?tab=novoMapa")
@@ -969,7 +969,7 @@
         </div>
 
         <div class="well span3 panelFerramentas">
-            <p><a href="#" class="btn span12 inicial">Menu Inicial</a></p>
+            <p><a href="#" class="btn span12 inicial">Página Inicial</a></p>
             <p><a href="#" class="btn span12" id="salvar">Salvar Construções</a></p>
             <p><a href="files/manual.pdf" class="btn span12" id="manual" target="_blank">Manual de Acesso e Uso</a></p>
         </div>
@@ -997,7 +997,7 @@
                 <li><a href="lanchonete" rel="tooltip" title="Lanchonete"><img src="img/icone_comercio_lanchonete.png" /></a></li>
                 <li><a href="loja" rel="tooltip" title="Loja"><img src="img/icone_comercio_loja.png" /></a></li>
                 <li><a href="posto-de-gasolina" rel="tooltip" title="Posto de Gasolina"><img src="img/icone_comercio_postodegasolina.png" /></a></li>
-                <li><a href="super-mercado" rel="tooltip" title="Super Mercado"><img src="img/icone_comercio_supermercado.png" /></a></li>
+                <li><a href="super-mercado" rel="tooltip" title="Supermercado"><img src="img/icone_comercio_supermercado.png" /></a></li>
               </ul>
             </div>
 
@@ -1016,7 +1016,7 @@
                 <li><a href="casa-simples" rel="tooltip" title="Casa Simples"><img src="img/icone_habitacoes_casasimples.png" /></a></li>
                 <li><a href="hotel" rel="tooltip" title="Hotel"><img src="img/icone_habitacoes_hotel.png" /></a></li>
                 <li><a href="predio-de-luxo" rel="tooltip" title="Prédio de Luxo"><img src="img/icone_habitacoes_predioluxo.png" /></a></li>
-                <li><a href="predio-medio" rel="tooltip" title="Prédio Medio"><img src="img/icone_habitacoes_prediomedio.png" /></a></li>
+                <li><a href="predio-medio" rel="tooltip" title="Prédio Médio"><img src="img/icone_habitacoes_prediomedio.png" /></a></li>
                 <li><a href="predio-simples" rel="tooltip" title="Prédio Simples"><img src="img/icone_habitacoes_prediosimples.png" /></a></li>
               </ul>
             </div>
@@ -1030,7 +1030,7 @@
                 <li><a href="estacao-tratamento-de-agua" rel="tooltip" title="Estaçao de Tratamento de Água"><img src="img/icone_infraestrutura_estacao_tratamento_de_agua.png" /></a></li>
                 <li><a href="hospital" rel="tooltip" title="Hospital"><img src="img/icone_infraestrutura_hospital.png" /></a></li>
                 <li><a href="industria" rel="tooltip" title="Indústria"><img src="img/icone_infraestrutura_industria.png" /></a></li>
-                <li><a href="industria-de-reciclagem-de-lixo" rel="tooltip" title="Indùstria de Reciclagem de Lixo"><img src="img/icone_infraestrutura_industria_de_reciclagem_de_lixo.png" /></a></li>
+                <li><a href="industria-de-reciclagem-de-lixo" rel="tooltip" title="Indústria de Reciclagem de Lixo"><img src="img/icone_infraestrutura_industria_de_reciclagem_de_lixo.png" /></a></li>
                 <li><a href="parque-ecologico" rel="tooltip" title="Parque Ecológico"><img src="img/icone_infraestrutura_parque_ecologico.png" /></a></li>
                 <li><a href="posto-de-saude" rel="tooltip" title="Posto de Saúde"><img src="img/icone_infraestrutura_postodesaude.png" /></a></li>
                 <li><a href="rodoviaria" rel="tooltip" title="Rodoviária"><img src="img/icone_infraestrutura_rodoviaria.png" /></a></li>
@@ -1048,7 +1048,7 @@
                 <li><a href="shopping" rel="tooltip" title="Shopping"><img src="img/icone_lazer_shopping.png" /></a></li>
                 <li><a href="sorveteria" rel="tooltip" title="Sorveteria"><img src="img/icone_lazer_sorveteria.png" /></a></li>
                 <li><a href="teatro" rel="tooltip" title="Teatro"><img src="img/icone_lazer_teatro.png" /></a></li>
-                <li><a href="zoologico" rel="tooltip" title="Zoologico"><img src="img/icone_lazer_zoologico.png" /></a></li>
+                <li><a href="zoologico" rel="tooltip" title="Zoológico"><img src="img/icone_lazer_zoologico.png" /></a></li>
               </ul>
             </div>
 

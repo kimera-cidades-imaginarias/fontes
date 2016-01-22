@@ -166,7 +166,7 @@
           <!-- Novo mapa -->
           <div role="tabpanel" class="tab-pane" id="novoMapa">
             <h2>01.</h2>
-            <p>Digite o nome e endereço desejado para criar seu mapa no campo abaixo. Clique em navegar e comece a diversão.</p>
+            <p>Digite o nome e endereço desejado para criar seu mapa no campo abaixo. Clique em navegar e comece a explorar e modificar o espaço geográfico.</p>
 
             <hr />
 
@@ -200,7 +200,7 @@
             <hr />
 
             <h2>02.</h2>
-            <p>Selecione um dos mapas abaixo para começar a diversão.</p>
+            <p>Selecione um dos mapas abaixo para começar a explorar e modificar o espaço geográfico.</p>
 
             <table class="table table-striped">
               <thead>
