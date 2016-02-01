@@ -137,6 +137,7 @@
               center: new google.maps.LatLng(0, 0),
               zoom: 18,
               tilt: 45,
+              rotateControl: false,
 
               panControl: true,
               zoomControl: true,
@@ -152,11 +153,17 @@
 
             //listners
             google.maps.event.addListener(map, 'click', function(event) { 
-              addMarker(event.latLng, map); 
+              myGlobalPos = event.latLng; 
+
+              addMarker(myGlobalPos, map); 
+
+              //$('.panelFerramentas').html(myGlobalPos.lat() + " : " + myGlobalPos.lng());  
             });
 
             google.maps.event.addListener(map, 'mousemove', function(event) { 
-                myGlobalPos = event.latLng;              
+                myGlobalPos = event.latLng; 
+
+                //$('.panelFerramentas').html(myGlobalPos.lat() + " : " + myGlobalPos.lng());        
             });
 
             google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -861,7 +868,7 @@
 
               //inicial
               $( ".inicial" ).click(function(e) {
-                  var r = confirm("Todas as alterações não salvas serão perdidas, deseja mesmo sair para o Página Inicial?");
+                  var r = confirm("Todas as alterações não salvas serão perdidas, deseja mesmo sair para a Página Inicial?");
                   
                   if (r == true) {
                     window.location.assign("index.php?tab=novoMapa")
@@ -905,6 +912,7 @@
             {
               isDrag = true;
 
+
               if(iconTemp != null){
                 iconTemp.fadeTo( "fast", 1 );
               }
@@ -917,6 +925,8 @@
                 title: $(this).attr('data-original-title')
               };
             }
+
+           
           }
 
           function handleDragStop( event, ui ) {
@@ -933,12 +943,20 @@
 
             if(isDrag){
               //add marker
-              addMarker(myGlobalPos, map);
+              //addMarker(myGlobalPos, map);
+
+              setTimeout(function() { teste() },200)
+
+              
               isDrag = false;
             }
 
-
+            function teste()
+            {
+              addMarker(myGlobalPos, map);
+            }
           }
+
 
         </script>
   </head>
