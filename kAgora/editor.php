@@ -206,7 +206,7 @@
             //creat kml layer
             /*
             var kmlLayer = new google.maps.KmlLayer({
-              url: 'https://kimera4.websiteseguro.com/kAgora/kml/'+file+'?rnd'+Math.random(),
+              url: 'https://kimera4.websiteseguro.com/kagora/kml/'+file+'?rnd'+Math.random(),
               map: map,
               preserveViewport: false,
               draggable:true
@@ -380,7 +380,7 @@
                   position: location,
                   title: cursor["title"],
                   animation: google.maps.Animation.DROP,
-                  icon: 'https://kimera4.websiteseguro.com/kAgora/img/ponto.png', //endereco completo
+                  icon: 'https://kimera4.websiteseguro.com/kagora/img/ponto.png', //endereco completo
                   map: map
                 });
 
@@ -427,7 +427,7 @@
                   position: location,
                   title: cursor["title"],
                   animation: google.maps.Animation.DROP,
-                  icon: 'https://kimera4.websiteseguro.com/kAgora/img/ponto.png', //endereco completo
+                  icon: 'https://kimera4.websiteseguro.com/kagora/img/ponto.png', //endereco completo
                   map: map
                 });
 
@@ -470,7 +470,7 @@
                   position: location,
                   title: cursor["title"],
                   animation: google.maps.Animation.DROP,
-                  icon: 'https://kimera4.websiteseguro.com/kAgora/img/ponto.png', //endereco completo
+                  icon: 'https://kimera4.websiteseguro.com/kagora/img/ponto.png', //endereco completo
                   map: map
                 });
 
@@ -493,7 +493,7 @@
                   position: location,
                   title: cursor["title"],
                   animation: google.maps.Animation.DROP,
-                  icon: 'https://kimera4.websiteseguro.com/kAgora/img/ponto.png', //endereco completo
+                  icon: 'https://kimera4.websiteseguro.com/kagora/img/ponto.png', //endereco completo
                   map: map
                 });
 
@@ -536,7 +536,7 @@
 
                 if( coliderMarkerCheck(location, true, null) == true ){
                   var image = {
-                    url: 'https://kimera4.websiteseguro.com/kAgora/img/' + cursor["img"] + '.png',
+                    url: 'https://kimera4.websiteseguro.com/kagora/img/' + cursor["img"] + '.png',
                     size: new google.maps.Size(150, 90),
                     origin: new google.maps.Point(0,0),
                     anchor: new google.maps.Point(0, 0),
@@ -548,7 +548,7 @@
                     title: cursor["title"],
                     draggable:true,
                     animation: google.maps.Animation.DROP,
-                    //icon: 'https://kimera4.websiteseguro.com/kAgora/img/' + cursor["img"] + '.png', //endereco completo
+                    //icon: 'https://kimera4.websiteseguro.com/kagora/img/' + cursor["img"] + '.png', //endereco completo
                     icon: image,
                     map: map
                   });
@@ -898,7 +898,7 @@
               return null;
             }
             else{
-              return '<div id="draggableHelper"><img src="https://kimera4.websiteseguro.com/kAgora/img/' + $(this).attr('href') + '.png" width="100" /></div>';
+              return '<div id="draggableHelper"><img src="https://kimera4.websiteseguro.com/kagora/img/' + $(this).attr('href') + '.png" width="100" /></div>';
             }
           }
 
