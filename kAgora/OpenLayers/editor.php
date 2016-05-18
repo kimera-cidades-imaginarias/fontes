@@ -58,23 +58,66 @@
       <!-- maps -->
         <script type="text/javascript">
           
-          function initialize() 
-          {
+          var map = null;
 
-            //kml
-            var vector = new ol.layer.Vector({
-              source: new ol.source.Vector({
-                url: 'kml/<?php echo $_GET["arquivo"]; ?>',
-                format: new ol.format.KML()
-              })
+          var construcoes = [];
+          
+          var nomeMapa = "";
+          var coordenadasMapa = [0,0]
+
+          function creatIconOnMap(nome, icone, ltd, lng)
+          {
+            var iconFeature = new ol.Feature({
+              geometry: new ol.geom.Point([lng,ltd]),
+              name: nome
+            });
+
+            var iconStyle = new ol.style.Style({
+              image: new ol.style.Icon( ({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                src: icone
+              }))
+            });
+
+            iconFeature.setStyle(iconStyle);
+
+            construcoes.push(iconFeature);
+          } 
+
+          function updateMap()
+          {
+            /*
+            var vectorSource = new ol.source.Vector({
+              features: construcoes
+            });
+
+            var vectorLayer = new ol.layer.Vector({
+              source: vectorSource
+            });
+
+            map.removeLayer(vectorLayer);
+            map.addLayer(vectorLayer);
+            */
+          }
+
+          function initializeAPI() 
+          {        
+            var vectorSource = new ol.source.Vector({
+              features: construcoes
+            });
+
+            var vectorLayer = new ol.layer.Vector({
+              source: vectorSource
             });
 
             //map
-            var map = new ol.Map({
+            map = new ol.Map({
               layers: [
                 new ol.layer.Tile({
                   source: new ol.source.OSM()
-                }), vector
+                }), vectorLayer
               ],
               target: 'map',
               controls: ol.control.defaults({
@@ -83,11 +126,15 @@
                 })
               }),
               view: new ol.View({
-                center: [0, 0],
-                zoom: 2
+                projection: 'EPSG:4326',
+                center: [coordenadasMapa[1], coordenadasMapa[0]],
+                zoom:18
               })
             });
-      
+          }
+
+          function showProfDaniel()
+          {
             //prof. daniel
             $( "#help .balao" ).html("Agora é com você!<br /> Use sua criatividade para modificar o mapa, <br />adicionando novas construções e explorando<br /> as ferramentas de geolocalização.");
             $( "#help" ).fadeIn( 400 );
@@ -98,6 +145,108 @@
             }, 6000);
           }
 
+          function showMapaName(nomeMapa)
+          {
+            $('.nomeCidade').html("("+nomeMapa+")");
+          }
+
+          function populateList(markers)
+          {
+            $("#construcoes").html('');
+
+            for (var i = 0; i < markers.length; i++) {
+              $("#construcoes").append( '<li><a href="#"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')""><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].get('name') + '</a></li>');
+            }
+          }
+
+          function focusMarker(index)
+          {   
+            map.setView(new ol.View({
+              projection: 'EPSG:4326',
+              center:  construcoes[index].getGeometry().getLastCoordinate(),
+              zoom: 18
+            }));
+          }
+
+          function removeMarker(index)
+          {
+            var r = confirm("Voce tem certeza que deseja remover esta construção?");
+                  
+            if (r == true) 
+            {
+              construcoes.splice(index, 1);
+              populateList(construcoes);
+              updateMap();
+            } 
+          }
+
+          function loadKml(file) 
+          {
+            $.ajax(
+            {
+              type: "GET",
+              url: "kml/"+file+"?rnd"+Math.random(),
+              dataType: "xml",
+
+              success: function(xml) {
+                var serializer = new XMLSerializer(); 
+                var kml = serializer.serializeToString(xml);
+                 
+                processKML(kml);          
+              }
+            });
+          }
+
+          function processKML(data) 
+          {
+            //nome do mapa
+            $(data).find("Cidade").each(function(index, value)
+            {
+              nomeMapa = $(this).text();
+            });
+            
+            //construcoes
+            $(data).find("Placemark").each(function(index, value)
+            {
+                var name = $(this).find("name").text() ;
+                var coordinates = $(this).find("coordinates").text().split(","); 
+                var styleUrl = $(this).find("styleUrl").text();
+
+                var icon = $(data).find(styleUrl).text();
+                icon = icon.substring(icon.indexOf("<href>")+6, icon.indexOf("</href>"));
+
+                var longitude = coordinates[0] ;
+                var latitude = coordinates[1] ;
+
+                if(name && longitude && latitude)
+                {
+                  creatIconOnMap(name, icon, latitude, longitude);
+                }
+            });
+
+            //camera
+            $(data).find("Camera").each(function(index, value){
+              var longitude = $(this).find("longitude").text() ;
+              var latitude = $(this).find("latitude").text() ;
+              var tilt = parseInt($(this).find("tilt").text()) ;
+
+              if(longitude && latitude && tilt){
+                coordenadasMapa[0] = latitude;
+                coordenadasMapa[1] = longitude;
+              }
+            })
+
+            //api
+            initializeAPI();
+
+            //tutorial
+            showProfDaniel();
+
+            //show infos
+            showMapaName(nomeMapa);
+            populateList(construcoes);
+          }
+
         </script>
 
     <!-- simulador -->
@@ -105,9 +254,9 @@
 
             $(document).ready( function() 
             {
-              //api
-              initialize();
-           
+              //load constructions
+              <?php if(isset($_REQUEST['arquivo'])){ echo "loadKml('".$_REQUEST['arquivo']."',map);"; } ?>
+
               //aba edificacoes
               $( ".lista a" ).click(function(e) 
               {

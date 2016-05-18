@@ -5,7 +5,7 @@
     <Style id="icon0">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/academia.png</href>
+          <href>img/academia.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -19,7 +19,7 @@
     <Style id="icon1">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/banco-01.png</href>
+          <href>img/banco-01.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -33,7 +33,7 @@
     <Style id="icon2">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/banco-02.png</href>
+          <href>img/banco-02.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -47,7 +47,7 @@
     <Style id="icon3">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/banco-03.png</href>
+          <href>img/banco-03.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -61,7 +61,7 @@
     <Style id="icon4">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/lanchonete.png</href>
+          <href>img/lanchonete.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -75,7 +75,7 @@
     <Style id="icon5">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/loja.png</href>
+          <href>img/loja.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -89,7 +89,7 @@
     <Style id="icon6">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/posto-de-gasolina.png</href>
+          <href>img/posto-de-gasolina.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -103,7 +103,7 @@
     <Style id="icon7">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/super-mercado.png</href>
+          <href>img/super-mercado.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -117,7 +117,7 @@
     <Style id="icon8">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/biblioteca.png</href>
+          <href>img/biblioteca.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -131,7 +131,7 @@
     <Style id="icon9">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/escola.png</href>
+          <href>img/escola.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -145,7 +145,7 @@
     <Style id="icon10">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/universidade.png</href>
+          <href>img/universidade.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -159,7 +159,7 @@
     <Style id="icon11">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/casa-de-luxo.png</href>
+          <href>img/casa-de-luxo.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -173,7 +173,7 @@
     <Style id="icon12">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/casa-media.png</href>
+          <href>img/casa-media.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -187,7 +187,7 @@
     <Style id="icon13">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/casa-simples.png</href>
+          <href>img/casa-simples.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -201,7 +201,7 @@
     <Style id="icon14">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/hotel.png</href>
+          <href>img/hotel.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -215,7 +215,7 @@
     <Style id="icon15">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/predio-de-luxo.png</href>
+          <href>img/predio-de-luxo.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -229,7 +229,7 @@
     <Style id="icon16">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/predio-medio.png</href>
+          <href>img/predio-medio.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -243,7 +243,7 @@
     <Style id="icon17">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/predio-simples.png</href>
+          <href>img/predio-simples.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -257,7 +257,7 @@
     <Style id="icon18">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/aeroporto.png</href>
+          <href>img/aeroporto.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -271,7 +271,7 @@
     <Style id="icon19">
       <IconStyle>
         <Icon>
-          <href>https://kimera4.websiteseguro.com/kmaps/img/bombeiros.png</href>
+          <href>img/bombeiros.png</href>
         </Icon>
       </IconStyle>
     </Style>
