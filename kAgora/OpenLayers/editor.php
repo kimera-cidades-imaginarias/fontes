@@ -63,7 +63,10 @@
           var construcoes = [];
           
           var nomeMapa = "";
-          var coordenadasMapa = [0,0]
+          var coordenadasMapa = [0,0];
+
+          var vectorSource = null;
+          var vectorLayer = null;
 
           function creatIconOnMap(nome, icone, ltd, lng)
           {
@@ -88,27 +91,28 @@
 
           function updateMap()
           {
-            /*
-            var vectorSource = new ol.source.Vector({
+            map.removeLayer(vectorLayer);
+            map.render();
+
+            vectorSource = new ol.source.Vector({
               features: construcoes
             });
 
-            var vectorLayer = new ol.layer.Vector({
+            vectorLayer = new ol.layer.Vector({
               source: vectorSource
             });
 
-            map.removeLayer(vectorLayer);
             map.addLayer(vectorLayer);
-            */
+            map.render();
           }
 
           function initializeAPI() 
           {        
-            var vectorSource = new ol.source.Vector({
+            vectorSource = new ol.source.Vector({
               features: construcoes
             });
 
-            var vectorLayer = new ol.layer.Vector({
+            vectorLayer = new ol.layer.Vector({
               source: vectorSource
             });
 
@@ -155,7 +159,7 @@
             $("#construcoes").html('');
 
             for (var i = 0; i < markers.length; i++) {
-              $("#construcoes").append( '<li><a href="#"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')""><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].get('name') + '</a></li>');
+              $("#construcoes").append( '<li><a href="javascript:editMarker('+i+')"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')""><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].get('name') + '</a></li>');
             }
           }
 
@@ -178,6 +182,24 @@
               populateList(construcoes);
               updateMap();
             } 
+          }
+
+          function editMarker(index)
+          {
+            $("#construcoes").html("");
+            $("#construcoes").before('<form id="editMarker" action="#"><input type="text" id="nameMarker" value="'+construcoes[index].get('name')+'" /> <br /> <input type="submit" class="btn btn-primary" value="Salvar" /> </form>');
+            
+            $("#editMarker").submit(function(e){
+                e.preventDefault();
+
+                construcoes[index].set('name', $("#nameMarker").val()); 
+
+                $( "#editMarker" ).remove();
+                populateList(construcoes);
+
+                return false;
+            });
+            //populateList();
           }
 
           function loadKml(file) 
