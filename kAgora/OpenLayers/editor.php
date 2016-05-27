@@ -64,9 +64,14 @@
           
           var nomeMapa = "";
           var coordenadasMapa = [0,0];
+          var coordenadasMouse = [0,0];
 
+          var mousePositionControl = null;
           var vectorSource = null;
           var vectorLayer = null;
+
+          var cursor = null;
+          var iconTemp = null;
 
           function creatIconOnMap(nome, icone, ltd, lng)
           {
@@ -108,6 +113,15 @@
 
           function initializeAPI() 
           {        
+            mousePositionControl = new ol.control.MousePosition({
+              coordinateFormat:  function(coord) 
+              {
+                coordenadasMouse = [coord[1], coord[0]]; 
+                return ol.coordinate.toStringXY(coordenadasMouse,4);
+              },
+              projection: 'EPSG:4326'
+            });
+
             vectorSource = new ol.source.Vector({
               features: construcoes
             });
@@ -128,7 +142,7 @@
                 attributionOptions:({
                   collapsible: false
                 })
-              }),
+              }).extend([mousePositionControl]),
               view: new ol.View({
                 projection: 'EPSG:4326',
                 center: [coordenadasMapa[1], coordenadasMapa[0]],
@@ -158,7 +172,8 @@
           {
             $("#construcoes").html('');
 
-            for (var i = 0; i < markers.length; i++) {
+            for (var i = 0; i < markers.length; i++) 
+            {
               $("#construcoes").append( '<li><a href="javascript:editMarker('+i+')"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')""><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].get('name') + '</a></li>');
             }
           }
@@ -189,17 +204,18 @@
             $("#construcoes").html("");
             $("#construcoes").before('<form id="editMarker" action="#"><input type="text" id="nameMarker" value="'+construcoes[index].get('name')+'" /> <br /> <input type="submit" class="btn btn-primary" value="Salvar" /> </form>');
             
-            $("#editMarker").submit(function(e){
+            $("#editMarker").submit(function(e)
+            {
                 e.preventDefault();
 
                 construcoes[index].set('name', $("#nameMarker").val()); 
 
                 $( "#editMarker" ).remove();
+                
                 populateList(construcoes);
 
                 return false;
             });
-            //populateList();
           }
 
           function loadKml(file) 
@@ -210,7 +226,8 @@
               url: "kml/"+file+"?rnd"+Math.random(),
               dataType: "xml",
 
-              success: function(xml) {
+              success: function(xml) 
+              {
                 var serializer = new XMLSerializer(); 
                 var kml = serializer.serializeToString(xml);
                  
@@ -279,9 +296,64 @@
               //load constructions
               <?php if(isset($_REQUEST['arquivo'])){ echo "loadKml('".$_REQUEST['arquivo']."',map);"; } ?>
 
+              //start drag api
+              myDrager();
+
               //aba edificacoes
               $( ".lista a" ).click(function(e) 
               {
+                //icon
+                if(iconTemp != null)
+                {
+                  iconTemp.fadeTo( "fast", 1 );
+                }
+
+                iconTemp = $( this );
+                iconTemp.fadeTo( "fast", 0.5 );
+
+                //help
+                if( $(this).attr('href') == "area" ){
+                  $( "#help .balao" ).html("Aplique 4 pontos no mapa para <br />calcular a área do terreno.");
+                  $( "#help" ).fadeIn( 400 );
+
+                  my_timer = setTimeout(function () {
+                      $( "#help" ).fadeOut( 400 );
+                  }, 6000);
+                }
+
+                if( $(this).attr('href') == "ponto" ){
+                  $( "#help .balao" ).html("Aplique 2 pontos no mapa para <br />medir a distância entre eles.");
+                  $( "#help" ).fadeIn( 400 );
+
+                  my_timer = setTimeout(function () {
+                      $( "#help" ).fadeOut( 400 );
+                  }, 6000);
+                }
+
+                if( $(this).attr('href') == "coordenada" ){
+                  $( "#help .balao" ).html("Aplique um ponto na tela para <br />saber a coordenada do local.");
+                  $( "#help" ).fadeIn( 400 );
+
+                  my_timer = setTimeout(function () {
+                      $( "#help" ).fadeOut( 400 );
+                  }, 6000);
+                }
+
+                if( $(this).attr('href') == "rota" ){
+                  $( "#help .balao" ).html("Aplique 2 pontos no mapa para <br />medir a distância entre a <br />rota demarcada.");
+                  $( "#help" ).fadeIn( 400 );
+
+                  my_timer = setTimeout(function () {
+                      $( "#help" ).fadeOut( 400 );
+                  }, 6000);
+                }
+
+                //cursor
+                cursor = { 
+                  img: $(this).attr('href'), 
+                  title: $(this).attr('data-original-title')
+                };
+
                 return false;
               });
 
@@ -306,6 +378,67 @@
                   return false;
               });
           });
+
+          //Drag Options
+          function myDrager() {
+            $('.lista a').draggable( {
+              cursor: 'move',
+              containment: 'document',
+              start: handleDragStart,
+              stop: handleDragStop,
+              helper: myHelper
+            });
+
+            $('#map').droppable( {
+              drop: handleDropEvent
+            });
+          }
+
+          function myHelper( event ) {
+            if( $(this).attr('href') == "rota" || $(this).attr('href') == "area" || $(this).attr('href') == "ponto" || $(this).attr('href') == "coordenada" )
+            {
+              return '<div id="draggableHelper"><img src="img/ponto.png" /></div>';
+            }
+            else
+            {
+              return '<div id="draggableHelper"><img src="img/' + $(this).attr('href') + '.png" /></div>';
+            }
+          }
+
+          function handleDragStart( event, ui ) 
+          {
+              if(iconTemp != null)
+              {
+                iconTemp.fadeTo( "fast", 1 );
+              }
+
+              iconTemp = $( this );
+              iconTemp.fadeTo( "fast", 0.5 );
+
+              cursor = { 
+                img: $(this).attr('href'), 
+                title: $(this).attr('data-original-title')
+              };
+          }
+
+          function handleDragStop( event, ui ) 
+          {
+            iconTemp.fadeTo( "fast", 1 );            
+          }
+
+          function handleDropEvent( event, ui ) 
+          {
+            var draggable = ui.draggable;
+
+            setTimeout(function() { creatCursor() },200)
+
+            function creatCursor()
+            {
+              creatIconOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
+              populateList(construcoes);
+              updateMap();
+            }
+          }
 
         </script>
   </head>
