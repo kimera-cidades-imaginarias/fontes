@@ -282,10 +282,51 @@
         <coordinates>-38.44949233549414,-12.86787829669613,0</coordinates>
       </Point>
     </Placemark>
+    <Style id="icon20">
+      <IconStyle>
+        <Icon>
+          <href>img/posto-de-gasolina.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Posto de Gasolina</name>
+      <styleUrl>#icon20</styleUrl>
+      <Point>
+        <coordinates>-38.46155825258393,-12.851895689964296,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon21">
+      <IconStyle>
+        <Icon>
+          <href>img/predio-de-luxo.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Prédio de Luxo</name>
+      <styleUrl>#icon21</styleUrl>
+      <Point>
+        <coordinates>-38.459857732068485,-12.855927675973364,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon22">
+      <IconStyle>
+        <Icon>
+          <href>img/super-mercado.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Supermercado</name>
+      <styleUrl>#icon22</styleUrl>
+      <Point>
+        <coordinates>-38.45843616129059,-12.853821516036987,0</coordinates>
+      </Point>
+    </Placemark>
     <Camera>
       <longitude>-38.4589148</longitude>
       <latitude>-12.8517491</latitude>
-      <tilt>45</tilt>
     </Camera>
   </Document>
 </kml>

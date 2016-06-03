@@ -21,20 +21,21 @@
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
       <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
       <link href="css/principal.css" rel="stylesheet" type="text/css" media="screen" />
-      <link rel="stylesheet" href="http://openlayers.org/en/v3.15.1/css/ol.css" type="text/css">
+      <link href="css/ol.css" rel="stylesheet" type="text/css" media="screen">
 
     <!-- JS -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
       <script src="js/jquery-latest.js" type="text/javascript"></script>
       <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+      
       <script>
         $.widget.bridge('uibutton', $.ui.button);
         $.widget.bridge('uitooltip', $.ui.tooltip);
       </script>
+
       <script src="js/bootstrap.js" type="text/javascript"></script> 
       <script src="js/jquery.md5.js" type="text/javascript"></script>
-
-      <script src="http://openlayers.org/en/v3.15.1/build/ol.js"></script>
+      <script src="js/ol.js" type="text/javascript"></script>
 
       <!-- tabs -->
         <script type="text/javascript">
@@ -112,7 +113,7 @@
           }
 
           function initializeAPI() 
-          {        
+          {      
             mousePositionControl = new ol.control.MousePosition({
               coordinateFormat:  function(coord) 
               {
@@ -149,6 +150,14 @@
                 zoom:18
               })
             });
+
+            /*
+            //ver drag
+            var modify = new ol.interaction.Modify({
+                features: new ol.Collection([construcoes[0]])
+            });
+            map.addInteraction(modify);
+            */
           }
 
           function showProfDaniel()
@@ -267,9 +276,8 @@
             $(data).find("Camera").each(function(index, value){
               var longitude = $(this).find("longitude").text() ;
               var latitude = $(this).find("latitude").text() ;
-              var tilt = parseInt($(this).find("tilt").text()) ;
 
-              if(longitude && latitude && tilt){
+              if(longitude && latitude){
                 coordenadasMapa[0] = latitude;
                 coordenadasMapa[1] = longitude;
               }
@@ -286,6 +294,58 @@
             populateList(construcoes);
           }
 
+          function saveKML()
+          {
+            var kmlFile = "";
+
+            //markers
+            for (var i = 0; i < construcoes.length; i++) {
+              kmlFile += '<Style id="icon'+i+'">';
+                kmlFile += '<IconStyle>';
+                  kmlFile += '<Icon>';
+                    kmlFile += "<href>"+ construcoes[i].getStyle().getImage().getSrc() +"</href>";
+                  kmlFile += '</Icon>';
+                kmlFile += '</IconStyle>';
+              kmlFile += '</Style>';
+
+              kmlFile += '<Placemark>';
+                kmlFile += '<name>'+ construcoes[i].get('name') +'</name>';
+                kmlFile += '<styleUrl>#icon'+i+'</styleUrl>';
+                kmlFile += '<Point>';
+                  kmlFile += '<coordinates>'+ construcoes[i].getGeometry().getCoordinates() +',0</coordinates>';
+                kmlFile += '</Point>';                
+              kmlFile += '</Placemark>';
+            }
+
+            //camera
+            kmlFile += '<Camera>';
+              kmlFile += '<longitude>'+ coordenadasMapa[1] +'</longitude>';
+              kmlFile += '<latitude>'+ coordenadasMapa[0] +'</latitude>';
+            kmlFile += '</Camera>';
+
+            //save
+            var kml = "<Document>"+kmlFile+"</Document>"; 
+
+            <?php if(isset($_REQUEST['arquivo'])){ ?>
+              var nome = "<?php echo substr($_REQUEST['arquivo'], 0, -4); ?>";
+              var cidade = nomeMapa;
+            <?php } else { ?>
+              var nome = "<?php echo removerCaracter($_REQUEST['nome']); ?>-<?php echo date('d-m-Y-H-i-s'); ?>";
+              var cidade = "<?php echo $_REQUEST['nome']; ?>";
+            <?php } ?>
+
+            $.ajax(
+            {
+                type: 'POST',
+                url: 'action/creat.php',
+                data: { data: kml, name: nome, cidade: cidade  }
+            }).done(function(data) 
+            {
+              var item = $('<br /><div class="alert alert-success">Arquivo salvo com sucesso, você pode acessá-lo na listagem de mapas através da aba Carregar Mapa na página inicial.</div>').delay( 12000 ).fadeOut( 400 );
+              $("#info").append(item);
+            });
+          }
+
         </script>
 
     <!-- simulador -->
@@ -295,6 +355,9 @@
             {
               //load constructions
               <?php if(isset($_REQUEST['arquivo'])){ echo "loadKml('".$_REQUEST['arquivo']."',map);"; } ?>
+
+              //get adress
+              <?php if( isset($_REQUEST['endereco']) && isset($_REQUEST['nome']) ){ echo ""; } ?>
 
               //start drag api
               myDrager();
@@ -377,6 +440,28 @@
 
                   return false;
               });
+
+              //salvar
+              $( "#salvar" ).click(function(e)
+               {
+                saveKML();
+
+                return false;
+              });
+
+              //auto save
+              time =1;
+              setInterval( function() 
+              {
+                  time++;
+                  
+                  $('#time').html(time);
+
+                  if (time % 300 == 0)
+                  {
+                     saveKML();
+                  }    
+              }, 1000 );
           });
 
           //Drag Options
