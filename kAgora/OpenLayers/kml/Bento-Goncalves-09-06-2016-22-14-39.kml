@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <cidade>Bento Gonçalves</cidade>
+  <Document>
+    <Style id="icon0">
+      <IconStyle>
+        <Icon>
+          <href>img/posto-de-gasolina.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Posto de Gasolina</name>
+      <styleUrl>#icon0</styleUrl>
+      <Point>
+        <coordinates>-51.51718854904175,-29.17440891265869,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon1">
+      <IconStyle>
+        <Icon>
+          <href>img/super-mercado.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Supermercado</name>
+      <styleUrl>#icon1</styleUrl>
+      <Point>
+        <coordinates>-51.516759395599365,-29.1739422082901,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon2">
+      <IconStyle>
+        <Icon>
+          <href>img/super-mercado.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Supermercado</name>
+      <styleUrl>#icon2</styleUrl>
+      <Point>
+        <coordinates>-51.51517152786255,-29.167601466178894,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon3">
+      <IconStyle>
+        <Icon>
+          <href>img/lanchonete.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Lanchonete</name>
+      <styleUrl>#icon3</styleUrl>
+      <Point>
+        <coordinates>-51.517032980918884,-29.16918396949768,0</coordinates>
+      </Point>
+    </Placemark>
+    <Camera>
+      <longitude>-51.5169861</longitude>
+      <latitude>-29.1667089</latitude>
+    </Camera>
+  </Document>
+</kml>

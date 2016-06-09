@@ -1,5 +1,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<?php
+
+  /*
+  * Tratamento de Strings
+  */
+  function is_utf8($string)
+  {
+    return preg_match('%^(?:
+      [\x09\x0A\x0D\x20-\x7E] |
+      [\xC2-\xDF][\x80-\xBF] |
+      \xE0[\xA0-\xBF][\x80-\xBF] |
+      [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2} |
+      \xED[\x80-\x9F][\x80-\xBF] |
+      \xF0[\x90-\xBF][\x80-\xBF]{2} |
+      [\xF1-\xF3][\x80-\xBF]{3} |
+      \xF4[\x80-\x8F][\x80-\xBF]{2})*$%xs', $string);
+  }
+  function remove_diacritics($string)
+  {
+    return preg_replace(array(
+        '/\xc3[\x80-\x85]/',  // upper case
+        '/\xc3\x87/',
+        '/\xc3[\x88-\x8b]/',
+        '/\xc3[\x8c-\x8f]/',
+        '/\xc3([\x92-\x96]|\x98)/',
+        '/\xc3[\x99-\x9c]/',
+        '/\xc3[\xa0-\xa5]/',  // lower case
+        '/\xc3\xa7/',
+        '/\xc3[\xa8-\xab]/',
+        '/\xc3[\xac-\xaf]/',
+        '/\xc3([\xb2-\xb6]|\xb8)/',
+        '/\xc3[\xb9-\xbc]/'
+      ), str_split('ACEIOUaceiou', 1), is_utf8($string) ? $string : utf8_encode($string));
+  }
+  function removerCaracter($string, $slug = '-'){
+    $string = remove_diacritics($string);
+    $string = preg_replace(array(
+        '/[^A-Za-z0-9]/',
+        '/' . $slug . '{2,}/'
+      ), $slug, $string);
+    $string = trim($string, $slug);
+
+    return strlen($string) ? $string : $slug;
+  }
+  
+?>
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR">
 
   <head profile="http://gmpg.org/xfn/11">
@@ -36,6 +83,7 @@
       <script src="js/bootstrap.js" type="text/javascript"></script> 
       <script src="js/jquery.md5.js" type="text/javascript"></script>
       <script src="js/ol.js" type="text/javascript"></script>
+      <script src="js/googleGeoCoder.js" type="text/javascript"></script>
 
       <!-- tabs -->
         <script type="text/javascript">
@@ -62,6 +110,7 @@
           var map = null;
 
           var construcoes = [];
+          var zoom = 18;
           
           var nomeMapa = "";
           var coordenadasMapa = [0,0];
@@ -151,6 +200,14 @@
               })
             });
 
+            map.getView().on('propertychange', function(e) {
+               switch (e.key) {
+                  case 'resolution':
+                    zoom = map.getView().getZoom();
+                    break;
+               }
+            });
+
             /*
             //ver drag
             var modify = new ol.interaction.Modify({
@@ -225,6 +282,96 @@
 
                 return false;
             });
+          }
+
+          function coliderMarkerCheck(lat, lng)
+          {
+            var t = construcoes.length;
+            var ltemp = 0;
+
+            if(t == 0)
+            {
+              return true;
+            }
+            else
+            {
+              for (var i = 0; i < t; i++) 
+              {
+                var olg = ""+construcoes[i].getGeometry().getCoordinates();
+                var tlat = olg.substr(olg.indexOf(",")+1, olg.length);
+                var tlng = olg.substr(0, olg.indexOf(","));
+
+                if(ltemp == 0)
+                {
+                  ltemp = Math.floor(getDistance(lat, lng, tlat, tlng));
+                }
+                else if(Math.floor(getDistance(lat, lng, tlat, tlng)) <= ltemp)
+                {
+                  ltemp = Math.floor(getDistance(lat, lng, tlat, tlng));
+                }
+              }
+
+              if(ltemp >= (80 / zoom) * 10)
+              {
+                return true;
+              } 
+              else 
+              {
+                return false;
+              }
+            }
+          }
+
+          function rad(x) 
+          {
+            return x * Math.PI / 180;
+          }
+
+          function getDistance(p1_lat, p1_lng, p2_lat, p2_lng) 
+          {
+            var R = 6378137; // Earth’s mean radius in meter
+            
+            var dLat = rad(p2_lat - p1_lat);
+            var dLong = rad(p2_lng - p1_lng);
+            
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(rad(p1_lat)) * Math.cos(rad(p2_lat)) *
+              Math.sin(dLong / 2) * Math.sin(dLong / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c;
+
+            return d; // returns the distance in meter
+          }
+
+          function loadAdress(name, adress)
+          {
+            var geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode( { 'address': adress}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) 
+              {
+                processAdress(name, results[0].geometry.location.lat(), results[0].geometry.location.lng());
+              }
+            });
+          }
+
+          function processAdress(name, lat, lng)
+          {
+            //map data
+            nomeMapa = name;
+
+            coordenadasMapa[0] = lat;
+            coordenadasMapa[1] = lng;
+
+            //api
+            initializeAPI();
+
+            //tutorial
+            showProfDaniel();
+
+            //show infos
+            showMapaName(nomeMapa);
+            populateList(construcoes);
           }
 
           function loadKml(file) 
@@ -357,7 +504,7 @@
               <?php if(isset($_REQUEST['arquivo'])){ echo "loadKml('".$_REQUEST['arquivo']."',map);"; } ?>
 
               //get adress
-              <?php if( isset($_REQUEST['endereco']) && isset($_REQUEST['nome']) ){ echo ""; } ?>
+              <?php if( isset($_REQUEST['endereco']) && isset($_REQUEST['nome']) ){ echo "loadAdress('".$_REQUEST['nome']."', '".$_REQUEST['endereco']."')"; } ?>
 
               //start drag api
               myDrager();
@@ -519,9 +666,15 @@
 
             function creatCursor()
             {
-              creatIconOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
-              populateList(construcoes);
-              updateMap();
+              if( coliderMarkerCheck(coordenadasMouse[0], coordenadasMouse[1]) ){
+                creatIconOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
+                populateList(construcoes);
+                updateMap();
+              }
+              else
+              {
+                 alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+              }
             }
           }
 
