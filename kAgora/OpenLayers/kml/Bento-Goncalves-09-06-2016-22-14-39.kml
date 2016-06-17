@@ -41,7 +41,7 @@
       <name>Supermercado</name>
       <styleUrl>#icon2</styleUrl>
       <Point>
-        <coordinates>-51.51517152786255,-29.167601466178894,0</coordinates>
+        <coordinates>-51.50976669792726,-29.162156581878666,0</coordinates>
       </Point>
     </Placemark>
     <Style id="icon3">
@@ -55,7 +55,21 @@
       <name>Lanchonete</name>
       <styleUrl>#icon3</styleUrl>
       <Point>
-        <coordinates>-51.517032980918884,-29.16918396949768,0</coordinates>
+        <coordinates>-51.51659023766115,-29.169473648071293,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon4">
+      <IconStyle>
+        <Icon>
+          <href>img/parque-ecologico.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Parque Ecológico</name>
+      <styleUrl>#icon4</styleUrl>
+      <Point>
+        <coordinates>-51.51697459818024,-29.166592955589294,0</coordinates>
       </Point>
     </Placemark>
     <Camera>

@@ -135,7 +135,8 @@
                 anchor: [0.5, 46],
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
-                src: icone
+                src: icone,
+                scale:0.5
               }))
             });
 
@@ -156,6 +157,17 @@
             vectorLayer = new ol.layer.Vector({
               source: vectorSource
             });
+
+            for(var i=0; i<construcoes.length; i++)
+            {
+              var dragInteraction = new ol.interaction.Modify({
+                  features: new ol.Collection([construcoes[i]]),
+                  style: null,
+                  pixelTolerance: 20
+              });
+
+              map.addInteraction(dragInteraction);
+            } 
 
             map.addLayer(vectorLayer);
             map.render();
@@ -204,17 +216,12 @@
                switch (e.key) {
                   case 'resolution':
                     zoom = map.getView().getZoom();
+
+                    recizeAllMakers();
+
                     break;
                }
             });
-
-            /*
-            //ver drag
-            var modify = new ol.interaction.Modify({
-                features: new ol.Collection([construcoes[0]])
-            });
-            map.addInteraction(modify);
-            */
           }
 
           function showProfDaniel()
@@ -282,6 +289,22 @@
 
                 return false;
             });
+          }
+
+          function recizeMaker(index)
+          {
+            var myZoom = zoom/18;
+            construcoes[index].getStyle().getImage().setScale( myZoom - 0.5 );
+
+            updateMap();
+          }
+
+          function recizeAllMakers()
+          {
+            for(var i=0; i<construcoes.length; i++)
+            {
+              recizeMaker(i);
+            } 
           }
 
           function coliderMarkerCheck(lat, lng)
