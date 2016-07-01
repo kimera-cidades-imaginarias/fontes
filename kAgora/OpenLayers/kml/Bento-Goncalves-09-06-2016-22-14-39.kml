@@ -69,7 +69,21 @@
       <name>Parque Ecológico</name>
       <styleUrl>#icon4</styleUrl>
       <Point>
-        <coordinates>-51.51697459818024,-29.166592955589294,0</coordinates>
+        <coordinates>-51.516294658194965,-29.16690945625305,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon5">
+      <IconStyle>
+        <Icon>
+          <href>img/super-mercado.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Supermercado</name>
+      <styleUrl>#icon5</styleUrl>
+      <Point>
+        <coordinates>-51.51399332286019,-29.165074825286865,0</coordinates>
       </Point>
     </Placemark>
     <Camera>

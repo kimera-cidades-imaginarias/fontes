@@ -83,7 +83,7 @@
       <script src="js/bootstrap.js" type="text/javascript"></script> 
       <script src="js/jquery.md5.js" type="text/javascript"></script>
       <script src="js/ol.js" type="text/javascript"></script>
-      <script src="js/googleGeoCoder.js" type="text/javascript"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
       <!-- tabs -->
         <script type="text/javascript">
@@ -125,24 +125,55 @@
 
           function creatIconOnMap(nome, icone, ltd, lng)
           {
-            var iconFeature = new ol.Feature({
-              geometry: new ol.geom.Point([lng,ltd]),
-              name: nome
-            });
+            //area
+            if(nome == "Medir Área")
+            {
 
-            var iconStyle = new ol.style.Style({
-              image: new ol.style.Icon( ({
-                anchor: [0.5, 46],
-                anchorXUnits: 'fraction',
-                anchorYUnits: 'pixels',
-                src: icone,
-                scale:0.5
-              }))
-            });
+            }
 
-            iconFeature.setStyle(iconStyle);
+            //distancias
+            else if(nome == "Medir Distâncias")
+            {
 
-            construcoes.push(iconFeature);
+            }
+
+            //coordenadas
+            else if(nome == "Retornar Coordenadas")
+            {
+              setTimeout(function()
+              {
+                alert( "Coordenadas do ponto:  Latitude: " + ltd.substr(0, 7) + " , Longitude:" + lng.substr(0, 7) );
+              }, 1000);
+            }
+
+            //rota
+            else if(nome == "Calcular Rota")
+            {
+
+            }
+
+            //construcoes
+            else
+            {
+              var iconFeature = new ol.Feature({
+                geometry: new ol.geom.Point([lng,ltd]),
+                name: nome
+              });
+
+              var iconStyle = new ol.style.Style({
+                image: new ol.style.Icon( ({
+                  anchor: [0.5, 46],
+                  anchorXUnits: 'fraction',
+                  anchorYUnits: 'pixels',
+                  src: icone,
+                  scale:0.5
+                }))
+              });
+
+              iconFeature.setStyle(iconStyle);
+
+              construcoes.push(iconFeature);
+            }
           } 
 
           function updateMap()
@@ -165,6 +196,14 @@
                   style: null,
                   pixelTolerance: 20
               });
+
+              dragInteraction.on('modifyend',function()
+              {
+                  if(!coliderMarkerCheck(coordenadasMouse[0], coordenadasMouse[1]))
+                  {
+                    alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+                  }
+              },[construcoes[i]]);
 
               map.addInteraction(dragInteraction);
             } 
@@ -395,6 +434,7 @@
             //show infos
             showMapaName(nomeMapa);
             populateList(construcoes);
+            updateMap();
           }
 
           function loadKml(file) 
@@ -462,6 +502,7 @@
             //show infos
             showMapaName(nomeMapa);
             populateList(construcoes);
+            updateMap();
           }
 
           function saveKML()
