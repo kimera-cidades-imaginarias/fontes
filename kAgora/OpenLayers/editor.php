@@ -110,8 +110,10 @@
           var map = null;
 
           var construcoes = [];
+          var points = [];
+
           var zoom = 18;
-          
+
           var nomeMapa = "";
           var coordenadasMapa = [0,0];
           var coordenadasMouse = [0,0];
@@ -119,65 +121,81 @@
           var mousePositionControl = null;
           var vectorSource = null;
           var vectorLayer = null;
+          var vectorLineLayer = null;
 
           var cursor = null;
+          var tool = null;
           var iconTemp = null;
 
-          function creatIconOnMap(nome, icone, ltd, lng)
+          var directionsService = new google.maps.DirectionsService();
+
+          function creatSinglePointOnMap(ltd, lng)
           {
-            //area
-            if(nome == "Medir Área")
-            {
+            var iconFeature = new ol.Feature({
+              geometry: new ol.geom.Point([lng,ltd]),
+              name: 'Ponto'
+            });
 
-            }
+            var iconStyle = new ol.style.Style({
+              image: new ol.style.Icon( ({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                src: 'img/ponto.png',
+                scale:0.5
+              }))
+            });
 
-            //distancias
-            else if(nome == "Medir Distâncias")
-            {
+            iconFeature.setStyle(iconStyle);
 
-            }
+            construcoes.push(iconFeature);
+          }
 
-            //coordenadas
-            else if(nome == "Retornar Coordenadas")
-            {
-              setTimeout(function()
-              {
-                alert( "Coordenadas do ponto:  Latitude: " + ltd.substr(0, 7) + " , Longitude:" + lng.substr(0, 7) );
-              }, 1000);
-            }
+          function createLineOnMap(points)
+          {
+            var featureLine = new ol.Feature({
+              geometry: new ol.geom.LineString(points)
+            });
 
-            //rota
-            else if(nome == "Calcular Rota")
-            {
+            var vectorLine = new ol.source.Vector({});
+            vectorLine.addFeature(featureLine);
 
-            }
+            vectorLineLayer = new ol.layer.Vector({
+                source: vectorLine,
+                style: new ol.style.Style({
+                    fill: new ol.style.Fill({ color: '#00FF00', weight: 4 }),
+                    stroke: new ol.style.Stroke({ color: '#00FF00', width: 2 })
+                })
+            });
 
-            //construcoes
-            else
-            {
-              var iconFeature = new ol.Feature({
-                geometry: new ol.geom.Point([lng,ltd]),
-                name: nome
-              });
+            map.addLayer(vectorLineLayer);
+          }
 
-              var iconStyle = new ol.style.Style({
-                image: new ol.style.Icon( ({
-                  anchor: [0.5, 46],
-                  anchorXUnits: 'fraction',
-                  anchorYUnits: 'pixels',
-                  src: icone,
-                  scale:0.5
-                }))
-              });
+          function creatConstructionOnMap(nome, icone, ltd, lng)
+          {
+            var iconFeature = new ol.Feature({
+              geometry: new ol.geom.Point([lng,ltd]),
+              name: nome
+            });
 
-              iconFeature.setStyle(iconStyle);
+            var iconStyle = new ol.style.Style({
+              image: new ol.style.Icon( ({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                src: icone,
+                scale:0.5
+              }))
+            });
 
-              construcoes.push(iconFeature);
-            }
+            iconFeature.setStyle(iconStyle);
+
+            construcoes.push(iconFeature);
           } 
 
           function updateMap()
           {
+            map.removeLayer(vectorLineLayer);
             map.removeLayer(vectorLayer);
             map.render();
 
@@ -299,11 +317,14 @@
             }));
           }
 
-          function removeMarker(index)
+          function removeMarker(index, auto = false)
           {
-            var r = confirm("Voce tem certeza que deseja remover esta construção?");
-                  
-            if (r == true) 
+            if(auto == false)
+            {
+              var r = confirm("Voce tem certeza que deseja remover esta construção?");
+            }
+
+            if (r == true || auto == true) 
             {
               construcoes.splice(index, 1);
               populateList(construcoes);
@@ -405,6 +426,161 @@
             return d; // returns the distance in meter
           }
 
+          function checkArea(ltd, lng)
+          {
+            tool = "area";
+
+            if(points.length < 4)
+            {
+              creatSinglePointOnMap(ltd, lng);
+              updateMap();
+
+              points.push([lng, ltd]);
+            }
+
+            if(points.length == 4)
+            {
+              createLineOnMap(points);
+
+              setTimeout(function()
+              {
+                var base1 = Math.floor(getDistance(points[0][1], points[0][0], points[1][1], points[1][0]));
+                var altura1 = Math.floor(getDistance(points[1][1], points[1][0], points[2][1], points[2][0]));
+                var areaTerreno1 = Math.floor((base1*altura1)/2);
+
+                var base2 = Math.floor(getDistance(points[2][1], points[2][0], points[3][1], points[3][0]));
+                var altura2 = Math.floor(getDistance(points[3][1], points[3][0], points[0][1], points[0][0]));
+                var areaTerreno2 = Math.floor((base2*altura2)/2);
+
+                var areaTerreno = areaTerreno1 + areaTerreno2;
+
+                alert("Área total de: " + areaTerreno + " m²" );
+
+                removeMarker(construcoes.length-1, true);
+                removeMarker(construcoes.length-1, true);
+                removeMarker(construcoes.length-1, true);
+                removeMarker(construcoes.length-1, true);
+
+                points = [];
+                tool = null;
+              }, 1000);
+            }
+          }
+
+          function checkPoint(ltd, lng)
+          {
+            tool = "ponto";
+
+            if(points.length < 2)
+            {
+              creatSinglePointOnMap(ltd, lng);
+              updateMap();
+
+              points.push([lng, ltd]);
+            }
+
+            if(points.length == 2)
+            {
+              createLineOnMap(points);
+
+              setTimeout(function()
+              {
+                var distanciaEntrePontos = Math.floor(getDistance(points[0][1], points[0][0], points[1][1], points[1][0]));
+
+                alert("Dist\u00e2ncia entre os pontos\u003a " + distanciaEntrePontos + "m" );
+
+                removeMarker(construcoes.length-1, true);
+                removeMarker(construcoes.length-1, true);
+
+                points = [];
+                tool = null;
+              }, 1000);
+            }
+          }
+
+          function checkCordenate(ltd, lng)
+          {
+            tool = "coordenada";
+
+            creatSinglePointOnMap(ltd, lng);
+            updateMap();
+
+            setTimeout(function()
+            {
+              mltd = "" + ltd;
+              mlgn = "" + lng;
+
+              alert( "Coordenadas do ponto:  Latitude: " + mltd.substr(0, 7) + " , Longitude:" + mlgn.substr(0, 7) );
+
+              removeMarker(construcoes.length-1, true);
+
+              tool = null;
+            }, 1000);
+          }
+
+          function checkRoute(ltd, lng)
+          {
+            tool = "rota";
+
+            if(points.length < 2)
+            {
+              creatSinglePointOnMap(ltd, lng);
+              updateMap();
+
+              points.push([lng, ltd]);
+            }
+
+            if(points.length == 2)
+            {
+              var start =  new google.maps.LatLng(points[0][1], points[0][0]);
+              var end =  new google.maps.LatLng(points[1][1], points[1][0]);
+
+              var request = {
+                origin:start,
+                destination:end,
+                travelMode: google.maps.TravelMode.DRIVING
+              };
+
+              directionsService.route(request, function(result, status) 
+              {
+                if (status == google.maps.DirectionsStatus.OK)
+                {
+                  var route = result.routes[0];
+
+                  points = [];
+                  for (var i = 0; i < route.legs[0].steps.length; i++) {
+                    //alert(JSON.stringify(route.legs[0].steps[i].start_location));
+                    points.push([route.legs[0].steps[i].start_location.lng(), route.legs[0].steps[i].start_location.lat()]);
+                  }
+
+                  //alert(JSON.stringify(points));
+                  createLineOnMap(points);
+
+                  setTimeout(function()
+                  {
+                    alert("Dist\u00e2ncia entre os pontos seguindo a rota escolhida\u003a " + route.legs[0].distance.text );
+
+                    removeMarker(construcoes.length-1, true);
+                    removeMarker(construcoes.length-1, true);
+
+                    points = [];
+                    tool = null;
+                  }, 1000);
+                }
+                else
+                {
+                  alert("Erro em obter rota!");
+
+                  removeMarker(construcoes.length-1, true);
+                  removeMarker(construcoes.length-1, true);
+
+                  points = [];
+                  tool = null;
+                }
+              });
+            }
+          }
+
           function loadAdress(name, adress)
           {
             var geocoder = new google.maps.Geocoder();
@@ -478,7 +654,7 @@
 
                 if(name && longitude && latitude)
                 {
-                  creatIconOnMap(name, icon, latitude, longitude);
+                  creatConstructionOnMap(name, icon, latitude, longitude);
                 }
             });
 
@@ -730,14 +906,70 @@
 
             function creatCursor()
             {
-              if( coliderMarkerCheck(coordenadasMouse[0], coordenadasMouse[1]) ){
-                creatIconOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
-                populateList(construcoes);
-                updateMap();
+              //area
+              if(cursor["img"] == "area")
+              {
+                if(tool == null || tool == "area")
+                {
+                  checkArea(coordenadasMouse[0], coordenadasMouse[1]);
+                }
+                else
+                {
+                  alert("Finalize a ação da ferramenta anterior!");
+                }
               }
+
+              //distancias
+              else if(cursor["img"] == "ponto")
+              {
+                if(tool == null || tool == "ponto")
+                {
+                  checkPoint(coordenadasMouse[0], coordenadasMouse[1]);
+                }
+                else
+                {
+                  alert("Finalize a ação da ferramenta anterior!");
+                }
+              }
+
+              //coordenadas
+              else if(cursor["img"] == "coordenada")
+              {
+                if(tool == null || tool == "coordenada")
+                {
+                  checkCordenate(coordenadasMouse[0], coordenadasMouse[1]);
+                }
+                else
+                {
+                  alert("Finalize a ação da ferramenta anterior!");
+                }
+              }
+
+              //rota
+              else if(cursor["img"] == "rota")
+              {
+                if(tool == null || tool == "rota")
+                {
+                  checkRoute(coordenadasMouse[0], coordenadasMouse[1]);
+                }
+                else
+                {
+                  alert("Finalize a ação da ferramenta anterior!");
+                }
+              }
+
+              //construcoes
               else
               {
-                 alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+                if( coliderMarkerCheck(coordenadasMouse[0], coordenadasMouse[1]) ){
+                  creatConstructionOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
+                  populateList(construcoes);
+                  updateMap();
+                }
+                else
+                {
+                   alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+                }
               }
             }
           }

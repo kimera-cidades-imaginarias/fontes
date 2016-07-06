@@ -86,6 +86,76 @@
         <coordinates>-51.51399332286019,-29.165074825286865,0</coordinates>
       </Point>
     </Placemark>
+    <Style id="icon6">
+      <IconStyle>
+        <Icon>
+          <href>img/super-mercado.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Supermercado</name>
+      <styleUrl>#icon6</styleUrl>
+      <Point>
+        <coordinates>-51.51761296392579,-29.167862266313023,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon7">
+      <IconStyle>
+        <Icon>
+          <href>img/banco-01.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Banco 01</name>
+      <styleUrl>#icon7</styleUrl>
+      <Point>
+        <coordinates>-51.51881459356446,-29.167781800042576,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon8">
+      <IconStyle>
+        <Icon>
+          <href>img/banco-02.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Banco 02</name>
+      <styleUrl>#icon8</styleUrl>
+      <Point>
+        <coordinates>-51.51429775358338,-29.169108867645264,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon9">
+      <IconStyle>
+        <Icon>
+          <href>img/super-mercado.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Supermercado</name>
+      <styleUrl>#icon9</styleUrl>
+      <Point>
+        <coordinates>-51.51767197252412,-29.16569173336029,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon10">
+      <IconStyle>
+        <Icon>
+          <href>img/banco-02.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Banco 02</name>
+      <styleUrl>#icon10</styleUrl>
+      <Point>
+        <coordinates>-51.51810649038453,-29.167266815911717,0</coordinates>
+      </Point>
+    </Placemark>
     <Camera>
       <longitude>-51.5169861</longitude>
       <latitude>-29.1667089</latitude>
