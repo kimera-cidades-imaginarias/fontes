@@ -42,10 +42,6 @@ ul.lista li img{
     display: block;
 }
 
-#map{
-/*height: 530px;*/
-}
-
 .panelContrucao{
     height: 390px;
 }
@@ -68,6 +64,7 @@ ul.lista li img{
 
 .well{
     border:solid 6px #2D568A;
+    display: table;
 }
 
 hr{
@@ -100,7 +97,14 @@ hr{
     margin-left: 150px;
 }
 
-#map {
+#close
+{
+    position: absolute;
+    z-index: 100;
+}
+
+#map,
+#streetView {
     /*
     -ms-transform: rotate(45deg); 
     -webkit-transform: rotate(45deg);
@@ -108,4 +112,5 @@ hr{
     width: 530px;
     */
     height: 530px;
+    width: 100%;
 }

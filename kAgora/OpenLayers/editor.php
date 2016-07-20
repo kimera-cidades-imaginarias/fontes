@@ -99,7 +99,7 @@
             $('#myTab a:first').tab('show');
             $('.tab-content a').tooltip();
 
-            $(".alert").alert('close')
+            //$(".alert").alert('close')
           })
 
         </script>
@@ -108,6 +108,7 @@
         <script type="text/javascript">
           
           var map = null;
+          var panorama = null;
 
           var construcoes = [];
           var points = [];
@@ -122,6 +123,7 @@
           var vectorSource = null;
           var vectorLayer = null;
           var vectorLineLayer = null;
+          var vectorPolygonLayer = null;
 
           var cursor = null;
           var tool = null;
@@ -163,7 +165,6 @@
             vectorLineLayer = new ol.layer.Vector({
                 source: vectorLine,
                 style: new ol.style.Style({
-                    fill: new ol.style.Fill({ color: '#00FF00', weight: 4 }),
                     stroke: new ol.style.Stroke({ color: '#00FF00', width: 2 })
                 })
             });
@@ -171,8 +172,28 @@
             map.addLayer(vectorLineLayer);
           }
 
+          function createPolygonOnMap(points)
+          {
+            var featurePolygon = new ol.Feature({
+              geometry: new ol.geom.Polygon([points])
+            });
+
+            var vectorPolygon = new ol.source.Vector({});
+            vectorPolygon.addFeature(featurePolygon);
+
+            vectorPolygonLayer = new ol.layer.Vector({
+                source: vectorPolygon,
+                style: new ol.style.Style({
+                    stroke: new ol.style.Stroke({ color: '#00FF00', width: 2 })
+                })
+            });
+
+            map.addLayer(vectorPolygonLayer);
+          }
+
           function creatConstructionOnMap(nome, icone, ltd, lng)
           {
+            //map
             var iconFeature = new ol.Feature({
               geometry: new ol.geom.Point([lng,ltd]),
               name: nome
@@ -196,6 +217,7 @@
           function updateMap()
           {
             map.removeLayer(vectorLineLayer);
+            map.removeLayer(vectorPolygonLayer);
             map.removeLayer(vectorLayer);
             map.render();
 
@@ -228,6 +250,46 @@
 
             map.addLayer(vectorLayer);
             map.render();
+          }
+
+          function updateStreetView(lat, lng)
+          {
+            panorama = new google.maps.StreetViewPanorama(
+              document.getElementById('streetView'),
+              {
+                position: 
+                {
+                  lat: Number(lat),
+                  lng: Number(lng)
+                },
+                pov: { heading: 165, pitch: 0 },
+                zoom: 1,
+                visible: true
+            });
+          }
+
+          function showStreetView()
+          {
+            $( "#streetView" ).show();
+            $( "#streetView" ).before( '<a href="#" id="close"><img src="img/close_icon.png" /></a>' );
+
+            $( "#close" ).click(function() { hideStreetView(); showMap(); tool=null; })
+          }
+
+          function hideStreetView()
+          {
+            $( "#streetView" ).hide();
+            $( "#close" ).remove();
+          }
+
+          function showMap()
+          {
+            $( "#map" ).show();
+          }
+
+          function hideMap()
+          {
+            $( "#map" ).hide();
           }
 
           function initializeAPI() 
@@ -279,6 +341,9 @@
                     break;
                }
             });
+
+            //streetmap
+            updateStreetView(coordenadasMapa[0], coordenadasMapa[1]);
           }
 
           function showProfDaniel()
@@ -440,7 +505,7 @@
 
             if(points.length == 4)
             {
-              createLineOnMap(points);
+              createPolygonOnMap(points);
 
               setTimeout(function()
               {
@@ -462,7 +527,9 @@
                 removeMarker(construcoes.length-1, true);
 
                 points = [];
+
                 tool = null;
+                cursor = null;
               }, 1000);
             }
           }
@@ -493,7 +560,9 @@
                 removeMarker(construcoes.length-1, true);
 
                 points = [];
+
                 tool = null;
+                cursor = null;
               }, 1000);
             }
           }
@@ -515,6 +584,7 @@
               removeMarker(construcoes.length-1, true);
 
               tool = null;
+              cursor = null;
             }, 1000);
           }
 
@@ -564,7 +634,9 @@
                     removeMarker(construcoes.length-1, true);
 
                     points = [];
+
                     tool = null;
+                    cursor = null;
                   }, 1000);
                 }
                 else
@@ -575,10 +647,21 @@
                   removeMarker(construcoes.length-1, true);
 
                   points = [];
+
                   tool = null;
+                  cursor = null;
                 }
               });
             }
+          }
+
+          function checkStreetView(ltd, lng)
+          {
+            tool = "streetView";
+
+            hideMap();
+            showStreetView();
+            updateStreetView(ltd, lng)
           }
 
           function loadAdress(name, adress)
@@ -798,6 +881,15 @@
                   }, 6000);
                 }
 
+                if( $(this).attr('href') == "streetView" ){
+                  $( "#help .balao" ).html("Aplique um ponto no mapa para <br />visualizar a localização<br /> tridimensional.");
+                  $( "#help" ).fadeIn( 400 );
+
+                  my_timer = setTimeout(function () {
+                      $( "#help" ).fadeOut( 400 );
+                  }, 6000);
+                }
+
                 //cursor
                 cursor = { 
                   img: $(this).attr('href'), 
@@ -849,6 +941,19 @@
                      saveKML();
                   }    
               }, 1000 );
+
+              //streetView
+              hideStreetView();
+
+              //map
+              $( "#map" ).click(function(e) 
+              {
+                if(cursor != null)
+                {
+                  setTimeout(function() { creatCursor() },200);
+                  handleDragStop(null, null);
+                }
+              });
           });
 
           //Drag Options
@@ -867,13 +972,13 @@
           }
 
           function myHelper( event ) {
-            if( $(this).attr('href') == "rota" || $(this).attr('href') == "area" || $(this).attr('href') == "ponto" || $(this).attr('href') == "coordenada" )
+            if( $(this).attr('href') == "rota" || $(this).attr('href') == "area" || $(this).attr('href') == "ponto" || $(this).attr('href') == "coordenada" || $(this).attr('href') == "streetView" )
             {
-              return '<div id="draggableHelper"><img src="img/ponto.png" /></div>';
+              return '<div id="draggableHelper"><img src="img/ponto.png" width="100" /></div>';
             }
             else
             {
-              return '<div id="draggableHelper"><img src="img/' + $(this).attr('href') + '.png" /></div>';
+              return '<div id="draggableHelper"><img src="img/' + $(this).attr('href') + '.png" width="100" /></div>';
             }
           }
 
@@ -903,73 +1008,88 @@
             var draggable = ui.draggable;
 
             setTimeout(function() { creatCursor() },200)
+          }
 
-            function creatCursor()
+          function creatCursor()
+          {
+            //area
+            if(cursor["img"] == "area")
             {
-              //area
-              if(cursor["img"] == "area")
+              if(tool == null || tool == "area")
               {
-                if(tool == null || tool == "area")
-                {
-                  checkArea(coordenadasMouse[0], coordenadasMouse[1]);
-                }
-                else
-                {
-                  alert("Finalize a ação da ferramenta anterior!");
-                }
+                checkArea(coordenadasMouse[0], coordenadasMouse[1]);
               }
-
-              //distancias
-              else if(cursor["img"] == "ponto")
-              {
-                if(tool == null || tool == "ponto")
-                {
-                  checkPoint(coordenadasMouse[0], coordenadasMouse[1]);
-                }
-                else
-                {
-                  alert("Finalize a ação da ferramenta anterior!");
-                }
-              }
-
-              //coordenadas
-              else if(cursor["img"] == "coordenada")
-              {
-                if(tool == null || tool == "coordenada")
-                {
-                  checkCordenate(coordenadasMouse[0], coordenadasMouse[1]);
-                }
-                else
-                {
-                  alert("Finalize a ação da ferramenta anterior!");
-                }
-              }
-
-              //rota
-              else if(cursor["img"] == "rota")
-              {
-                if(tool == null || tool == "rota")
-                {
-                  checkRoute(coordenadasMouse[0], coordenadasMouse[1]);
-                }
-                else
-                {
-                  alert("Finalize a ação da ferramenta anterior!");
-                }
-              }
-
-              //construcoes
               else
               {
-                if( coliderMarkerCheck(coordenadasMouse[0], coordenadasMouse[1]) ){
-                  creatConstructionOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
-                  populateList(construcoes);
-                  updateMap();
-                }
-                else
-                {
-                   alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
-                }
+                alert("Finalize a ação da ferramenta anterior!");
+              }
+            }
+
+            //distancias
+            else if(cursor["img"] == "ponto")
+            {
+              if(tool == null || tool == "ponto")
+              {
+                checkPoint(coordenadasMouse[0], coordenadasMouse[1]);
+              }
+              else
+              {
+                alert("Finalize a ação da ferramenta anterior!");
+              }
+            }
+
+            //coordenadas
+            else if(cursor["img"] == "coordenada")
+            {
+              if(tool == null || tool == "coordenada")
+              {
+                checkCordenate(coordenadasMouse[0], coordenadasMouse[1]);
+              }
+              else
+              {
+                alert("Finalize a ação da ferramenta anterior!");
+              }
+            }
+
+            //rota
+            else if(cursor["img"] == "rota")
+            {
+              if(tool == null || tool == "rota")
+              {
+                checkRoute(coordenadasMouse[0], coordenadasMouse[1]);
+              }
+              else
+              {
+                alert("Finalize a ação da ferramenta anterior!");
+              }
+            }
+
+            //streetView
+            else if(cursor["img"] == "streetView")
+            {
+              if(tool == null || tool == "streetView")
+              {
+                checkStreetView(coordenadasMouse[0], coordenadasMouse[1]);
+              }
+              else
+              {
+                alert("Finalize a ação da ferramenta anterior!");
+              }
+            }
+
+            //construcoes
+            else
+            {
+              if( coliderMarkerCheck(coordenadasMouse[0], coordenadasMouse[1]) ){
+                creatConstructionOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
+                populateList(construcoes);
+                updateMap();
+
+                cursor = null;
+              }
+              else
+              {
+                 alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
               }
             }
           }
@@ -978,13 +1098,20 @@
   </head>
   
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <br />
     
       <div class="row-fluid">
         <div class="well span9">
-          <div id="map"></div>  
-          <div id="info"></div>
+          <div id="map">
+          </div> 
+
+          <div id="streetView">
+          </div>  
+          
+          <div id="info">
+          </div>
+          
           <div id="help">
             <img src="img/help.png">
             <p class="balao"></p>
@@ -998,7 +1125,6 @@
             <hr />
 
             <ul id="construcoes">
-            
             </ul>
         </div>
 
@@ -1010,9 +1136,9 @@
       </div>
 
       <div class="row-fluid">
-        <div class="span12">
+        <div class="well span12">
           
-          <div class="tab-content well">
+          <div class="tab-content">
             <ul class="nav nav-pills" role="tablist" id="myTab">
               <li role="presentation"><a href="#tabs1" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_comercio.png" /> Comércio</a></li>
               <li role="presentation"><a href="#tabs2" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_educacao.png" /> Educação</a></li>
@@ -1092,6 +1218,7 @@
                 <li><a href="ponto" rel="tooltip" title="Medir Distâncias"><img src="img/icone_ponto.png" /></a></li>
                 <li><a href="coordenada" rel="tooltip" title="Retornar Coordenadas"><img src="img/icone_coordenada.png" /></a></li>
                 <li><a href="rota" rel="tooltip" title="Calcular Rota"><img src="img/icone_rota.png" /></a></li>
+                <li><a href="streetView" rel="tooltip" title="Visão Tridimensional"><img src="img/icone_streetView.png" /></a></li>
               </ul>
             </div>
             
