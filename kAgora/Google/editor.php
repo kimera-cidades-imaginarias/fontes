@@ -851,6 +851,37 @@
                   
               }, 1000 );
 
+              //check letter
+              var c = false;
+
+              setInterval( function() 
+              {
+                $.ajax({
+                    type: 'POST',
+                    url: 'action/read_letter.php?file=all',
+                    
+                    success: function(response) 
+                    {
+                      if(response != "" && c == false)
+                      {
+                        c = true;
+                        
+                        alert(response);
+
+                        $.ajax({
+                          type: 'POST',
+                          url: 'action/write_letter.php?file=all&action=empty',
+                        
+                          success: function() 
+                          {
+                            c=false;
+                          }
+                        });
+                      }
+                    }
+                });
+              }, 1000 );
+
               //salvar
               $( "#salvar" ).click(function(e) {
                 saveKML();
@@ -963,6 +994,7 @@
   
   <body>
     <div class="container">
+      <div id="teste"></div>
       <br />
     
       <div class="row-fluid">
@@ -1047,6 +1079,7 @@
                 <li><a href="delegacia" rel="tooltip" title="Delegacia"><img src="img/icone_infraestrutura_delegacia.png" /></a></li>
                 <li><a href="estacao-tratamento-de-agua" rel="tooltip" title="Estaçao de Tratamento de Água"><img src="img/icone_infraestrutura_estacao_tratamento_de_agua.png" /></a></li>
                 <li><a href="hospital" rel="tooltip" title="Hospital"><img src="img/icone_infraestrutura_hospital.png" /></a></li>
+                <li><a href="farmacia" rel="tooltip" title="Farmácia"><img src="img/icone_infraestrutura_farmacia.png" /></a></li>
                 <li><a href="industria" rel="tooltip" title="Indústria"><img src="img/icone_infraestrutura_industria.png" /></a></li>
                 <li><a href="industria-de-reciclagem-de-lixo" rel="tooltip" title="Indústria de Reciclagem de Lixo"><img src="img/icone_infraestrutura_industria_de_reciclagem_de_lixo.png" /></a></li>
                 <li><a href="parque-ecologico" rel="tooltip" title="Parque Ecológico"><img src="img/icone_infraestrutura_parque_ecologico.png" /></a></li>

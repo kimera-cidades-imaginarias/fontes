@@ -156,6 +156,20 @@
         <coordinates>-51.51810649038453,-29.167266815911717,0</coordinates>
       </Point>
     </Placemark>
+    <Style id="icon11">
+      <IconStyle>
+        <Icon>
+          <href>img/farmacia.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Farmácia</name>
+      <styleUrl>#icon11</styleUrl>
+      <Point>
+        <coordinates>-51.51530295610428,-29.16671964527268,0</coordinates>
+      </Point>
+    </Placemark>
     <Camera>
       <longitude>-51.5169861</longitude>
       <latitude>-29.1667089</latitude>
