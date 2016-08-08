@@ -852,6 +852,7 @@
               }, 1000 );
 
               //check letter
+              /*
               var c = false;
 
               setInterval( function() 
@@ -881,6 +882,7 @@
                     }
                 });
               }, 1000 );
+              */
 
               //salvar
               $( "#salvar" ).click(function(e) {

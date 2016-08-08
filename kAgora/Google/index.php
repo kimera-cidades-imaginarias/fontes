@@ -120,7 +120,7 @@
           <!--menu -->
           <ul class="nav nav-tabs" role="tablist" id="myTab">
             <li role="presentation"><a href="#sobre" role="tab" data-toggle="tab">K-Ágora</a></li>
-            <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Novo mapa</a></li>
+            <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Explorar</a></li>
             <li role="presentation"><a href="#carregarMapa" role="tab" data-toggle="tab">Carregar mapa</a></li>
             <li role="presentation"><a href="#creditos" role="tab" data-toggle="tab">Créditos</a></li>
           </ul>
