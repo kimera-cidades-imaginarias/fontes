@@ -129,6 +129,8 @@
           var tool = null;
           var iconTemp = null;
 
+          var lastPosition = null;
+
           var directionsService = new google.maps.DirectionsService();
 
           function creatSinglePointOnMap(ltd, lng)
@@ -210,6 +212,7 @@
             });
 
             iconFeature.setStyle(iconStyle);
+            iconFeature.setId(construcoes.length + 1);
 
             construcoes.push(iconFeature);
           } 
@@ -219,7 +222,6 @@
             map.removeLayer(vectorLineLayer);
             map.removeLayer(vectorPolygonLayer);
             map.removeLayer(vectorLayer);
-            map.render();
 
             vectorSource = new ol.source.Vector({
               features: construcoes
@@ -234,15 +236,27 @@
               var dragInteraction = new ol.interaction.Modify({
                   features: new ol.Collection([construcoes[i]]),
                   style: null,
-                  pixelTolerance: 20
+                  pixelTolerance: 10
               });
 
-              dragInteraction.on('modifyend',function()
+              dragInteraction.on('modifystart',function(e)
               {
-                  if(!coliderMarkerCheck(coordenadasMouse[0], coordenadasMouse[1]))
+                lastPosition = e.features.getArray()[0].getGeometry().getCoordinates();
+              },[construcoes[i]]);
+
+              dragInteraction.on('modifyend',function(e)
+              {
+                if(tool == null)
+                {
+                  if(!coliderMarkerCheck(e.features.getArray()[0].getId(), coordenadasMouse[0], coordenadasMouse[1]))
                   {
                     alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+
+                    e.features.getArray()[0].getGeometry().setCoordinates(lastPosition);
                   }
+                }
+
+                lastPosition = null;
               },[construcoes[i]]);
 
               map.addInteraction(dragInteraction);
@@ -271,15 +285,22 @@
           function showStreetView()
           {
             $( "#streetView" ).show();
-            $( "#streetView" ).before( '<a href="#" id="close"><img src="img/close_icon.png" /></a>' );
+            $( "#streetView" ).before( '<a href="#" id="closeStreetView"><img src="img/close_icon.png" /></a>' );
 
-            $( "#close" ).click(function() { hideStreetView(); showMap(); tool=null; })
+            $( "#closeStreetView" ).click(function()
+            { 
+              hideStreetView(); 
+              showMap(); 
+
+              tool = null; 
+              cursor = null; 
+            });
           }
 
           function hideStreetView()
           {
             $( "#streetView" ).hide();
-            $( "#close" ).remove();
+            $( "#closeStreetView" ).remove();
           }
 
           function showMap()
@@ -290,6 +311,32 @@
           function hideMap()
           {
             $( "#map" ).hide();
+          }
+
+          function showLetter()
+          {
+            $('#myModal').modal('show');
+
+            $.ajax({
+               type: "POST",
+               url: "pages/home.php",
+               
+               success: function(data)
+               {
+                  $('#myModal #data').html(data);
+
+                  return false;
+               },
+               error: function(xhr, textStatus, errorThrown) 
+               {
+                  return false;
+               }
+            });
+          }
+
+          function hideLetter()
+          {
+            $('#myModal').modal('hide');
           }
 
           function initializeAPI() 
@@ -432,7 +479,7 @@
             } 
           }
 
-          function coliderMarkerCheck(lat, lng)
+          function coliderMarkerCheck(id, lat, lng)
           {
             var t = construcoes.length;
             var ltemp = 0;
@@ -445,17 +492,21 @@
             {
               for (var i = 0; i < t; i++) 
               {
-                var olg = ""+construcoes[i].getGeometry().getCoordinates();
-                var tlat = olg.substr(olg.indexOf(",")+1, olg.length);
-                var tlng = olg.substr(0, olg.indexOf(","));
+                if( id == null || id != construcoes[i].getId() )
+                {
+                  var olg = ""+construcoes[i].getGeometry().getCoordinates();
+                  var tlat = olg.substr(olg.indexOf(",")+1, olg.length);
+                  var tlng = olg.substr(0, olg.indexOf(","));
 
-                if(ltemp == 0)
-                {
-                  ltemp = Math.floor(getDistance(lat, lng, tlat, tlng));
-                }
-                else if(Math.floor(getDistance(lat, lng, tlat, tlng)) <= ltemp)
-                {
-                  ltemp = Math.floor(getDistance(lat, lng, tlat, tlng));
+                  if(ltemp == 0)
+                  {
+                    ltemp = Math.floor(getDistance(lat, lng, tlat, tlng));
+                  }
+                  else if(Math.floor(getDistance(lat, lng, tlat, tlng)) <= ltemp)
+                  {
+                    ltemp = Math.floor(getDistance(lat, lng, tlat, tlng));
+                  }
+
                 }
               }
 
@@ -807,7 +858,7 @@
             $.ajax(
             {
                 type: 'POST',
-                url: 'action/creat.php',
+                url: 'action/creat-map.php',
                 data: { data: kml, name: nome, cidade: cidade  }
             }).done(function(data) 
             {
@@ -890,6 +941,11 @@
                   }, 6000);
                 }
 
+                //carta voadora
+                if( $(this).attr('href') == "carta" ){
+                  showLetter();
+                }
+
                 //cursor
                 cursor = { 
                   img: $(this).attr('href'), 
@@ -907,6 +963,9 @@
 
                 return false;
               });
+
+              //letter
+              hideLetter();
 
               //inicial
               $( ".inicial" ).click(function(e) 
@@ -1077,10 +1136,13 @@
               }
             }
 
+            //carta voadora
+            else if(cursor["img"] == "carta"){}
+
             //construcoes
             else
             {
-              if( coliderMarkerCheck(coordenadasMouse[0], coordenadasMouse[1]) ){
+              if( coliderMarkerCheck(null, coordenadasMouse[0], coordenadasMouse[1]) ){
                 creatConstructionOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
                 populateList(construcoes);
                 updateMap();
@@ -1098,6 +1160,17 @@
   </head>
   
   <body>
+    <!-- Modal -->
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Cartas Voadoras</h3>
+      </div>
+      
+      <div id="data" class="modal-body"></div>
+    </div>
+
+    <!-- App -->
     <div class="container-fluid">
       <br />
     
@@ -1220,6 +1293,7 @@
                 <li><a href="coordenada" rel="tooltip" title="Retornar Coordenadas"><img src="img/icone_coordenada.png" /></a></li>
                 <li><a href="rota" rel="tooltip" title="Calcular Rota"><img src="img/icone_rota.png" /></a></li>
                 <li><a href="streetView" rel="tooltip" title="Visão Tridimensional"><img src="img/icone_streetView.png" /></a></li>
+                <li><a href="carta" rel="tooltip" title="Carta Voadora"><img src="img/icone_carta.png" /></a></li>
               </ul>
             </div>
             
@@ -1227,7 +1301,7 @@
         </div>
       </div>
 
-      <p class="versao">Versão: d709955</p>
+      <p class="versao">Versão: a.0.0.1</p>
     </div>
   </body>
 

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <cidade>Ibirubá</cidade>
+  <Document>
+    <Style id="icon0">
+      <IconStyle>
+        <Icon>
+          <href>img/universidade.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>IFRS - Campús Ibiruba</name>
+      <styleUrl>#icon0</styleUrl>
+      <Point>
+        <coordinates>-53.10295343399048,-28.65056276321411,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon1">
+      <IconStyle>
+        <Icon>
+          <href>img/escola.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>IFRS - Campús Ibiruba</name>
+      <styleUrl>#icon1</styleUrl>
+      <Point>
+        <coordinates>-53.1040906906128,-28.649897575378418,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon2">
+      <IconStyle>
+        <Icon>
+          <href>img/biblioteca.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Biblioteca Mario Quintana</name>
+      <styleUrl>#icon2</styleUrl>
+      <Point>
+        <coordinates>-53.10434818267823,-28.651292324066162,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon3">
+      <IconStyle>
+        <Icon>
+          <href>img/casa-simples.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Casa Simples</name>
+      <styleUrl>#icon3</styleUrl>
+      <Point>
+        <coordinates>-53.10859680175781,-28.65438222885132,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon4">
+      <IconStyle>
+        <Icon>
+          <href>img/casa-simples.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Casa Simples</name>
+      <styleUrl>#icon4</styleUrl>
+      <Point>
+        <coordinates>-53.10861825942993,-28.655712604522705,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon5">
+      <IconStyle>
+        <Icon>
+          <href>img/hotel.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Hotel Pitangueira</name>
+      <styleUrl>#icon5</styleUrl>
+      <Point>
+        <coordinates>-53.09492826461792,-28.638793230056763,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon6">
+      <IconStyle>
+        <Icon>
+          <href>img/hotel.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Pousada Por do Sol</name>
+      <styleUrl>#icon6</styleUrl>
+      <Point>
+        <coordinates>-53.09575438499451,-28.638793230056763,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon7">
+      <IconStyle>
+        <Icon>
+          <href>img/casa-media.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Casa Média</name>
+      <styleUrl>#icon7</styleUrl>
+      <Point>
+        <coordinates>-53.096065521240234,-28.636878132820133,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon8">
+      <IconStyle>
+        <Icon>
+          <href>img/casa-de-luxo.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Casa de Luxo</name>
+      <styleUrl>#icon8</styleUrl>
+      <Point>
+        <coordinates>-53.09664487838745,-28.63882541656494,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon9">
+      <IconStyle>
+        <Icon>
+          <href>img/super-mercado.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Supermercado Regional</name>
+      <styleUrl>#icon9</styleUrl>
+      <Point>
+        <coordinates>-53.09592604637146,-28.63562822341919,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon10">
+      <IconStyle>
+        <Icon>
+          <href>img/posto-de-gasolina.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Posto Habib</name>
+      <styleUrl>#icon10</styleUrl>
+      <Point>
+        <coordinates>-53.09565246105195,-28.63708198070526,0</coordinates>
+      </Point>
+    </Placemark>
+    <Camera>
+      <longitude>-53.09557849999999</longitude>
+      <latitude>-28.6307855</latitude>
+    </Camera>
+  </Document>
+</kml>

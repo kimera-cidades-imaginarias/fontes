@@ -55,7 +55,7 @@
           function updateList(){
             $.ajax({
               type: "GET",
-              url: "action/list.php",
+              url: "action/list-map.php",
               success: function(data) {
 
                 $("#dados").html(data);    
@@ -84,7 +84,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: 'action/save.php',
+                    url: 'action/save-map.php',
                     data: data,
                     cache: false,
                     contentType: false,
@@ -122,7 +122,7 @@
               <!--menu -->
               <ul class="nav nav-tabs" role="tablist" id="myTab">
                 <li role="presentation"><a href="#sobre" role="tab" data-toggle="tab">K-Ágora</a></li>
-                <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Novo mapa</a></li>
+                <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Explorar</a></li>
                 <li role="presentation"><a href="#carregarMapa" role="tab" data-toggle="tab">Carregar mapa</a></li>
                 <li role="presentation"><a href="#creditos" role="tab" data-toggle="tab">Créditos</a></li>
               </ul>
@@ -331,7 +331,7 @@
         </div>
       </div>
 
-      <p class="versao">Versão: .d709955</p>
+      <p class="versao">Versão: a.0.0.1</p>
     </div>
 
   </body>

@@ -5,15 +5,15 @@
     <Style id="icon0">
       <IconStyle>
         <Icon>
-          <href>img/posto-de-gasolina.png</href>
+          <href>img/farmacia.png</href>
         </Icon>
       </IconStyle>
     </Style>
     <Placemark>
-      <name>Posto de Gasolina</name>
+      <name>Farmácia</name>
       <styleUrl>#icon0</styleUrl>
       <Point>
-        <coordinates>-51.51718854904175,-29.17440891265869,0</coordinates>
+        <coordinates>-51.515903770923615,-29.166389107704163,0</coordinates>
       </Point>
     </Placemark>
     <Style id="icon1">
@@ -27,24 +27,10 @@
       <name>Supermercado</name>
       <styleUrl>#icon1</styleUrl>
       <Point>
-        <coordinates>-51.516759395599365,-29.1739422082901,0</coordinates>
+        <coordinates>-51.51626318693161,-29.16742444038391,0</coordinates>
       </Point>
     </Placemark>
     <Style id="icon2">
-      <IconStyle>
-        <Icon>
-          <href>img/super-mercado.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Supermercado</name>
-      <styleUrl>#icon2</styleUrl>
-      <Point>
-        <coordinates>-51.50976669792726,-29.162156581878666,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon3">
       <IconStyle>
         <Icon>
           <href>img/lanchonete.png</href>
@@ -53,121 +39,37 @@
     </Style>
     <Placemark>
       <name>Lanchonete</name>
+      <styleUrl>#icon2</styleUrl>
+      <Point>
+        <coordinates>-51.51460021734238,-29.167011380195618,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon3">
+      <IconStyle>
+        <Icon>
+          <href>img/super-mercado.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Supermercado</name>
       <styleUrl>#icon3</styleUrl>
       <Point>
-        <coordinates>-51.51659023766115,-29.169473648071293,0</coordinates>
+        <coordinates>-51.515168845653534,-29.16719707847733,0</coordinates>
       </Point>
     </Placemark>
     <Style id="icon4">
       <IconStyle>
         <Icon>
-          <href>img/parque-ecologico.png</href>
+          <href>img/banco-03.png</href>
         </Icon>
       </IconStyle>
     </Style>
     <Placemark>
-      <name>Parque Ecológico</name>
+      <name>Banco 03</name>
       <styleUrl>#icon4</styleUrl>
       <Point>
-        <coordinates>-51.516294658194965,-29.16690945625305,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon5">
-      <IconStyle>
-        <Icon>
-          <href>img/super-mercado.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Supermercado</name>
-      <styleUrl>#icon5</styleUrl>
-      <Point>
-        <coordinates>-51.51399332286019,-29.165074825286865,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon6">
-      <IconStyle>
-        <Icon>
-          <href>img/super-mercado.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Supermercado</name>
-      <styleUrl>#icon6</styleUrl>
-      <Point>
-        <coordinates>-51.51761296392579,-29.167862266313023,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon7">
-      <IconStyle>
-        <Icon>
-          <href>img/banco-01.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Banco 01</name>
-      <styleUrl>#icon7</styleUrl>
-      <Point>
-        <coordinates>-51.51881459356446,-29.167781800042576,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon8">
-      <IconStyle>
-        <Icon>
-          <href>img/banco-02.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Banco 02</name>
-      <styleUrl>#icon8</styleUrl>
-      <Point>
-        <coordinates>-51.51429775358338,-29.169108867645264,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon9">
-      <IconStyle>
-        <Icon>
-          <href>img/super-mercado.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Supermercado</name>
-      <styleUrl>#icon9</styleUrl>
-      <Point>
-        <coordinates>-51.51767197252412,-29.16569173336029,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon10">
-      <IconStyle>
-        <Icon>
-          <href>img/banco-02.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Banco 02</name>
-      <styleUrl>#icon10</styleUrl>
-      <Point>
-        <coordinates>-51.51810649038453,-29.167266815911717,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon11">
-      <IconStyle>
-        <Icon>
-          <href>img/farmacia.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Farmácia</name>
-      <styleUrl>#icon11</styleUrl>
-      <Point>
-        <coordinates>-51.51530295610428,-29.16671964527268,0</coordinates>
+        <coordinates>-51.514184474945075,-29.16548252105713,0</coordinates>
       </Point>
     </Placemark>
     <Camera>
