@@ -2,7 +2,7 @@
 	<?php include_once('../action/connect.php'); ?>
 
 	<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])) { ?>
-	<form action="#" role="form" id="form" method="post">
+	 <form action="#" role="form" id="form" method="post">
       	<input type="hidden" name="user_id" value="<?php echo $_SESSION["user_id"]; ?>" />
       	<input type="hidden" name="permission" value="<?php echo $_SESSION["permission"]; ?>" />
         
@@ -15,41 +15,9 @@
 
     <hr />
 
-    <?php if($_SESSION["permission"] == 0){ ?>
     <h4>Minhas Cartas</h4>
     <ul id="listLetter">
-    	<?php 
-    		$sql = "SELECT * FROM letter WHERE user_id = " . $_SESSION["user_id"] . " OR permission = 1 ORDER BY date_time ASC";
-
-    		$result = $con->query($sql); 
-    		if ($result->num_rows > 0) {
-    			while($row = $result->fetch_assoc()) {
-    	?>
-    	<li><a href="<?php echo $row["letter"]; ?>"><?php echo $row["title"]; ?></a></li>
-    	<?php 
-    			} 
-    		}
-    	?>
     </ul>
-    <?php } ?>
-
-    <?php if($_SESSION["permission"] == 1){ ?>
-    <h4>Todas Cartas</h4>
-    <ul id="listLetter">
-    	<?php 
-    		$sql = "SELECT * FROM letter ORDER BY date_time ASC";
-
-    		$result = $con->query($sql); 
-    		if ($result->num_rows > 0) {
-    			while($row = $result->fetch_assoc()) {
-    	?>
-    	<li><a href="<?php echo $row["letter"]; ?>"><?php echo $row["title"]; ?></a></li>
-    	<?php 
-    			} 
-    		}
-    	?>
-    </ul>
-    <?php } ?>
 
     <script type="text/javascript">
       function creatLetter()
@@ -59,12 +27,12 @@
         $.ajax({
            type: "POST",
            url: "action/creat-letter.php",
-           async: false,
+           async: true,
            data: data,
            
            success: function(data)
            {
-           	  updateLetter();
+           	  clearLetter();
            	  $('#myModal').modal('hide');
 
               return false;
@@ -82,12 +50,66 @@
 
       function showMyLetter(id)
       {
-      	$('#form textarea').val(id);
+        $.ajax({
+           type: "POST",
+           url: "action/show-letter.php",
+           data: 'id='+id,
+           dataType : "json",
+           
+           success: function(data)
+           {
+              clearLetter();
+
+              $('#form input[name*="title"]').val(data.letter[0].title);
+              $('#form textarea').val(data.letter[0].letter);
+
+              return false;
+           },
+           complete: function(data) 
+           {
+              return false;
+           },
+           error: function(xhr, textStatus, errorThrown) 
+           {
+              return false;
+           }
+        });
       }
 
-      function updateLetter()
+      function clearLetter()
       {
-      	$('#form textarea').val('');
+      	$('#form input[name*="title"]').val('');
+        $('#form textarea').val('');
+      }
+
+      function listLetter()
+      {
+        var data = '';
+
+        <?php if(isset($_SESSION["user_id"])){ echo "var data = '".$_SESSION["user_id"]."';"; } ?>
+
+        $.ajax({
+           type: "POST",
+           url: "action/list-letter.php",
+           async: false,
+           data: 'user_id='+data,
+           
+           success: function(data)
+           {
+              clearLetter();
+              $('#listLetter').html(data);
+
+              return false;
+           },
+           complete: function(data) 
+           {
+              return false;
+           },
+           error: function(xhr, textStatus, errorThrown) 
+           {
+              return false;
+           }
+        });
       }
 
       $(document).ready(function() 
@@ -101,7 +123,7 @@
 
         $('.nova').click(function (e) 
         {
-          updateLetter();
+          clearLetter();
 
           return false;
         });
@@ -112,6 +134,8 @@
 
           return false;
         });
+
+        listLetter();
       });
     </script>
-    <?php } ?>
+<?php } ?>
