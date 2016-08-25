@@ -1,14 +1,18 @@
+    <p>Para acessar as Cartas Voadoras é necessário efetuar o login através dos campos abaixo. Caso você não tenha cadastro em nosso sistema, basta digitar os valores dos campos abaixo e em seguida clicar no botão cadastrar.</p>
+
+    <hr />
+
     <form class="form-horizontal" action="#" role="form" id="form" method="post">   
       <div class="control-group">
         <label class="control-label" for="inputEmail">Email</label>
         <div class="controls">
-          <input type="text" id="inputEmail" name="email" placeholder="Email">
+          <input type="text" id="inputEmail" name="email" placeholder="Email" required data-msg-required="Este campo não pode ser vazio!">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputPassword">Senha</label>
         <div class="controls">
-          <input type="password" id="inputPassword" name="password" placeholder="Senha">
+          <input type="password" id="inputPassword" name="password" placeholder="Senha" required data-msg-required="Este campo não pode ser vazio!">
         </div>
       </div>
       <div class="control-group">
@@ -18,6 +22,8 @@
         </div>
       </div>
     </form>
+
+    <hr />
 
     <script type="text/javascript">
       function creatuser()
@@ -32,7 +38,15 @@
            
            success: function(data)
            {
-              login();
+              if(data == 'true')
+              {
+                login();
+              }
+
+              if(data == 'false')
+              {
+                alert('Preencha todos os campos!');
+              }
 
               return false;
            },

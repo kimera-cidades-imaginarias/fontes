@@ -52,6 +52,7 @@ ul.lista li img{
 
 .panelFerramentas a{
     margin-bottom: 6px;
+    text-align: center;
 }
 
 #construcoes, .panelContrucao, .panelFerramentas{
@@ -114,3 +115,50 @@ hr{
     height: 530px;
     width: 100%;
 }
+
+#myModal
+{
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0px !important;
+
+    background: url('../img/bg_carta.png') no-repeat top center !important;
+}
+
+    #myModal .modal-body
+    {
+        min-height: 300px;
+        max-height: 300px;
+        margin-bottom: 140px;
+    }
+
+    #myModal .modal-header,
+    #myModal .modal-body
+    {
+        max-width: 85%;
+        margin-left: 20px;
+    }
+
+    #myModal .modal-header
+    {
+        border: none !important;
+        text-align: center;
+    }
+
+
+#myModal .asa-esq,
+#myModal .asa-dir
+{
+    position: absolute;
+}
+    
+    #myModal .asa-esq
+    {
+        margin-left: -190px;
+    }
+
+    #myModal .asa-dir
+    {
+         margin-left: 545px;
+    }

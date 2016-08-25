@@ -2,11 +2,27 @@
 	<?php include_once('../action/connect.php'); ?>
 
 	<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])) { ?>
-	 <form action="#" role="form" id="form" method="post">
+	
+    <hr />
+
+    <form action="#" class="form-horizontal" role="form" id="form" method="post">
       	<input type="hidden" name="user_id" value="<?php echo $_SESSION["user_id"]; ?>" />
       	<input type="hidden" name="permission" value="<?php echo $_SESSION["permission"]; ?>" />
         
-      	<input type="text" name="title" class=" btn-block" />
+        <div class="control-group">
+          <label class="control-label" >De:</label>
+          <div class="controls">
+      	     <input type="text" name="title" class=" btn-block" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" >Para:</label>
+          <div class="controls">
+             <input type="text" class=" btn-block" value="Prof. Daniel" disabled />
+          </div>
+        </div>
+
         <textarea rows="10" name="letter" class="btn-large btn-block"></textarea>
 
         <button type="button" class="nova btn">Nova carta</button>

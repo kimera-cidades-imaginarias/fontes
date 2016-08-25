@@ -97,7 +97,10 @@
             });
 
             $('#myTab a:first').tab('show');
+
             $('.tab-content a').tooltip();
+            $('.panelFerramentas a').tooltip();
+            
 
             //$(".alert").alert('close')
           })
@@ -207,7 +210,7 @@
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 src: icone,
-                scale:0.5
+                scale:0.65
               }))
             });
 
@@ -236,7 +239,7 @@
               var dragInteraction = new ol.interaction.Modify({
                   features: new ol.Collection([construcoes[i]]),
                   style: null,
-                  pixelTolerance: 10
+                  pixelTolerance: 40
               });
 
               dragInteraction.on('modifystart',function(e)
@@ -416,8 +419,10 @@
 
             for (var i = 0; i < markers.length; i++) 
             {
-              $("#construcoes").append( '<li><a href="javascript:editMarker('+i+')"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')""><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].get('name') + '</a></li>');
+              $("#construcoes").append( '<li><a href="javascript:editMarker('+i+')" title="Renomear Construção" rel="tooltip"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')"" title="Remover Construção" rel="tooltip"><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].get('name') + '</a></li>');
             }
+
+            $('#construcoes li a').tooltip();
           }
 
           function focusMarker(index)
@@ -942,9 +947,11 @@
                 }
 
                 //carta voadora
+                /*
                 if( $(this).attr('href') == "carta" ){
                   showLetter();
                 }
+                */
 
                 //cursor
                 cursor = { 
@@ -968,7 +975,7 @@
               hideLetter();
 
               //inicial
-              $( ".inicial" ).click(function(e) 
+              $( "#inicial" ).click(function(e) 
               {
                   var r = confirm("Todas as alterações não salvas serão perdidas, deseja mesmo sair para a Página Inicial?");
                   
@@ -977,6 +984,14 @@
                   } 
 
                   return false;
+              });
+
+              //cartas
+              $( "#cartas" ).click(function(e)
+               {
+                showLetter();
+
+                return false;
               });
 
               //salvar
@@ -1126,13 +1141,9 @@
             //streetView
             else if(cursor["img"] == "streetView")
             {
-              if(tool == null || tool == "streetView")
+              if(tool == null)
               {
                 checkStreetView(coordenadasMouse[0], coordenadasMouse[1]);
-              }
-              else
-              {
-                alert("Finalize a ação da ferramenta anterior!");
               }
             }
 
@@ -1162,6 +1173,9 @@
   <body>
     <!-- Modal -->
     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <img src="img/asa-esq.png" class="asa-esq" />
+      <img src="img/asa-dir.png" class="asa-dir" />
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>Cartas Voadoras</h3>
@@ -1202,9 +1216,14 @@
         </div>
 
         <div class="well span3 panelFerramentas">
-            <p><a href="#" class="btn span12 inicial">Página Inicial</a></p>
-            <p><a href="#" class="btn span12" id="salvar">Salvar Construções</a></p>
-            <p><a href="files/manual.pdf" class="btn span12" id="manual" target="_blank">Manual de Acesso e Uso</a></p>
+          <div class="row-fluid">
+            <a href="#" rel="tooltip" class="span6" id="inicial" title="Página Inicial"><img src="img/icone_pagina_inicial.png" width="60" /></a>
+            <a href="#" rel="tooltip" class="span6" id="salvar" title="Salvar Construções"><img src="img/icone_salvar.png" width="60" /></a>
+          </div>
+          <div class="row-fluid">
+            <a href="#" rel="tooltip" class="span6" id="cartas" title="Cartas Voadoras"><img src="img/icone_cartas_voadoras.png" width="60" /></a>
+            <a href="files/manual.pdf" rel="tooltip" class="span6" id="manual" target="_blank" title="Manual"><img src="img/icone_manual.png" width="60" /></a>
+          </div>
         </div>
       </div>
 
@@ -1227,6 +1246,7 @@
                 <li><a href="banco-01" rel="tooltip" title="Banco 01"><img src="img/icone_comercio_banco01.png" /></a></li>
                 <li><a href="banco-02" rel="tooltip" title="Banco 02"><img src="img/icone_comercio_banco02.png" /></a></li>
                 <li><a href="banco-03" rel="tooltip" title="Banco 03"><img src="img/icone_comercio_banco03.png" /></a></li>
+                <li><a href="farmacia" rel="tooltip" title="Farmácia"><img src="img/icone_infraestrutura_farmacia.png" /></a></li>
                 <li><a href="lanchonete" rel="tooltip" title="Lanchonete"><img src="img/icone_comercio_lanchonete.png" /></a></li>
                 <li><a href="loja" rel="tooltip" title="Loja"><img src="img/icone_comercio_loja.png" /></a></li>
                 <li><a href="posto-de-gasolina" rel="tooltip" title="Posto de Gasolina"><img src="img/icone_comercio_postodegasolina.png" /></a></li>
@@ -1262,7 +1282,6 @@
                 <li><a href="delegacia" rel="tooltip" title="Delegacia"><img src="img/icone_infraestrutura_delegacia.png" /></a></li>
                 <li><a href="estacao-tratamento-de-agua" rel="tooltip" title="Estaçao de Tratamento de Água"><img src="img/icone_infraestrutura_estacao_tratamento_de_agua.png" /></a></li>
                 <li><a href="hospital" rel="tooltip" title="Hospital"><img src="img/icone_infraestrutura_hospital.png" /></a></li>
-                <li><a href="farmacia" rel="tooltip" title="Farmácia"><img src="img/icone_infraestrutura_farmacia.png" /></a></li>
                 <li><a href="industria" rel="tooltip" title="Indústria"><img src="img/icone_infraestrutura_industria.png" /></a></li>
                 <li><a href="industria-de-reciclagem-de-lixo" rel="tooltip" title="Indústria de Reciclagem de Lixo"><img src="img/icone_infraestrutura_industria_de_reciclagem_de_lixo.png" /></a></li>
                 <li><a href="parque-ecologico" rel="tooltip" title="Parque Ecológico"><img src="img/icone_infraestrutura_parque_ecologico.png" /></a></li>
@@ -1293,7 +1312,6 @@
                 <li><a href="coordenada" rel="tooltip" title="Retornar Coordenadas"><img src="img/icone_coordenada.png" /></a></li>
                 <li><a href="rota" rel="tooltip" title="Calcular Rota"><img src="img/icone_rota.png" /></a></li>
                 <li><a href="streetView" rel="tooltip" title="Visão Tridimensional"><img src="img/icone_streetView.png" /></a></li>
-                <li><a href="carta" rel="tooltip" title="Carta Voadora"><img src="img/icone_carta.png" /></a></li>
               </ul>
             </div>
             

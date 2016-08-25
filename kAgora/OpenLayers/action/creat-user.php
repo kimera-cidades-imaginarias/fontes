@@ -23,7 +23,14 @@
 		}
 
 		//echo $sql;
-		$con->query($sql);
+		if ($con->query($sql))
+		{
+			echo 'true';
+		}
+		else
+		{
+			echo 'false';
+		}
 	}
 	else
 	{
@@ -48,5 +55,12 @@
 		$sql = "INSERT INTO user (".$keys.") VALUES (".$values.")";
 		
 		//echo $sql;
-		$con->query($sql);
+		if ($con->query($sql))
+		{
+			echo 'true';
+		}
+		else
+		{
+			echo 'false';
+		}
 	}

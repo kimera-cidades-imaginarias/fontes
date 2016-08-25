@@ -15,7 +15,7 @@
 	$result = $con->query($sql); 
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
-            echo '<li><a href="javascript:showMyLetter('.$row["id"].')">'.$row["title"].'</a></li>';
+            echo '<li><a href="javascript:showMyLetter('.$row["id"].')">Carta de '.$row["title"].'</a></li>';
 		} 
 	}
 ?>

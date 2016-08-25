@@ -21,7 +21,7 @@
 	//echo $sql;
 	$result = $con->query($sql);
 
-	if ($result->num_rows > 0) 
+	if ($result && $result->num_rows > 0) 
 	{
 		@session_start("kimera");
 
