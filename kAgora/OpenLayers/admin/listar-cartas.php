@@ -14,7 +14,16 @@
 		
 		echo "<tbody>";
 		
-		$result = $con->query("SELECT * FROM `letter`");
+		if($_SESSION["permission"] == 1 || $_SESSION["permission"] == 2)
+		{
+			$sql = "SELECT * FROM letter ORDER BY date_time ASC";
+		}
+		else
+		{
+			$sql = "SELECT * FROM letter WHERE user_id = ".$_SESSION["user_id"]." ORDER BY date_time ASC";
+		}
+
+		$result = $con->query($sql);
 			
 		while($row = $result->fetch_assoc()) {
 			foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 

@@ -103,7 +103,7 @@
 		   		if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"]))
 		   			{ 
 			    	if(!isset($_REQUEST['pagina'])){
-			    		$pagina = 'listar-cartas';
+			    		$pagina = 'home';
 			    	} else {
 			    		$pagina = $_REQUEST['pagina'];
 			    	}

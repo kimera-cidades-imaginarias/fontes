@@ -28,7 +28,7 @@
         $_SESSION["permission"] = $dados["permission"];
         $_SESSION["password"] = $dados["password"];
 
-        echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-cartas&status=sucesso" </script>';
+        echo '<script type="text/javascript"> window.location = "index.php?pagina=home" </script>';
       } else {
         echo '<script type="text/javascript"> window.location = "index.php?status=aviso" </script>';
       } 
