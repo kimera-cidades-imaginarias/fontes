@@ -1295,6 +1295,7 @@
             <div role="tabpanel" class="tab-pane" id="tabs5">
               <ul class="lista">
                 <li><a href="estadio-de-futibol" rel="tooltip" title="Estádio de Futebol"><img src="img/icone_lazer_estadiofutebol.png" /></a></li>
+                <li><a href="igreja" rel="tooltip" title="Igreja"><img src="img/icone_lazer_igreja.png" /></a></li>
                 <li><a href="praia" rel="tooltip" title="Praia"><img src="img/icone_lazer_praia.png" /></a></li>
                 <li><a href="restaurante-luxo" rel="tooltip" title="Restaurante de Luxo"><img src="img/icone_lazer_restauranteluxo.png" /></a></li>
                 <li><a href="restaurante-simples" rel="tooltip" title="Restaurante Simples"><img src="img/icone_lazer_restaurantesimples.png" /></a></li>
