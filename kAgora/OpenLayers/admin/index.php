@@ -35,88 +35,90 @@
 	</head>
   	
   	<body>
-  		<div class="container">
+  		<div class="container-fluid">
   			<h1>Kimera - Cidades Imaginárias | Administrador</h1>
 
-  			<div class="well span12">
-  			<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])){ ?>
-  			<ul class="nav nav-tabs">
-				<li class="active"><a href="index.php">Início</a></li>
+  			<div class="row-fluid">
+	  			<div class="well span12">
+	  			<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])){ ?>
+	  			<ul class="nav nav-tabs">
+					<li class="active"><a href="index.php">Início</a></li>
 
-				<?php if($_SESSION["user_id"] == 2){ ?>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuários <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="index.php?pagina=novo-usuario">Novo cadastro</a></li>
-						<li><a href="index.php?pagina=listar-usuarios">Visualizar cadastros</a></li>
-					</ul>
-				</li>
-				<?php } ?>
+					<?php if($_SESSION["user_id"] == 2){ ?>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuários <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="index.php?pagina=novo-usuario">Novo cadastro</a></li>
+							<li><a href="index.php?pagina=listar-usuarios">Visualizar cadastros</a></li>
+						</ul>
+					</li>
+					<?php } ?>
 
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Cartas <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="index.php?pagina=nova-carta">Nova carta</a></li>
-						<li><a href="index.php?pagina=listar-cartas">Visualizar cartas</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Sistema <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="index.php?acao=sair">Sair</a></li>
-					</ul>
-				</li>
-		    </ul>
-		    <?php } ?>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Cartas <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="index.php?pagina=nova-carta">Nova carta</a></li>
+							<li><a href="index.php?pagina=listar-cartas">Visualizar cartas</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Sistema <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="index.php?acao=sair">Sair</a></li>
+						</ul>
+					</li>
+			    </ul>
+			    <?php } ?>
 
-		    <?php 
-		    	if(isset($_REQUEST['acao']) && $_REQUEST['acao'] == 'sair'){ 
-		    		session_destroy();
-		    		echo '<script type="text/javascript"> window.location = "index.php?status=sucesso" </script>';
-		    	}
-		    ?>
-
-		    <?php if(isset($_REQUEST['status'])){ ?>
-			    <?php if($_REQUEST['status'] == 'sucesso'){ ?>
-			    <div class="alert alert-success">
-		        	<button type="button" class="close" data-dismiss="alert">x</button>
-		        	Ação executada com <strong>Sucesso!</strong>
-		        </div>
-		        <?php } ?>
-
-		        <?php if($_REQUEST['status'] == 'erro'){ ?>
-			    <div class="alert alert-error">
-	            	<button type="button" class="close" data-dismiss="alert">x</button>
-	            	<strong>Erro</strong> ao executar ação!
-	            </div>
-		        <?php } ?>
-
-		        <?php if($_REQUEST['status'] == 'aviso'){ ?>
-		        <div class="alert alert-info">
-	            	<button type="button" class="close" data-dismiss="alert">×</button>
-	            	Não há resultados para esta <strong>Ação</strong>
-	            </div>
-	            <?php } ?>
-	        <?php } ?>
-
-		   <?php 
-		   		if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"]))
-		   			{ 
-			    	if(!isset($_REQUEST['pagina'])){
-			    		$pagina = 'home';
-			    	} else {
-			    		$pagina = $_REQUEST['pagina'];
+			    <?php 
+			    	if(isset($_REQUEST['acao']) && $_REQUEST['acao'] == 'sair'){ 
+			    		session_destroy();
+			    		echo '<script type="text/javascript"> window.location = "index.php?status=sucesso" </script>';
 			    	}
-			    }
-			    else
-			    {
-			    	$pagina = 'login';
-			    }
+			    ?>
 
-		    	include_once($pagina . '.php'); 
-		    ?>
-		    </div>
-  		</div>
+			    <?php if(isset($_REQUEST['status'])){ ?>
+				    <?php if($_REQUEST['status'] == 'sucesso'){ ?>
+				    <div class="alert alert-success">
+			        	<button type="button" class="close" data-dismiss="alert">x</button>
+			        	Ação executada com <strong>Sucesso!</strong>
+			        </div>
+			        <?php } ?>
+
+			        <?php if($_REQUEST['status'] == 'erro'){ ?>
+				    <div class="alert alert-error">
+		            	<button type="button" class="close" data-dismiss="alert">x</button>
+		            	<strong>Erro</strong> ao executar ação!
+		            </div>
+			        <?php } ?>
+
+			        <?php if($_REQUEST['status'] == 'aviso'){ ?>
+			        <div class="alert alert-info">
+		            	<button type="button" class="close" data-dismiss="alert">×</button>
+		            	Não há resultados para esta <strong>Ação</strong>
+		            </div>
+		            <?php } ?>
+		        <?php } ?>
+
+			   <?php 
+			   		if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"]))
+			   			{ 
+				    	if(!isset($_REQUEST['pagina'])){
+				    		$pagina = 'home';
+				    	} else {
+				    		$pagina = $_REQUEST['pagina'];
+				    	}
+				    }
+				    else
+				    {
+				    	$pagina = 'login';
+				    }
+
+			    	include_once($pagina . '.php'); 
+			    ?>
+			    </div>
+	  		</div>
+	  	</div>
   	</body>
   	
 </html>
