@@ -22,10 +22,10 @@
 ?>
 
 <form action='' method='POST'> 
-	<p><b>Email:</b><br /><input type='text' name='email' value='<?php echo stripslashes($row['email']) ?>' class="input-xxlarge" /> </p>
+	<p><b>Email:</b><br /><input type='text' name='email' value='<?php echo stripslashes($row['email']) ?>' class="input-xxlarge" <?php if($_SESSION["permission"] != 2){ ?>  disabled <?php } ?> /> </p>
 	<p><b>Senha:</b><br /><input type='password' name='password' value='<?php echo  stripslashes($row['password']) ?>' /> </p>
 	<p><b>Perfil:</b><br />
-		<select name="permission">
+		<select name="permission" <?php if($_SESSION["permission"] != 2){ ?>  disabled <?php } ?>>
 			<option value="0" <?php if($row['permission'] == 0){ echo 'selected'; } ?> >Aluno</option>
 			<option value="1" <?php if($row['permission'] == 1){ echo 'selected'; } ?> >Professor</option>
 			<option value="2" <?php if($row['permission'] == 2){ echo 'selected'; } ?> >Administrador</option>

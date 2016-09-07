@@ -30,21 +30,28 @@
 			<script src="../js/jquery-latest.js"></script>
     		<script src="../js/bootstrap.js"></script>
 
+    	<!-- tabs -->
+        <script type="text/javascript">
+          $(function () {
+          	$('#myTab a:first').tab('show')
+          })
+        </script>
+
 
     	<?php include('../action/connect.php'); ?>
 	</head>
   	
   	<body>
   		<div class="container-fluid">
-  			<h1>Kimera - Cidades Imaginárias | Administrador</h1>
+  			<h1>Kimera - K-Ágora | Administrador</h1>
 
   			<div class="row-fluid">
 	  			<div class="well span12">
 	  			<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])){ ?>
-	  			<ul class="nav nav-tabs">
-					<li class="active"><a href="index.php">Início</a></li>
+	  			<ul class="nav nav-tabs" id="myTab">
+					<li><a href="index.php">Início</a></li>
 
-					<?php if($_SESSION["user_id"] == 2){ ?>
+					<?php if($_SESSION["permission"] == 2){ ?>
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuários <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -64,6 +71,7 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Sistema <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							<li><a href="index.php?pagina=editar-usuario&id=<?php echo $_SESSION["user_id"]; ?>">Alterar Senha</a></li>
 							<li><a href="index.php?acao=sair">Sair</a></li>
 						</ul>
 					</li>

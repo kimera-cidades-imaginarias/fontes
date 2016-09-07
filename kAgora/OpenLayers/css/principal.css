@@ -24,6 +24,16 @@ h1{
     margin: 0 auto;
 }
 
+.left
+{
+    float: left !important;
+}
+
+.right
+{
+    float: right !important;
+}
+
 ul.lista{
     list-style: none;
 }

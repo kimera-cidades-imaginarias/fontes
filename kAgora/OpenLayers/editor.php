@@ -1240,6 +1240,8 @@
               <li role="presentation"><a href="#tabs6" role="tab" data-toggle="tab"><img width="30" src="img/icone_configuracoes.png" /> Ferramentas</a></li>
             </ul>
 
+            <hr />
+
             <div role="tabpanel" class="tab-pane" id="tabs1">
               <ul class="lista">
                 <li><a href="academia" rel="tooltip" title="Academia"><img src="img/icone_comercio_academia.png" /></a></li>

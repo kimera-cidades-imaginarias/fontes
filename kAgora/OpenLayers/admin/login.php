@@ -38,29 +38,36 @@
   }
 ?>
 
-<div class="hero-unit">
-  <form class="form-horizontal" action='' method='POST'> 
-    
-    <div class="control-group">
-      <label class="control-label" for="inputEmail">Email</label>
-      <div class="controls">
-        <input type="text" name="email" id="inputEmail" placeholder="Email">
+
+  <div class="row">
+    <div class="span6 offset3">
+      <center><p>Seja bem-vindo ao módulo de administração das cartas voadoras do K-Ágora. <br />Para acessar digite seu e-mail e senha nos campos abaixo.<br /><br /></p></center>
+
+      <div class="row-fluid">
+        <div class="span4">
+          <img class="img" src="../img/figura_personagem_corpo_inteiro_rei_kimera.jpg" />
+        </div>
+
+        <div class="span8">
+          <form class="form-horizontal left" action='' method='POST'> 
+            <div class="control-group">
+              <label for="inputEmail">Email</label>
+              <input type="text" name="email" id="inputEmail" placeholder="Exemplo: nome.sobreno@instituicao.edu.br">
+            </div>
+
+            <div class="control-group">
+              <label for="inputPassword">Senha</label>
+              <input type="password" name="password" id="inputPassword" placeholder="*****">
+            </div>
+
+            <div class="control-group">
+              <input type='hidden' value='1' name='submitted' />
+              <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="control-group">
-      <label class="control-label" for="inputPassword">Senha</label>
-      <div class="controls">
-        <input type="password" name="password" id="inputPassword" placeholder="Senha">
-      </div>
-    </div>
 
-    <div class="control-group">
-      <div class="controls">
-        <input type='hidden' value='1' name='submitted' />
-        <button type="submit" class="btn">Entrar</button>
-      </div>
-    </div>
-
-  </form>
-</div>

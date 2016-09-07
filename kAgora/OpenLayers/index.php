@@ -45,6 +45,12 @@
               }
             ?>
 
+            $('#btAdmin').click(function (e) {
+              e.preventDefault();
+              
+              window.location = "admin/";
+            });
+
             $("#criarMapa").validate();
             $("#file").validate();
           })
@@ -125,95 +131,137 @@
                 <li role="presentation"><a href="#novoMapa" role="tab" data-toggle="tab">Explorar</a></li>
                 <li role="presentation"><a href="#carregarMapa" role="tab" data-toggle="tab">Carregar mapa</a></li>
                 <li role="presentation"><a href="#creditos" role="tab" data-toggle="tab">Créditos</a></li>
+
+                <li class="right"><a href="#" id="btAdmin" /><img src="img/icone-lock.png" /></a></li>
               </ul>
 
               <!-- sobre -->
               <div role="tabpanel" class="tab-pane" id="sobre">
 
-                <h3>O que é o K-Ágora:</h3>
-                <p>O K-Ágora é uma expansão do jogo-simulador Kimera – Cidades Imaginárias, acessível diretamente através do navegador, sem necessidade de instalação.</p>
-                <p>É possível criar mapas exploráveis a partir de qualquer localidade real de nosso planeta Terra, possibilitando experimentações sobre o espaço e lugar, inserindo novos elementos e modificando a paisagem através de diversos tipos de construções organizadas em 05 diferentes categorias: Comércio, Educação, Habitações, Infraestrutura e Lazer.</p>
-                <p>Também é possível utilizar diversas ferramentas para operações geoespaciais, como cálculo de distâncias, cálculo de área, traçar rotas de trânsito e medir a distância entre dois pontos, graças à integração com a API (Interface de Programação de Aplicativos) do Google Maps.</p>
+                <div class="row-fluid">
+                  <div class="span1">
+                    <img class="img" src="img/figura_personagem_corpo_inteiro_belle.jpg" />
+                  </div>
+                  <div class="span11">
+                    <h3>O que é o K-Ágora:</h3>
+                    <p>O K-Ágora é uma expansão do jogo-simulador Kimera – Cidades Imaginárias, acessível diretamente através do navegador, sem necessidade de instalação.</p>
+                    <p>É possível criar mapas exploráveis a partir de qualquer localidade real de nosso planeta Terra, possibilitando experimentações sobre o espaço e lugar, inserindo novos elementos e modificando a paisagem através de diversos tipos de construções organizadas em 05 diferentes categorias: Comércio, Educação, Habitações, Infraestrutura e Lazer.</p>
+                    <p>Também é possível utilizar diversas ferramentas para operações geoespaciais, como cálculo de distâncias, cálculo de área, traçar rotas de trânsito e medir a distância entre dois pontos, graças à integração com a API (Interface de Programação de Aplicativos) do OpenLayers.</p>
+                  </div>
+                </div>
+                
+                <hr />
+
+                <div class="row-fluid">
+                  <div class="span1">
+                    <img class="img" src="img/figura_personagem_corpo_inteiro_luka.jpg" />
+                  </div>
+                  <div class="span11">
+                    <h3>Objetivos:</h3>
+                    <p>O K-Ágora, assim como o jogo-simulador Kimera, tem como objetivos possibilitar a Educação Cartográfica, explorando o entendimento que as crianças de 08 a 12 anos tem sobre o espaço vivido, percebido e concebido, além  de simular a construção de uma cidade, valorizando os aspectos que a criança considera significativos para sua vida e para a harmonia do espaço/lugar vividos.</p>
+                    <p>Alguns dos conteúdos pedagógicos abordados:</p>
+                    <ul>
+                      <li><b>Natureza:</b> Transformação e preservação</li>
+                      <li><b>Paisagem:</b> Transformação e leitura</li>
+                      <li><b>Lugar:</b> Relações cotidianas e espaços de vivências</li>
+                      <li><b>Noções cartográficas:</b> Leitura de mapas simples, representações de lugares cotidianos, orientação, localização, distância e leitura de recursos cartográficos</li>
+                      <li><b>Meio ambiente:</b> Preservação e manutenção</li>
+                      <li><b>Sociedade:</b> Relações de trabalho, grupos sociais e diversidade.</li>
+                    </ul>
+                  </div>
+                </div>
 
                 <hr />
 
-                <h3>Objetivos:</h3>
-                <p>O K-Ágora, assim como o jogo-simulador Kimera, tem como objetivos possibilitar a Educação Cartográfica, explorando o entendimento que as crianças de 08 a 12 anos tem sobre o espaço vivido, percebido e concebido, além  de simular a construção de uma cidade, valorizando os aspectos que a criança considera significativos para sua vida e para a harmonia do espaço/lugar vividos.</p>
-                <p>Alguns dos conteúdos pedagógicos abordados:</p>
-                <ul>
-                  <li><b>Natureza:</b> Transformação e preservação</li>
-                  <li><b>Paisagem:</b> Transformação e leitura</li>
-                  <li><b>Lugar:</b> Relações cotidianas e espaços de vivências</li>
-                  <li><b>Noções cartográficas:</b> Leitura de mapas simples, representações de lugares cotidianos, orientação, localização, distância e leitura de recursos cartográficos</li>
-                  <li><b>Meio ambiente:</b> Preservação e manutenção</li>
-                  <li><b>Sociedade:</b> Relações de trabalho, grupos sociais e diversidade.</li>
-                </ul>
-
-                <hr />
-
-                <h3>Requisitos:</h3>
-                <p>O K-Ágora é compatível com a grande maioria dos navegadores disponíveis no mercado, sendo recomendados:</p>
-                <ul>
-                  <li>Internet Explorer versão 9 ou superior</li>
-                  <li>Firefox versão mais atual</li>
-                  <li>Chrome versão mais atual</li>
-                  <li>Safari versão 5.1 ou superior</li>
-                  <li>Opera versão mais atual</li>
-                </ul>
-                <p>A resolução de vídeo recomendada é a partir de 1152x864 (proporção 4:3) ou 1280x720 (proporção 16:9)</p>
+                <div class="row-fluid">
+                  <div class="span1">
+                    <img class="img" src="img/figura_personagem_corpo_inteiro_daniel.jpg" />
+                  </div>
+                  <div class="span11">
+                    <h3>Requisitos:</h3>
+                    <p>O K-Ágora é compatível com a grande maioria dos navegadores disponíveis no mercado, sendo recomendados:</p>
+                    <ul>
+                      <li>Internet Explorer versão 9 ou superior</li>
+                      <li>Firefox versão mais atual</li>
+                      <li>Chrome versão mais atual</li>
+                      <li>Safari versão 5.1 ou superior</li>
+                      <li>Opera versão mais atual</li>
+                    </ul>
+                    <p>A resolução de vídeo recomendada é a partir de 1152x864 (proporção 4:3) ou 1280x720 (proporção 16:9)</p>
+                  </div>
+                </div>
 
               </div>
 
               <!-- Novo mapa -->
               <div role="tabpanel" class="tab-pane" id="novoMapa">
-                <h2>01.</h2>
-                <p>Digite o nome e endereço desejado para criar seu mapa no campo abaixo. Clique em navegar e comece a explorar e modificar o espaço geográfico.</p>
-
-                <hr />
-
-                <form action="editor.php" method="POST" id="criarMapa">
-                  <div class="form-group">
-                    <label for="endereco">Nome</label>
-                    <input type="text" class="form-control input-large" id="nome" name="nome" placeholder="Nome: Salvador" required data-msg-required="Este campo não pode ser vazio!" >
-
-                    <label for="endereco">Endereço</label>
-                    <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro" required data-msg-required="Este campo não pode ser vazio!" >
+                <div class="row-fluid">
+                  <div class="span1">
+                    <img class="img" src="img/figura_personagem_corpo_inteiro_jaquetiba.jpg" />
                   </div>
+                  <div class="span11">
+                    <h2>01.</h2>
+                    <p>Digite o nome e endereço desejado para criar seu mapa no campo abaixo. Clique em navegar e comece a explorar e modificar o espaço geográfico.</p>
+                  
+                    <form action="editor.php" method="POST" id="criarMapa">
+                      <div class="form-group">
+                        <label for="endereco">Nome</label>
+                        <input type="text" class="form-control input-large" id="nome" name="nome" placeholder="Exemplo: Salvador" required data-msg-required="Este campo não pode ser vazio!" >
 
-                  <input type="submit" class="btn btn-primary" value="Navegar" />
-                </form>
+                        <label for="endereco">Endereço</label>
+                        <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro" required data-msg-required="Este campo não pode ser vazio!" >
+                      </div>
+
+                      <input type="submit" class="btn btn-primary" value="Navegar" />
+                    </form>
+                  </div>
+                </div>
               </div>
 
               <!-- carregar mapa -->
               <div role="tabpanel" class="tab-pane" id="carregarMapa">
-                <h2>01.</h2>
-                <p>Carregue seu arquivo KML no campo abaixo para adicioná-lo à nossa biblioteca.</p>
-
-                <form action="#" method="POST" id="file" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="endereco">Arquivo</label>
-                    <input type="file" name="arquivo" id="arquivo" required data-msg-required="Este campo não pode ser vazio!" accept="application/vnd.google-earth.kml+xml" />
+                <div class="row-fluid">
+                  <div class="span1">
+                    <img class="img" src="img/figura_personagem_corpo_inteiro_rei_kimera.jpg" />
                   </div>
+                  <div class="span11">
+                    <h2>01.</h2>
+                    <p>Carregue seu arquivo KML no campo abaixo para adicioná-lo à nossa biblioteca.</p>
 
-                  <br /><input type="submit" class="btn btn-primary" value="Carregar" />
-                </form>
+                    <form action="#" method="POST" id="file" enctype="multipart/form-data">
+                      <div class="form-group">
+                        <label for="endereco">Arquivo</label>
+                        <input type="file" name="arquivo" id="arquivo" required data-msg-required="Este campo não pode ser vazio!" accept="application/vnd.google-earth.kml+xml" />
+                      </div>
+
+                      <br /><input type="submit" class="btn btn-primary" value="Carregar" />
+                    </form>
+                  </div>
+                </div>
 
                 <hr />
 
-                <h2>02.</h2>
-                <p>Selecione um dos mapas abaixo para começar a explorar e modificar o espaço geográfico.</p>
+                <div class="row-fluid">
+                  <div class="span1">
+                    <img class="img" src="img/figura_personagem_corpo_inteiro_dorean.jpg" />
+                  </div>
+                  <div class="span11">
+                    <h2>02.</h2>
+                    <p>Selecione um dos mapas abaixo para começar a explorar e modificar o espaço geográfico.</p>
 
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th width="75%">Nome</th>
-                      <th width="25%" colspan="3">Ação</th>
-                    </tr>
-                  </thead>
-                  <tbody id="dados">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th width="75%">Nome</th>
+                          <th width="25%" colspan="3">Ação</th>
+                        </tr>
+                      </thead>
+                      <tbody id="dados">
 
-                  </tbody>
-                </table>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>                
               </div>
 
               <!-- Creditos -->
@@ -222,32 +270,18 @@
                 
                 <div class="row-fluid">
                   <div class="span4">
-                    <h5>Conteúdo</h5>
-                    <ul>
-                      <li>André Luiz Andrade Rezende</li>
-                      <li>Fabiana dos Santos Nascimento</li>
-                      <li>Fernando Kiffer de Souza Toledo</li>
-                      <li>Gustavo Erick de Andrade</li>
-                      <li>Inaiá Brandão Pereira</li>
-                      <li>Walter Von Czékus Garrido</li>
-                    </ul>
-
-                    <h5>Arte e Design</h5>
-                    <ul>
-                      <li>Evaldo Nascimento</li>
-                      <li>Josemeira Machado Dias</li>
-                      <li>Taís Rocha Ribeiro</li>
-                    </ul>
-
-                    <h5>Edição e Diagramação</h5>
-                    <ul>
-                      <li>Josemeire Machado Dias</li>
-                      <li>Taís Rocha Ribeiro</li>
-                    </ul>
-
                     <h5>Coordenação Geral</h5>
                     <ul>
                       <li>Tânia Maria Hetkowski</li>
+                    </ul>
+
+                    <h5>Pedagógico</h5>
+                    <ul>
+                      <li>Andréa Ferreira Lago</li>
+                      <li>Fabiana dos Santos Nascimento</li>
+                      <li>Gerusa Soares Pinheiro</li>
+                      <li>Inaiá Brandão Pereira</li>
+                      <li>Nina Flora Miranda Lucas</li>
                     </ul>
                   </div>
 
@@ -257,20 +291,11 @@
                       <li>André Luiz Andrade Rezende</li>
                     </ul>
 
-                    <h5>Pedagógico</h5>
-                    <ul>
-                      <li>Andréa Ferreira Lago</li>
-                      <li>Fabiana dos Santos Nascimento</li>
-                      <li>Inaiá Brandão Pereira</li>
-                      <li>Tânia Regina Dias Silva Pereira</li>
-                      <li>Walter Von Czékus Garrido</li>
-                    </ul>
-
                     <h5>Design</h5>
                     <ul>
-                      <li>André Luiz Souza da Silva </li>
-                      <li>Ila Mascarenhas Muniz</li>
-                      <li>Josemeire Machado Dias Betonnasi</li>    
+                      <li>André Luiz Souza da Silva (Betonnasi)</li>
+                      <li>Evaldo Nascimento</li>
+                      <li>Josemeire Machado Dias</li>    
                     </ul>
                   </div>
 
@@ -284,27 +309,6 @@
                       <li>Jason Scalco Piloti</li>
                       <li>Saulo Leal dos Santos</li>
                       <li>Victor Borges</li>
-                    </ul>
-
-                    <h5>Roteiro</h5>
-                    <ul>
-                      <li>Gustavo Erick de Andrade</li>
-                    </ul>
-
-                    <h5>Design de Áudio</h5>
-                    <ul>
-                      <li>Eliaquim Aciole dos Santos Junior</li>
-                    </ul>
-
-                    <h5>Transmídia</h5>
-                    <ul>
-                      <li>André Luiz Souza da Silva Betonnasi</li>
-                      <li>Acácia Angélica Monteiro</li>
-                      <li>Gilvania Clemente Viana</li>
-                      <li>Jodeílson Mafra Martins</li>
-                      <li>Lucas Lins Muniz Pimenta</li>
-                      <li>Maria Cristina Ribeiro de Jesus Mota</li>
-                      <li>Tais Rocha Ribeiro</li>
                     </ul>
                   </div>
                 </div>
