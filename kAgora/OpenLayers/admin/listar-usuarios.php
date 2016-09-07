@@ -38,3 +38,10 @@
 ?>
 
 <?php } ?>
+
+<!-- tabs -->
+	<script type="text/javascript">
+	  $(function () {
+	  	$('#btUsuarios').tab('show');
+	  })
+	</script>

@@ -1,4 +1,9 @@
-
+<!-- tabs -->
+	<script type="text/javascript">
+	  $(function () {
+	  	$('#btHome').tab('show');
+	  })
+	</script>
 
  <div class="row-fluid">
     <div class="span2">

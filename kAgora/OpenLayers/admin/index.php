@@ -24,19 +24,13 @@
 		<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 			<link href="../css/bootstrap.css" rel="stylesheet" media="screen">
 			<link href="../css/principal.css" rel="stylesheet" media="screen">
+			<link href="../css/DateTimePicker.css" rel="stylesheet" media="screen">
 
 		<!-- JS -->
 		<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 			<script src="../js/jquery-latest.js"></script>
     		<script src="../js/bootstrap.js"></script>
-
-    	<!-- tabs -->
-        <script type="text/javascript">
-          $(function () {
-          	$('#myTab a:first').tab('show')
-          })
-        </script>
-
+    		<script src="../js/DateTimePicker.js"></script>
 
     	<?php include('../action/connect.php'); ?>
 	</head>
@@ -49,11 +43,11 @@
 	  			<div class="well span12">
 	  			<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])){ ?>
 	  			<ul class="nav nav-tabs" id="myTab">
-					<li><a href="index.php">Início</a></li>
+					<li><a href="index.php" id="btHome">Início</a></li>
 
 					<?php if($_SESSION["permission"] == 2){ ?>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuários <b class="caret"></b></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="btUsuarios">Usuários <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="index.php?pagina=novo-usuario">Novo cadastro</a></li>
 							<li><a href="index.php?pagina=listar-usuarios">Visualizar cadastros</a></li>
@@ -62,7 +56,7 @@
 					<?php } ?>
 
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Cartas <b class="caret"></b></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="btCartas">Cartas <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="index.php?pagina=nova-carta">Nova carta</a></li>
 							<li><a href="index.php?pagina=listar-cartas">Visualizar cartas</a></li>

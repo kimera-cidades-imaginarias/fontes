@@ -28,3 +28,10 @@
 </form> 
 
 <?php } ?>
+
+<!-- tabs -->
+	<script type="text/javascript">
+	  $(function () {
+	  	$('#btCartas').tab('show');
+	  })
+	</script>
