@@ -335,7 +335,7 @@
         </div>
       </div>
 
-      <p class="versao">Versão: a.0.0.1</p>
+      <p class="versao">Versão: F.1.0.0</p>
     </div>
 
   </body>

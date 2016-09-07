@@ -172,3 +172,23 @@ hr{
     {
          margin-left: 545px;
     }
+
+#formLetter label
+{
+    font-weight: bold;
+    color: #2D568A;
+}
+
+#formLetter input,
+#formLetter textarea
+{
+    background: url('../img/line-bg.png') repeat bottom center;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0px !important;
+    font-size: 12px;
+}
+
+#formLetter textarea{
+     background: url('../img/line-bg.png') repeat 14px center !important;
+}

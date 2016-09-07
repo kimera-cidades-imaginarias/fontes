@@ -3,27 +3,24 @@
 
 	<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])) { ?>
 	
-    <hr />
-
-    <form action="#" class="form-horizontal" role="form" id="form" method="post">
+    <form action="#" role="form" id="formLetter" method="post">
       	<input type="hidden" name="user_id" value="<?php echo $_SESSION["user_id"]; ?>" />
       	<input type="hidden" name="permission" value="<?php echo $_SESSION["permission"]; ?>" />
         
         <div class="control-group">
           <label class="control-label" >De:</label>
-          <div class="controls">
-      	     <input type="text" name="title" class=" btn-block" />
-          </div>
+      	  <input type="text" name="title" class=" btn-block" />
         </div>
 
         <div class="control-group">
           <label class="control-label" >Para:</label>
-          <div class="controls">
-             <input type="text" class=" btn-block" value="Prof. Daniel" disabled />
-          </div>
+          <input type="text" class=" btn-block" value="Prof. Daniel" disabled />
         </div>
 
-        <textarea rows="10" name="letter" class="btn-large btn-block"></textarea>
+        <div class="control-group">
+          <label class="control-label" >Carta:</label>
+          <textarea rows="10" name="letter" class="btn-large btn-block"></textarea>
+        </div>
 
         <button type="button" class="nova btn">Nova carta</button>
         <button type="button" class="enviar btn btn-primary">Enviar</button>
@@ -38,7 +35,7 @@
     <script type="text/javascript">
       function creatLetter()
       {
-        var data = $('#form').serialize();
+        var data = $('#formLetter').serialize();
 
         $.ajax({
            type: "POST",
@@ -76,8 +73,8 @@
            {
               clearLetter();
 
-              $('#form input[name*="title"]').val(data.letter[0].title);
-              $('#form textarea').val(data.letter[0].letter);
+              $('#formLetter input[name*="title"]').val(data.letter[0].title);
+              $('#formLetter textarea').val(data.letter[0].letter);
 
               return false;
            },
@@ -94,8 +91,8 @@
 
       function clearLetter()
       {
-      	$('#form input[name*="title"]').val('');
-        $('#form textarea').val('');
+      	$('#formLetter input[name*="title"]').val('');
+        $('#formLetter textarea').val('');
       }
 
       function listLetter()
