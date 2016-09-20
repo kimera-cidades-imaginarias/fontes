@@ -4,12 +4,12 @@
 	<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])) { ?>
 	
     <form action="#" role="form" id="formLetter" method="post">
-      	<input type="hidden" name="user_id" value="<?php echo $_SESSION["user_id"]; ?>" />
+        <input type="hidden" name="user_id" value="<?php echo $_SESSION["user_id"]; ?>" />
       	<input type="hidden" name="permission" value="<?php echo $_SESSION["permission"]; ?>" />
         
         <div class="control-group">
           <label class="control-label" >De:</label>
-      	  <input type="text" name="title" class=" btn-block" />
+      	  <input type="text" name="title" class=" btn-block" value="<?php echo $_SESSION["email"]; ?>"  />
         </div>
 
         <div class="control-group">
@@ -33,9 +33,24 @@
     </ul>
 
     <script type="text/javascript">
+      var capiroto = null;
+
+      function clearLetter()
+      {
+        $('#formLetter textarea').val('');
+        capiroto = null;
+      }
+
       function creatLetter()
       {
-        var data = $('#formLetter').serialize();
+        if(capiroto!=null)
+        {
+          data = $('#formLetter').serialize() + "&" + capiroto;
+        }
+        else
+        {
+          data = $('#formLetter').serialize();
+        }
 
         $.ajax({
            type: "POST",
@@ -45,7 +60,6 @@
            
            success: function(data)
            {
-           	  clearLetter();
            	  $('#myModal').modal('hide');
 
               return false;
@@ -61,7 +75,7 @@
         });
       }
 
-      function showMyLetter(id)
+      function showLetterByID(id)
       {
         $.ajax({
            type: "POST",
@@ -73,7 +87,8 @@
            {
               clearLetter();
 
-              $('#formLetter input[name*="title"]').val(data.letter[0].title);
+              capiroto = 'id='+data.letter[0].id;
+              //$('#formLetter input[name*="title"]').val(data.letter[0].title);
               $('#formLetter textarea').val(data.letter[0].letter);
 
               return false;
@@ -89,17 +104,9 @@
         });
       }
 
-      function clearLetter()
-      {
-      	$('#formLetter input[name*="title"]').val('');
-        $('#formLetter textarea').val('');
-      }
-
       function listLetter()
       {
-        var data = '';
-
-        <?php if(isset($_SESSION["user_id"])){ echo "var data = '".$_SESSION["user_id"]."';"; } ?>
+        <?php if(isset($_SESSION["user_id"])){ echo "var data = '".$_SESSION["user_id"]."';"; } else {  echo "var data = '';"; } ?>
 
         $.ajax({
            type: "POST",
@@ -109,7 +116,6 @@
            
            success: function(data)
            {
-              clearLetter();
               $('#listLetter').html(data);
 
               return false;
@@ -127,6 +133,9 @@
 
       $(document).ready(function() 
       {
+        clearLetter();
+        listLetter();
+
         $('.enviar').click(function (e) 
         {
           creatLetter();
@@ -143,12 +152,10 @@
 
         $('#listLetter li a').click(function (e) 
         {
-          showMyLetter( $(this).attr("href") );
+          showLetterByID( $(this).attr("href") );
 
           return false;
-        });
-
-        listLetter();
+        });        
       });
     </script>
 <?php } ?>

@@ -58,6 +58,7 @@ ul.lista li img{
 
 .panelFerramentas{
      height: 170px;
+     overflow-y: none !important;
 }
 
 .panelFerramentas a{
@@ -65,7 +66,7 @@ ul.lista li img{
     text-align: center;
 }
 
-#construcoes, .panelContrucao, .panelFerramentas{
+#construcoes, .panelContrucao{
     overflow-y:auto;
 }
 
@@ -126,7 +127,7 @@ hr{
     width: 100%;
 }
 
-#myModal
+.modalCarta
 {
     background: none !important;
     box-shadow: none !important;
@@ -136,39 +137,39 @@ hr{
     background: url('../img/bg_carta.png') no-repeat top center !important;
 }
 
-    #myModal .modal-body
+    .modalCarta .modal-body
     {
         min-height: 300px;
         max-height: 300px;
         margin-bottom: 140px;
     }
 
-    #myModal .modal-header,
-    #myModal .modal-body
+    .modalCarta .modal-header,
+    .modalCarta .modal-body
     {
         max-width: 85%;
         margin-left: 20px;
     }
 
-    #myModal .modal-header
+    .modalCarta .modal-header
     {
         border: none !important;
         text-align: center;
     }
 
 
-#myModal .asa-esq,
-#myModal .asa-dir
+.modalCarta .asa-esq,
+.modalCarta .asa-dir
 {
     position: absolute;
 }
     
-    #myModal .asa-esq
+    .modalCarta .asa-esq
     {
         margin-left: -190px;
     }
 
-    #myModal .asa-dir
+    .modalCarta .asa-dir
     {
          margin-left: 545px;
     }
@@ -190,5 +191,8 @@ hr{
 }
 
 #formLetter textarea{
-     background: url('../img/line-bg.png') repeat 14px center !important;
+   background: url('../img/line-bg.png') repeat;
+   line-height: 22px;
+   padding-top: 24px;
+   resize: none;
 }

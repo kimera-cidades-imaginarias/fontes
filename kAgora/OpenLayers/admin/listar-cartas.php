@@ -54,7 +54,8 @@
 				echo "<td valign='top'>" . nl2br( $row['id']) . "</td>";  
 				echo "<td valign='top'>" . nl2br( $row['title']) . "</td>";
 				echo "<td valign='top'>" . nl2br( $row['date_time']) . "</td>";  
-				echo "<td valign='top'><a href=index.php?pagina=editar-carta&id={$row['id']}>Editar</a></td>"; 
+				//echo "<td valign='top'><a href=index.php?pagina=editar-carta&id={$row['id']}>Editar</a></td>"; 
+				echo "<td valign='top'><a href='javascript:loadPageOnModal(\"editar-carta.php?id={$row['id']}\", \"Editar Carta\")'>Editar</a></td>"; 
 				echo "<td valign='top'><a href=index.php?pagina=deletar-carta&id={$row['id']}>Deletar</a></td>";
 			echo "</tr>"; 
 		} 

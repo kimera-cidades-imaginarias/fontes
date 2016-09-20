@@ -32,12 +32,36 @@
     		<script src="../js/bootstrap.js"></script>
     		<script src="../js/DateTimePicker.js"></script>
 
+    		<script type="text/javascript">
+			  function loadPageOnModal(url, titulo)
+			  {
+			  	 $('#myModal').modal('show');
+			  	 $('#myModal .modal-header h3').html(titulo);
+
+				  	$.ajax({
+					  url: url
+					}).done(function(data) { 
+					  $('#data').html(data); 
+					});
+			  }
+			</script>
+
     	<?php include('../action/connect.php'); ?>
 	</head>
   	
   	<body>
   		<div class="container-fluid">
-  			<h1>Kimera - K-Ágora | Administrador</h1>
+  			<a href="../index.php"><h1>Kimera - K-Ágora | Administrador</h1></a>
+
+  			<!-- Modal -->
+		    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		        <h3></h3>
+		      </div>
+		      
+		      <div id="data" class="modal-body"></div>
+		    </div>
 
   			<div class="row-fluid">
 	  			<div class="well span12">
@@ -49,7 +73,7 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="btUsuarios">Usuários <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="index.php?pagina=novo-usuario">Novo cadastro</a></li>
+							<li><a href="javascript:loadPageOnModal('novo-usuario.php', 'Novo Usuário')">Novo cadastro</a></li>
 							<li><a href="index.php?pagina=listar-usuarios">Visualizar cadastros</a></li>
 						</ul>
 					</li>
@@ -58,7 +82,7 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="btCartas">Cartas <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="index.php?pagina=nova-carta">Nova carta</a></li>
+							<li><a href="javascript:loadPageOnModal('nova-carta.php', 'Nova Carta')">Nova carta</a></li>
 							<li><a href="index.php?pagina=listar-cartas">Visualizar cartas</a></li>
 						</ul>
 					</li>

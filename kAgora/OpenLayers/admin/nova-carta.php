@@ -1,3 +1,9 @@
+<?php
+@session_start();
+?>
+
+<?php include_once('../action/connect.php'); ?>
+
 <?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])){ ?>
 
 <?php 
@@ -14,8 +20,8 @@
 	} 
 ?>
 
-<form action='' method='POST'> 
-	<p><b>De:</b><br /><input type='text' name='title' class="input-xxlarge" /> </p>
+<form action='nova-carta.php' method='POST' id="nova-carta"> 
+	<p><b>De:</b><br /><input type='text' name='title' /> </p>
 	<p><b>Carta:</b><br /><textarea rows="10" name="letter" class="btn-large btn-block"></textarea> </p>
 
 	<input type="hidden" name="user_id" value="<?php echo $_SESSION["user_id"]; ?>" />
@@ -34,4 +40,19 @@
 	  $(function () {
 	  	$('#btCartas').tab('show');
 	  })
+
+	   var frm = $('#nova-carta');
+	    frm.submit(function (ev) {
+	        $.ajax({
+	            type: frm.attr('method'),
+	            url: frm.attr('action'),
+	            data: frm.serialize(),
+	            
+	            success: function (data) {
+	                window.location = "index.php?pagina=listar-cartas&status=sucesso";
+	            }
+	        });
+
+	        ev.preventDefault();
+	    });
 	</script>

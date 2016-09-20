@@ -1172,7 +1172,7 @@
   
   <body>
     <!-- Modal -->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal hide fade modalCarta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <img src="img/asa-esq.png" class="asa-esq" />
       <img src="img/asa-dir.png" class="asa-dir" />
 

@@ -8,21 +8,36 @@
 
 		$sql = "UPDATE letter SET";
 
+		$i=1;
+		$total = 0;
+		$id=null;
+
 		foreach($array as $key => $value)
 		{	
-			$sql .= " ".$key."='".$value."'";
+			$total++;
+		}
 
-			if ($value !== end($array))
+		foreach($array as $key => $value)
+		{	
+			if ($key != 'id')
 			{
-				$sql .= ",";
+				$sql .= " ".$key."='".$value."'";
+
+				$i++;
+
+				if($i < $total)
+				{
+					$sql .= ',';
+				}
 			}
 			else
 			{
-				$sql .= " WHERE ".$key."=".$value;
+				$id = $value;
 			}
 		}
+		$sql .= ' WHERE id='.$id;
 
-		//echo $sql;
+		echo $sql;
 		$con->query($sql);
 	}
 	else
@@ -47,6 +62,6 @@
 
 		$sql = "INSERT INTO letter (".$keys.") VALUES (".$values.")";
 		
-		//echo $sql;
+		echo $sql;
 		$con->query($sql);
 	}

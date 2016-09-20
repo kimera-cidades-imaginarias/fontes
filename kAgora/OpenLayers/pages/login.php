@@ -11,9 +11,9 @@
         <div class="tab-pane active" id="tab1">
           <form class="form-horizontal" action="#" role="form" id="formLogin" method="post">   
             <div class="control-group">
-              <label class="control-label" for="inputEmail">Email</label>
+              <label class="control-label" for="inputEmail">Usuário</label>
               <div class="controls">
-                <input type="text" id="inputEmail" name="email" placeholder="nome.sobrenome@instituicao.edu.br" required data-msg-required="Este campo não pode ser vazio!">
+                <input type="text" id="inputEmail" name="email" placeholder="nome.sobrenome" required data-msg-required="Este campo não pode ser vazio!">
               </div>
             </div>
             <div class="control-group">
@@ -33,9 +33,9 @@
         <div class="tab-pane" id="tab2">
           <form class="form-horizontal" action="#" role="form" id="formCreate" method="post">   
             <div class="control-group">
-              <label class="control-label" for="inputEmail">Email</label>
+              <label class="control-label" for="inputEmail">Usuário</label>
               <div class="controls">
-                <input type="text" id="inputEmail" name="email" placeholder="nome.sobrenome@instituicao.edu.br" required data-msg-required="Este campo não pode ser vazio!">
+                <input type="text" id="inputEmail" name="email" placeholder="nome.sobrenome" required data-msg-required="Este campo não pode ser vazio!">
               </div>
             </div>
             <div class="control-group">

@@ -1,3 +1,10 @@
+<?php
+@session_start();
+?>
+
+<?php include_once('../action/connect.php'); ?>
+
+
 <?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])){ ?>
 
 <?php 
@@ -14,8 +21,8 @@
 	} 
 ?>
 
-<form action='' method='POST'> 
-	<p><b>Email:</b><br /><input type='text' name='email' class="input-xxlarge" /> </p>
+<form action='novo-usuario.php' method='POST' id="novo-usuario"> 
+	<p><b>Usuário:</b><br /><input type='text' name='email' /> </p>
 	<p><b>Senha:</b><br /><input type='password' name='password'/> </p>
 	<p><b>Perfil:</b><br />
 		<select name="permission">
@@ -39,4 +46,19 @@
 	  $(function () {
 	  	$('#btUsuarios').tab('show');
 	  })
+
+	  var frm = $('#novo-usuario');
+	    frm.submit(function (ev) {
+	        $.ajax({
+	            type: frm.attr('method'),
+	            url: frm.attr('action'),
+	            data: frm.serialize(),
+	            
+	            success: function (data) {
+	                window.location = "index.php?pagina=listar-usuarios&status=sucesso";
+	            }
+	        });
+
+	        ev.preventDefault();
+	    });
 	</script>

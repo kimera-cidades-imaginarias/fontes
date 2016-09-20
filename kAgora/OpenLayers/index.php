@@ -269,12 +269,14 @@
                 <h3>Créditos:</h3>
                 
                 <div class="row-fluid">
-                  <div class="span4">
+                  <div class="span3">
                     <h5>Coordenação Geral</h5>
                     <ul>
                       <li>Tânia Maria Hetkowski</li>
-                    </ul>
+                    </ul>                    
+                  </div>
 
+                  <div class="span3">
                     <h5>Pedagógico</h5>
                     <ul>
                       <li>Andréa Ferreira Lago</li>
@@ -285,12 +287,7 @@
                     </ul>
                   </div>
 
-                  <div class="span4">
-                    <h5>Game Design</h5>
-                    <ul>
-                      <li>André Luiz Andrade Rezende</li>
-                    </ul>
-
+                  <div class="span3">
                     <h5>Design</h5>
                     <ul>
                       <li>André Luiz Souza da Silva (Betonnasi)</li>
@@ -299,7 +296,7 @@
                     </ul>
                   </div>
 
-                  <div class="span4">
+                  <div class="span3">
                     <h5>Programação</h5>
                     <ul>
                       <li>André Luiz Andrade Rezende</li>
