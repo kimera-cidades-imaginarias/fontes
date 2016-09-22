@@ -51,7 +51,7 @@
         <div class="span8">
           <form class="form-horizontal left" action='' method='POST'> 
             <div class="control-group">
-              <label for="inputEmail">Email</label>
+              <label for="inputEmail">Usuário</label>
               <input type="text" name="email" id="inputEmail" placeholder="Exemplo: nome.sobreno">
             </div>
 
