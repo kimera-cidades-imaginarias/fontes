@@ -1258,6 +1258,7 @@
         </div>
 
         <div class="well span3 panelMapStyle">
+          <p><b>Modo de Visualização</b></p>
           <select id="layer-select">
             <option value="Aerial">Satélite</option>
             <option value="AerialWithLabels">Satélite com Estradas</option>
