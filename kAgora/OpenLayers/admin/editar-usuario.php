@@ -32,11 +32,11 @@
 
 <form action='editar-usuario.php?id=<?php echo $id; ?>' method='POST' id="editar-usuario"> 
 	<div <?php if($_SESSION["permission"] != 2){ ?>class="hide"<?php } ?> >
-		<p><b>Usuário:</b><br /><input type='text' name='email' value='<?php echo stripslashes($row['email']) ?>'  /> </p>
+		<p><b>Usuário:</b><br /><input type='text' name='email' value='<?php echo stripslashes($row['email']) ?>' placeholder="Exemplo: nome.sobreno" /> </p>
 	</div>
 
 	<div>
-		<p><b>Senha:</b><br /><input type='password' name='password' value='<?php echo  stripslashes($row['password']) ?>' /> </p>
+		<p><b>Senha:</b><br /><input type='password' name='password' value='<?php echo  stripslashes($row['password']) ?>' placeholder="*****" /> </p>
 	</div>
 
 	<div <?php if($_SESSION["permission"] != 2){ ?>class="hide"<?php } ?> >

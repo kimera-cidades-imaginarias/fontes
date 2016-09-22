@@ -52,7 +52,7 @@
           <form class="form-horizontal left" action='' method='POST'> 
             <div class="control-group">
               <label for="inputEmail">Email</label>
-              <input type="text" name="email" id="inputEmail" placeholder="Exemplo: nome.sobreno@instituicao.edu.br">
+              <input type="text" name="email" id="inputEmail" placeholder="Exemplo: nome.sobreno">
             </div>
 
             <div class="control-group">

@@ -22,8 +22,8 @@
 ?>
 
 <form action='novo-usuario.php' method='POST' id="novo-usuario"> 
-	<p><b>Usuário:</b><br /><input type='text' name='email' /> </p>
-	<p><b>Senha:</b><br /><input type='password' name='password'/> </p>
+	<p><b>Usuário:</b><br /><input type='text' name='email' placeholder="Exemplo: nome.sobreno" /> </p>
+	<p><b>Senha:</b><br /><input type='password' name='password' placeholder="*****" /> </p>
 	<p><b>Perfil:</b><br />
 		<select name="permission">
 			<option value="0">Aluno</option>

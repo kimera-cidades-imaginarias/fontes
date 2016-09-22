@@ -113,6 +113,14 @@
           var map = null;
           var panorama = null;
 
+          var styles = [
+            'Road',
+            'Aerial',
+            'AerialWithLabels',
+            'collinsBart',
+            'ordnanceSurvey'
+          ];
+
           var construcoes = [];
           var points = [];
 
@@ -127,6 +135,7 @@
           var vectorLayer = null;
           var vectorLineLayer = null;
           var vectorPolygonLayer = null;
+          var layers = [];
 
           var cursor = null;
           var tool = null;
@@ -361,13 +370,30 @@
               source: vectorSource
             });
 
+            //layers
+            var i, ii;
+            for (i = 0, ii = styles.length; i < ii; ++i) {
+              layers.push(new ol.layer.Tile({
+                visible: false,
+                preload: Infinity,
+                source: new ol.source.BingMaps({
+                  key: 'AneoK4q3ZeMobiXkwCaUbSDp4q7r8y6YX_Gn3t3U11sNCjRzrRUodMqwtnahX3Q2',
+                  imagerySet: styles[i]
+                }), vectorLayer
+              }));
+            }
+
             //map
             map = new ol.Map({
+              /*
               layers: [
                 new ol.layer.Tile({
                   source: new ol.source.OSM()
                 }), vectorLayer
               ],
+              */
+              layers: layers,
+              loadTilesWhileInteracting: true,
               target: 'map',
               controls: ol.control.defaults({
                 attributionOptions:({
@@ -394,6 +420,16 @@
 
             //streetmap
             updateStreetView(coordenadasMapa[0], coordenadasMapa[1]);
+
+            //load layer
+            onChange();
+          }
+
+          //layer change
+          function onChange(style = 'Road') {
+            for (var i = 0, ii = layers.length; i < ii; ++i) {
+              layers[i].setVisible(styles[i] === style);
+            }
           }
 
           function showProfDaniel()
@@ -1002,6 +1038,12 @@
                 return false;
               });
 
+              //map style select
+              $( "#layer-select" ).change(function() 
+              {
+                onChange($( this ).val()); 
+              });
+
               //auto save
               time =1;
               setInterval( function() 
@@ -1213,6 +1255,14 @@
 
             <ul id="construcoes">
             </ul>
+        </div>
+
+        <div class="well span3 panelMapStyle">
+          <select id="layer-select">
+            <option value="Aerial">Satélite</option>
+            <option value="AerialWithLabels">Satélite com Estradas</option>
+            <option value="Road" selected>Estradas</option>
+          </select>
         </div>
 
         <div class="well span3 panelFerramentas">
