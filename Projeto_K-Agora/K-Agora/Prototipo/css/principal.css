@@ -1,0 +1,111 @@
+* {
+    font-family: Arial, "Free Sans";
+    color: #444444;
+    font-size: 14px;
+}
+
+body{
+    background:url(../img/background.jpg) no-repeat center top fixed;
+    width: 100%;
+    height: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+h1{
+    background:url(../img/logotipo.png) no-repeat center center;
+    width: 160px;
+    height: 125px;
+    display: block;
+    text-indent: -10000px;
+    margin: 0 auto;
+}
+
+ul.lista{
+    list-style: none;
+}
+
+ul.lista li{
+    float: left;
+    width: 60px;
+    margin: 10px;
+}
+
+ul.lista li a{
+    display: block;
+}
+
+ul.lista li img{
+    display: block;
+}
+
+#map{
+/*height: 530px;*/
+}
+
+.panelContrucao{
+    height: 390px;
+}
+
+.panelFerramentas{
+     height: 170px;
+}
+
+.panelFerramentas a{
+    margin-bottom: 6px;
+}
+
+#construcoes, .panelContrucao, .panelFerramentas{
+    overflow-y:auto;
+}
+
+.nav-pills li a{
+    background-color: #fff;
+}
+
+.well{
+    border:solid 6px #2D568A;
+}
+
+hr{
+     border:solid 1px #2D568A;
+}
+
+.versao{
+    float: right;
+    color: #fff;
+    font-size: 14px;
+}
+
+#help{
+    display: none;
+    position: absolute;
+    top: 100px;
+}
+
+#help .balao{
+    background-color: #FFF;
+    padding: 20px;
+    float: right;
+    margin-top: 40px;
+     box-shadow: 5px 5px 5px #888888;
+}
+
+#help #closeHelp{
+    position: absolute;
+    margin-top: -410px;
+    margin-left: 150px;
+}
+
+#map {
+    /*
+    -ms-transform: rotate(45deg); 
+    -webkit-transform: rotate(45deg);
+    transform: scaleY(0.5) rotate(45deg) ;
+    width: 530px;
+    */
+    height: 530px;
+}
