@@ -1,67 +1,29 @@
 <?php
 	include_once('connect.php');
 
-	if (isset($_POST["id"])) 
+	if($_POST['letter_id'] != '')
 	{
-		$data = json_encode($_POST);
-		$array = json_decode($data);
+		$id = (int) $_POST['letter_id']; 
 
-		$sql = "UPDATE letter SET";
+		foreach($_POST AS $key => $value) { $_POST[$key] = $con->real_escape_string($value); } 
+		
+		$sql = "UPDATE `letter` SET `from` =  '{$_POST['from']}' , `title` =  '{$_POST['title']}' ,  `letter` =  '{$_POST['letter']}',  `user_id` =  '{$_POST['user_id']}',  `permission` =  '{$_POST['permission']}'   WHERE `id` = '$id' "; 
 
-		$i=1;
-		$total = 0;
-		$id=null;
-
-		foreach($array as $key => $value)
-		{	
-			$total++;
-		}
-
-		foreach($array as $key => $value)
-		{	
-			if ($key != 'id')
-			{
-				$sql .= " ".$key."='".$value."'";
-
-				$i++;
-
-				if($i < $total)
-				{
-					$sql .= ',';
-				}
-			}
-			else
-			{
-				$id = $value;
-			}
-		}
-		$sql .= ' WHERE id='.$id;
-
-		echo $sql;
-		$con->query($sql);
+		if($con->query($sql)){
+			echo 'true';
+		} else {
+			echo 'false';
+		}			
 	}
 	else
 	{
-		$data = json_encode($_POST);
-		$array = json_decode($data);
-
-		$keys = "";
-		$values = "";
-
-		foreach($array as $key => $value)
-		{	
-			$keys .= " " . $key . "";
-			$values .= " '" . $value . "'";
-
-			if ($value !== end($array))
-			{
-				$keys .= ",";
-				$values .= ",";
-			}
-		}
-
-		$sql = "INSERT INTO letter (".$keys.") VALUES (".$values.")";
+		foreach($_POST AS $key => $value) { $_POST[$key] = $con->real_escape_string($value); } 
 		
-		echo $sql;
-		$con->query($sql);
+		$sql = "INSERT INTO `letter` ( `from` , `title` ,  `letter`,  `user_id`,  `permission`  ) VALUES(  '{$_POST['from']}' , '{$_POST['title']}' ,  '{$_POST['letter']}' ,  '{$_POST['user_id']}' ,  '{$_POST['permission']}'  ) "; 
+		
+		if($con->query($sql)){
+			echo 'true';
+		} else {
+			echo 'false';
+		}
 	}

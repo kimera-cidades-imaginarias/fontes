@@ -1,6 +1,4 @@
-<?php
-@session_start();
-?>
+<?php @session_start(); ?>
 
 <?php include_once('../action/connect.php'); ?>
 
@@ -10,18 +8,23 @@
 	if (isset($_POST['submitted'])) { 
 		foreach($_POST AS $key => $value) { $_POST[$key] = $con->real_escape_string($value); } 
 		
-		$sql = "INSERT INTO `letter` ( `title` ,  `letter`,  `user_id`,  `permission`  ) VALUES(  '{$_POST['title']}' ,  '{$_POST['letter']}' ,  '{$_POST['user_id']}' ,  '{$_POST['permission']}'  ) "; 
+		$sql = "INSERT INTO `letter` ( `from` , `title` ,  `letter`,  `user_id`,  `permission`  ) VALUES(  '{$_POST['from']}' , '{$_POST['title']}' ,  '{$_POST['letter']}' ,  '{$_POST['user_id']}' ,  '{$_POST['permission']}'  ) "; 
 		
 		if($con->query($sql)){
 			echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-cartas&status=sucesso" </script>';
+
+			die();
 		} else {
 			echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-cartas&status=erro" </script>';
+
+			die();
 		}
 	} 
 ?>
 
 <form action='nova-carta.php' method='POST' id="nova-carta"> 
-	<p><b>De:</b><br /><input type='text' name='title' value="<?php echo $_SESSION["email"]; ?>"  /> </p>
+	<p><b>De:</b><br /><input type='text' name='from' value="<?php echo $_SESSION["email"]; ?>" readonly="readonly" /> </p>
+	<p><b>Assunto:</b><br /><input type='text' name='title' value=""  /> </p>
 	<p><b>Carta:</b><br /><textarea rows="10" name="letter" class="btn-large btn-block"></textarea> </p>
 
 	<input type="hidden" name="user_id" value="<?php echo $_SESSION["user_id"]; ?>" />
@@ -42,14 +45,17 @@
 	  })
 
 	   var frm = $('#nova-carta');
-	    frm.submit(function (ev) {
+	    frm.submit(function (ev) 
+	    {
 	        $.ajax({
 	            type: frm.attr('method'),
 	            url: frm.attr('action'),
 	            data: frm.serialize(),
 	            
-	            success: function (data) {
-	                window.location = "index.php?pagina=listar-cartas&status=sucesso";
+	            success: function (data) 
+	            {
+	                $('body').html(data);
+	                //window.location = "index.php?pagina=listar-cartas&status=sucesso";
 	            }
 	        });
 

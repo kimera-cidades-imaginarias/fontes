@@ -9,7 +9,7 @@
 
       <div class="tab-content">
         <div class="tab-pane active" id="tab1">
-          <form class="form-horizontal" action="#" role="form" id="formLogin" method="post">   
+          <form class="form-horizontal" action="action/login.php" role="form" id="formLogin" method="post">   
             <div class="control-group">
               <label class="control-label" for="inputEmail">Usuário</label>
               <div class="controls">
@@ -31,7 +31,7 @@
         </div>
 
         <div class="tab-pane" id="tab2">
-          <form class="form-horizontal" action="#" role="form" id="formCreate" method="post">   
+          <form class="form-horizontal" action="action/creat-user.php" role="form" id="formCreate" method="post">   
             <div class="control-group">
               <label class="control-label" for="inputEmail">Usuário</label>
               <div class="controls">
@@ -57,90 +57,46 @@
     <script type="text/javascript">
       function creatuser()
       {
-        var data = $('#formCreate').serialize();
+        var frm = $('#formCreate');
 
         $.ajax({
-           type: "POST",
-           url: "action/creat-user.php",
-           async: false,
-           data: data,
-           
-           success: function(data)
-           {
-              if(data == 'true')
-              {
-                login();
-              }
-
-              if(data == 'false')
-              {
-                alert('Preencha todos os campos!');
-              }
-
-              return false;
-           },
-           complete: function(data) 
-           {
-              return false;
-           },
-           error: function(xhr, textStatus, errorThrown) 
-           {
-              return false;
-           }
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            
+            success: function (data) 
+            {
+                alert(data);
+            }
         });
       }
 
       function login()
       {
-        var data = $('#formLogin').serialize();
+        var frm = $('#formLogin');
 
         $.ajax({
-           type: "POST",
-           url: "action/login.php",
-           async: false,
-           data: data,
-           
-           success: function(data)
-           {
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            
+            success: function (data) 
+            {
               if(data == 'true')
               {
-                loadLetter();
+                $.ajax({
+                  url: 'pages/home.php'
+                }).done(function(data) { 
+                  $('#data').html(data); 
+                });
               }
-
-              if(data == 'false')
+              else
               {
-                alert('Usuario nao cadastrado!');
+                alert("Usuário Incorreto!");
               }
 
               return false;
-           },
-           complete: function(data) 
-           {
-              return false;
-           },
-           error: function(xhr, textStatus, errorThrown) 
-           {
-              return false;
-           }
-        });
-      }
-
-      function loadLetter()
-      {
-        $.ajax({
-           type: "POST",
-           url: "pages/letter.php",
-           
-           success: function(data)
-           {
-              $('#myModal #data').html(data);
-
-              return false;
-           },
-           error: function(xhr, textStatus, errorThrown) 
-           {
-              return false;
-           }
+            }
         });
       }
 

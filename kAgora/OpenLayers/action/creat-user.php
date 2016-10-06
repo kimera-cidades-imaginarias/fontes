@@ -1,66 +1,21 @@
 <?php
 	include_once('connect.php');
 
-	if (isset($_POST["id"])) 
+	$result = $con->query("SELECT * FROM `user` WHERE email = '" . $_POST['email'] . "'");
+	$num_rows = mysqli_num_rows($result);
+
+	if($num_rows > 0)
 	{
-		$data = json_encode($_POST);
-		$array = json_decode($data);
-
-		$sql = "UPDATE user SET";
-
-		foreach($array as $key => $value)
-		{	
-			$sql .= " ".$key."='".$value."'";
-
-			if ($value !== end($array))
-			{
-				$sql .= ",";
-			}
-			else
-			{
-				$sql .= " WHERE ".$key."=".$value;
-			}
-		}
-
-		//echo $sql;
-		if ($con->query($sql))
-		{
-			echo 'true';
-		}
-		else
-		{
-			echo 'false';
-		}
-	}
-	else
-	{
-		$data = json_encode($_POST);
-		$array = json_decode($data);
-
-		$keys = "";
-		$values = "";
-
-		foreach($array as $key => $value)
-		{	
-			$keys .= " " . $key . "";
-			$values .= " '" . $value . "'";
-
-			if ($value !== end($array))
-			{
-				$keys .= ",";
-				$values .= ",";
-			}
-		}
-
-		$sql = "INSERT INTO user (".$keys.") VALUES (".$values.")";
+		echo 'Este usuário já foi cadastrado!';
+	} else {
+		foreach($_POST AS $key => $value) { $_POST[$key] = $con->real_escape_string($value); } 
 		
-		//echo $sql;
-		if ($con->query($sql))
-		{
-			echo 'true';
-		}
-		else
-		{
-			echo 'false';
+		$sql = "INSERT INTO `user` ( `email` ,  `password`,  `permission`  ) VALUES(  '{$_POST['email']}' ,  '{$_POST['password']}' ,  '0'  ) "; 
+		
+		if($con->query($sql)){
+			echo 'Usuário cadastrado com sucesso!';
+		} else {
+			echo 'Erro ao cadastrar usuário!';
 		}
 	}
+	

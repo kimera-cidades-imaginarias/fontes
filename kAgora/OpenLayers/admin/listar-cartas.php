@@ -12,6 +12,7 @@
 			echo "<tr>"; 
 				echo "<td><b>N° Controle</b></td>"; 
 				echo "<td><b>De</b></td>"; 
+				echo "<td><b>Assunto</b></td>"; 
 				echo "<td><b>Data / Hora</b></td>";
 				echo "<td></td>";
 				echo "<td></td>";
@@ -52,6 +53,7 @@
 			
 			echo "<tr>";  
 				echo "<td valign='top'>" . nl2br( $row['id']) . "</td>";  
+				echo "<td valign='top'>" . nl2br( $row['from']) . "</td>";
 				echo "<td valign='top'>" . nl2br( $row['title']) . "</td>";
 				echo "<td valign='top'>" . nl2br( $row['date_time']) . "</td>";  
 				//echo "<td valign='top'><a href=index.php?pagina=editar-carta&id={$row['id']}>Editar</a></td>"; 

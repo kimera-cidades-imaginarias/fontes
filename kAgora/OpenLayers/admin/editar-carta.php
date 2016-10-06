@@ -1,6 +1,4 @@
-<?php
-@session_start();
-?>
+<?php @session_start(); ?>
 
 <?php include_once('../action/connect.php'); ?>
 
@@ -13,15 +11,18 @@
 
 		foreach($_POST AS $key => $value) { $_POST[$key] = $con->real_escape_string($value); } 
 		
-		$sql = "UPDATE `letter` SET `title` =  '{$_POST['title']}' ,  `letter` =  '{$_POST['letter']}',  `user_id` =  '{$_POST['user_id']}',  `permission` =  '{$_POST['permission']}'   WHERE `id` = '$id' "; 
+		$sql = "UPDATE `letter` SET `from` =  '{$_POST['from']}' , `title` =  '{$_POST['title']}' ,  `letter` =  '{$_POST['letter']}',  `user_id` =  '{$_POST['user_id']}',  `permission` =  '{$_POST['permission']}'   WHERE `id` = '$id' "; 
 
 		if($con->query($sql)){
 			echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-cartas&status=sucesso" </script>';
+
+			die();
 		} else {
 			echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-cartas&status=erro" </script>';
+
+			die();
 		}			
 	} 
-
 
 	if (isset($_REQUEST['id']) ) { 
 		$id = (int) $_REQUEST['id']; 
@@ -31,7 +32,8 @@
 ?>
 
 <form action='editar-carta.php?id=<?php echo $id; ?>' method='POST' id="editar-carta"> 
-	<p><b>De:</b><br /><input type='text' name='title'  value='<?php echo stripslashes($row['title']) ?>' /> </p>
+	<p><b>De:</b><br /><input type='text' name='from'  value='<?php echo stripslashes($row['from']) ?>' readonly="readonly" /> </p>
+	<p><b>Assunto:</b><br /><input type='text' name='title'  value='<?php echo stripslashes($row['title']) ?>' /> </p>
 	<p><b>Carta:</b><br /><textarea rows="10" name="letter" class="btn-large btn-block"><?php echo stripslashes($row['letter']) ?></textarea> </p>
 
 	<input type="hidden" name="user_id" value='<?php echo stripslashes($row['user_id']) ?>' />
@@ -53,14 +55,17 @@
 	  })
 
 	  var frm = $('#editar-carta');
-	    frm.submit(function (ev) {
+	    frm.submit(function (ev) 
+	    {
 	        $.ajax({
 	            type: frm.attr('method'),
 	            url: frm.attr('action'),
 	            data: frm.serialize(),
 	            
-	            success: function (data) {
-	               window.location = "index.php?pagina=listar-cartas&status=sucesso";
+	            success: function (data) 
+	            {
+	            	$('body').html(data);
+	               //window.location = "index.php?pagina=listar-cartas&status=sucesso";
 	            }
 	        });
 

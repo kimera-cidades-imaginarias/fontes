@@ -1,6 +1,4 @@
-<?php
-@session_start();
-?>
+<?php @session_start(); ?>
 
 <?php include_once('../action/connect.php'); ?>
 
@@ -17,8 +15,12 @@
 
 		if($con->query($sql)){
 			echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-usuarios&status=sucesso" </script>';
+
+			die();
 		} else {
 			echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-usuarios&status=erro" </script>';
+
+			die();
 		}			
 	} 
 
@@ -73,8 +75,10 @@
 	            url: frm.attr('action'),
 	            data: frm.serialize(),
 	            
-	            success: function (data) {
-	               window.location = "index.php?pagina=listar-usuarios&status=sucesso";
+	            success: function (data) 
+	            {
+	            	$('body').html(data);
+	               //window.location = "index.php?pagina=listar-usuarios&status=sucesso";
 	            }
 	        });
 

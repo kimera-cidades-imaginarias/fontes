@@ -10,12 +10,12 @@
         $add .= ' user_id =' . $user_id;
     }
 
-	$sql = "SELECT * FROM letter WHERE " . $add . " OR permission = 1 ORDER BY date_time ASC";
+	$sql = "SELECT * FROM letter WHERE " . $add . " OR permission = 1 OR permission = 2 ORDER BY date_time ASC";
 
 	$result = $con->query($sql); 
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
-            echo '<li><a href="'.$row["id"].'">Carta de '.$row["title"].'</a></li>';
+            echo '<li><a href="'.$row["id"].'">Carta de '.$row["from"].': '.$row["title"].'</a></li>';
 		} 
 	}
 ?>

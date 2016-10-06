@@ -1,3 +1,5 @@
+<?php @session_start(); ?>
+
 <?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])){ ?>
 
 <?php

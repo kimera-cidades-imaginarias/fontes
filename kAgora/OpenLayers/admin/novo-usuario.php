@@ -1,22 +1,34 @@
-<?php
-@session_start();
-?>
+<?php @session_start(); ?>
 
 <?php include_once('../action/connect.php'); ?>
-
 
 <?php if(isset($_SESSION["user_id"]) && isset($_SESSION["email"]) && isset($_SESSION["password"])){ ?>
 
 <?php 
 	if (isset($_POST['submitted'])) { 
-		foreach($_POST AS $key => $value) { $_POST[$key] = $con->real_escape_string($value); } 
-		
-		$sql = "INSERT INTO `user` ( `email` ,  `password`,  `permission`  ) VALUES(  '{$_POST['email']}' ,  '{$_POST['password']}' ,  '{$_POST['permission']}'  ) "; 
-		
-		if($con->query($sql)){
-			echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-usuarios&status=sucesso" </script>';
-		} else {
+
+		$result = $con->query("SELECT * FROM `user` WHERE email = '" . $_POST['email'] . "' AND permission = " . $_POST['permission'] . "");
+		$num_rows = mysqli_num_rows($result);
+
+		if($num_rows > 0)
+		{
 			echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-usuarios&status=erro" </script>';
+
+			die();
+		} else {
+			foreach($_POST AS $key => $value) { $_POST[$key] = $con->real_escape_string($value); } 
+			
+			$sql = "INSERT INTO `user` ( `email` ,  `password`,  `permission`  ) VALUES(  '{$_POST['email']}' ,  '{$_POST['password']}' ,  '{$_POST['permission']}'  ) "; 
+			
+			if($con->query($sql)){
+				echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-usuarios&status=sucesso" </script>';
+
+				die();
+			} else {
+				echo '<script type="text/javascript"> window.location = "index.php?pagina=listar-usuarios&status=erro" </script>';
+
+				die();
+			}
 		}
 	} 
 ?>
@@ -54,8 +66,10 @@
 	            url: frm.attr('action'),
 	            data: frm.serialize(),
 	            
-	            success: function (data) {
-	                window.location = "index.php?pagina=listar-usuarios&status=sucesso";
+	            success: function (data) 
+	            {
+	                $('body').html(data);
+	                //window.location = "index.php?pagina=listar-usuarios&status=sucesso";
 	            }
 	        });
 
