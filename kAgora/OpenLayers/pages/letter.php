@@ -35,7 +35,11 @@
     <hr />
 
     <h4>Minhas Cartas</h4>
-    <ul id="listLetter">
+    <ul id="listMyLetter">
+    </ul>
+
+    <h4>Cartas Recebidas</h4>
+    <ul id="listOtherLetter">
     </ul>
 
     <script type="text/javascript">
@@ -47,36 +51,43 @@
         $('#formLetter input[name*="title"]').val('');
         $('#formLetter textarea').val('');
 
-        $('#formLetter input[name*="letter_id"]').prop("readonly",true);
-        $('#formLetter input[name*="title"]').prop("readonly",true);
-        $('#formLetter textarea').prop("readonly",true);
+        $('#formLetter input[name*="letter_id"]').prop("readonly",false);
+        $('#formLetter input[name*="title"]').prop("readonly",false);
+        $('#formLetter textarea').prop("readonly",false);
       }
 
       function creatLetter()
       {
-        var frm = $('#formLetter');
+        if($('#formLetter input[name*="title"]').val() == "" || $('#formLetter textarea').val() == "")
+        {
+          alert('Você não escreveu nada na carta!');
+        }
+        else
+        {
+          var frm = $('#formLetter');
 
-        $.ajax({
-            type: frm.attr('method'),
-            url: frm.attr('action'),
-            data: frm.serialize(),
-            
-            success: function (data) 
-            {
-              if(data == 'true')
+          $.ajax({
+              type: frm.attr('method'),
+              url: frm.attr('action'),
+              data: frm.serialize(),
+              
+              success: function (data) 
               {
-                $.ajax({
-                  url: 'pages/home.php'
-                }).done(function(data) { 
-                  $('#data').html(data); 
-                });
+                if(data == 'true')
+                {
+                  $.ajax({
+                    url: 'pages/home.php'
+                  }).done(function(data) { 
+                    $('#data').html(data); 
+                  });
+                }
+                else
+                {
+                  alert('Erro ao cadastrar!');
+                }
               }
-              else
-              {
-                alert('Erro ao cadastrar!');
-              }
-            }
-        });
+          });
+        }
       }
 
       function showLetterByID(id)
@@ -126,7 +137,21 @@
            
            success: function(data)
            {
-              $('#listLetter').html(data);
+              $('#listMyLetter').html(data);
+
+              return false;
+           }
+        });
+
+        $.ajax({
+           type: "POST",
+           url: "action/list-letter.php",
+           async: false,
+           data: '',
+           
+           success: function(data)
+           {
+              $('#listOtherLetter').html(data);
 
               return false;
            }
@@ -152,7 +177,14 @@
           return false;
         });
 
-        $('#listLetter li a').click(function (e) 
+        $('#listMyLetter li a').click(function (e) 
+        {
+          showLetterByID( $(this).attr("href") );
+
+          return false;
+        }); 
+
+        $('#listOtherLetter li a').click(function (e) 
         {
           showLetterByID( $(this).attr("href") );
 

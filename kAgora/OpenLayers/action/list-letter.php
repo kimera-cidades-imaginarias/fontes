@@ -1,7 +1,7 @@
 <?php 
     include_once('connect.php');
 
-    $user_id = $_REQUEST['user_id'];
+    @$user_id = $_REQUEST['user_id'];
 
     $add = '';
 
@@ -9,8 +9,12 @@
     {
         $add .= ' user_id =' . $user_id;
     }
+    else
+    {
+        $add .= 'permission = 1 OR permission = 2';
+    }
 
-	$sql = "SELECT * FROM letter WHERE " . $add . " OR permission = 1 OR permission = 2 ORDER BY date_time ASC";
+	$sql = "SELECT * FROM letter WHERE " . $add . " ORDER BY date_time ASC";
 
 	$result = $con->query($sql); 
 	if ($result->num_rows > 0) {
