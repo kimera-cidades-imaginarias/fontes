@@ -60,7 +60,13 @@
       {
         if($('#formLetter input[name*="title"]').val() == "" || $('#formLetter textarea').val() == "")
         {
-          alert('Você não escreveu nada na carta!');
+          if($('#formLetter input[name*="title"]').val() == ""){
+            alert('Você não escreveu nada no Assunto!');
+          }
+
+          if($('#formLetter textarea').val() == ""){
+            alert('Você não escreveu nada na Carta!');
+          }
         }
         else
         {
@@ -75,6 +81,8 @@
               {
                 if(data == 'true')
                 {
+                  alert('Carta Voadora enviada com sucesso!');
+
                   $.ajax({
                     url: 'pages/home.php'
                   }).done(function(data) { 
@@ -83,7 +91,7 @@
                 }
                 else
                 {
-                  alert('Erro ao cadastrar!');
+                  alert('Erro ao enviar Carta!');
                 }
               }
           });
