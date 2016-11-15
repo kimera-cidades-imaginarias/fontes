@@ -1,0 +1,191 @@
+* {
+    font-family: Arial, "Free Sans";
+    color: #444444;
+    font-size: 14px;
+}
+
+body{
+    background:url(../img/background.jpg) no-repeat center top fixed;
+    width: 100%;
+    height: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+h1{
+    background:url(../img/logotipo.png) no-repeat center center;
+    width: 160px;
+    height: 125px;
+    display: block;
+    text-indent: -10000px;
+    margin: 0 auto;
+}
+
+#draggableHelper
+{
+    z-index: 400 !important;
+}
+
+.left
+{
+    float: left !important;
+}
+
+.right
+{
+    float: right !important;
+}
+
+ul.nav-pills li{
+    margin: 2px;
+
+}
+
+ul.nav-pills li a{
+    display: block;
+    z-index: 200;
+}
+
+ul.nav-pills li img{
+    display: block;
+}
+
+.nav-pills li a{
+    background-color: #fff;
+}
+
+.well{
+    border:solid 6px #2D568A;
+    display: table;
+}
+
+hr{
+     border:solid 1px #2D568A;
+}
+
+.space{
+    padding-left: 19px;
+}
+
+.versao{
+    float: right;
+    color: #fff;
+    font-size: 14px;
+}
+
+#help{
+    display: none;
+    position: absolute;
+    top: 140px;
+}
+
+.tab-pane
+{
+    max-height: 560px;
+    overflow-y: auto;
+}
+
+#help .balao{
+    background-color: #FFF;
+    padding: 20px;
+    float: right;
+    margin-top: 80px;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+#help #closeHelp{
+    position: absolute;
+    margin-top: -410px;
+    margin-left: 150px;
+}
+
+#close
+{
+    position: absolute;
+    z-index: 100;
+}
+
+#map,
+#streetView {
+    /*
+    -ms-transform: rotate(45deg); 
+    -webkit-transform: rotate(45deg);
+    transform: scaleY(0.5) rotate(45deg) ;
+    width: 530px;
+    */
+    height: 560px;
+    width: 100%;
+}
+
+.modalCarta
+{
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0px !important;
+
+    background: url('../img/bg_carta.png') no-repeat top center !important;
+}
+
+    .modalCarta .modal-body
+    {
+        min-height: 300px;
+        max-height: 300px;
+        margin-bottom: 140px;
+    }
+
+    .modalCarta .modal-header,
+    .modalCarta .modal-body
+    {
+        max-width: 85%;
+        margin-left: 20px;
+    }
+
+    .modalCarta .modal-header
+    {
+        border: none !important;
+        text-align: center;
+    }
+
+
+.modalCarta .asa-esq,
+.modalCarta .asa-dir
+{
+    position: absolute;
+}
+    
+    .modalCarta .asa-esq
+    {
+        margin-left: -190px;
+    }
+
+    .modalCarta .asa-dir
+    {
+         margin-left: 545px;
+    }
+
+#formLetter label
+{
+    font-weight: bold;
+    color: #2D568A;
+}
+
+#formLetter input,
+#formLetter textarea
+{
+    background: url('../img/line-bg.png') repeat bottom center;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0px !important;
+    font-size: 12px;
+}
+
+#formLetter textarea{
+   background: url('../img/line-bg.png') repeat;
+   line-height: 22px;
+   padding-top: 24px;
+   resize: none;
+}

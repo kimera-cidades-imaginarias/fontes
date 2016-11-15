@@ -69,7 +69,6 @@
       <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
       <link href="css/principal.css" rel="stylesheet" type="text/css" media="screen" />
       <link href="css/ol.css" rel="stylesheet" type="text/css" media="screen">
-      <link href="css/ol3-popup.css" rel="stylesheet" type="text/css" media="screen"/>
 
     <!-- JS -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
@@ -84,7 +83,6 @@
       <script src="js/bootstrap.js" type="text/javascript"></script> 
       <script src="js/jquery.md5.js" type="text/javascript"></script>
       <script src="js/ol.js" type="text/javascript"></script>
-      <script src="js/ol3-popup.js" type="text/javascript"></script>
       <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
       <!-- tabs -->
@@ -123,11 +121,8 @@
             'ordnanceSurvey'
           ];
 
-          var popup = null;
-
           var construcoes = [];
           var points = [];
-          var geoLetters = [];
 
           var zoom = 18;
 
@@ -136,11 +131,10 @@
           var coordenadasMouse = [0,0];
 
           var mousePositionControl = null;
-
-          var vectorSourceLayer = null;
+          var vectorSource = null;
+          var vectorLayer = null;
           var vectorLineLayer = null;
           var vectorPolygonLayer = null;
-          var vectorGeoLetterLayer = null;
           var layers = [];
 
           var cursor = null;
@@ -235,45 +229,20 @@
             construcoes.push(iconFeature);
           } 
 
-          function creatGeoLetterOnMap(letter, ltd, lng)
-          {
-            var iconFeature = new ol.Feature({
-              geometry: new ol.geom.Point([lng,ltd]),
-              name: letter
-            });
-
-            var iconStyle = new ol.style.Style({
-              image: new ol.style.Icon( ({
-                anchor: [0.5, 46],
-                anchorXUnits: 'fraction',
-                anchorYUnits: 'pixels',
-                src: 'img/geoCarta.png',
-                scale:1
-              }))
-            });
-
-            iconFeature.setStyle(iconStyle);
-
-            geoLetters.push(iconFeature);
-          }
-
           function updateMap()
           {
             map.removeLayer(vectorLineLayer);
             map.removeLayer(vectorPolygonLayer);
-            map.removeLayer(vectorSourceLayer);
+            map.removeLayer(vectorLayer);
 
-            //contruecoes
-            var vectorSource = new ol.source.Vector({});
+            vectorSource = new ol.source.Vector({
+              features: construcoes
+            });
 
-            vectorSourceLayer = new ol.layer.Vector({
+            vectorLayer = new ol.layer.Vector({
               source: vectorSource
             });
 
-            vectorSource.addFeatures(construcoes);
-            vectorSource.addFeatures(geoLetters);
-
-            //construcoes interaction
             for(var i=0; i<construcoes.length; i++)
             {
               var dragInteraction = new ol.interaction.Modify({
@@ -305,40 +274,7 @@
               map.addInteraction(dragInteraction);
             } 
 
-            //geoletter interraction jason
-            var select_interaction = new ol.interaction.Select();
-
-            select_interaction.getFeatures().on("add", function (e) { 
-              if(e.element.getStyle().getImage().getSrc() == 'img/geoCarta.png')
-              {
-                var geoFeature = e.element;
-                var content = '<h4>Considerações sobre a localização:</h4>';
-                    content += '<p>'+geoFeature.get('name')+'</p>';
-                    content += '<hr />';
-                    content += '<textarea id="myOpinion" placeholder="suas considerações aqui!"></textarea>';
-                    content += '<br /><a href="#" id="editGeoLetter" class="btn btn-primary">Enviar</a>';
-                  
-                popup.show(geoFeature.getGeometry().getCoordinates(), content);
-
-                $("#editGeoLetter").click(function(e)
-                {
-                    e.preventDefault();
-
-                    var mop = geoFeature.get('name') + ' <br /> ' + $("#myOpinion").val();
-
-                    geoFeature.set('name', mop); 
-
-                    popup.hide();
-
-                    return false;
-                });
-              }
-            });
-
-            map.addInteraction(select_interaction);
-
-            map.addLayer(vectorSourceLayer);
-
+            map.addLayer(vectorLayer);
             map.render();
           }
 
@@ -416,7 +352,7 @@
           }
 
           function initializeAPI() 
-          {     
+          {      
             mousePositionControl = new ol.control.MousePosition({
               coordinateFormat:  function(coord) 
               {
@@ -426,14 +362,13 @@
               projection: 'EPSG:4326'
             });
 
-            var vectorSource = new ol.source.Vector({});
-
-            vectorSourceLayer = new ol.layer.Vector({
-              source: vectorSource
+            vectorSource = new ol.source.Vector({
+              features: construcoes
             });
 
-            vectorSource.addFeatures(construcoes);
-            vectorSource.addFeatures(geoLetters);
+            vectorLayer = new ol.layer.Vector({
+              source: vectorSource
+            });
 
             //layers
             var i, ii;
@@ -444,7 +379,7 @@
                 source: new ol.source.BingMaps({
                   key: 'AneoK4q3ZeMobiXkwCaUbSDp4q7r8y6YX_Gn3t3U11sNCjRzrRUodMqwtnahX3Q2',
                   imagerySet: styles[i]
-                }), vectorSourceLayer
+                }), vectorLayer
               }));
             }
 
@@ -454,7 +389,7 @@
               layers: [
                 new ol.layer.Tile({
                   source: new ol.source.OSM()
-                }), vectorSourceLayer
+                }), vectorLayer
               ],
               */
               layers: layers,
@@ -472,9 +407,6 @@
               })
             });
 
-            popup = new ol.Overlay.Popup({insertFirst: false});
-            map.addOverlay(popup);
-
             map.getView().on('propertychange', function(e) {
                switch (e.key) {
                   case 'resolution':
@@ -485,8 +417,6 @@
                     break;
                }
             });
-
-            map.addOverlay(popup);
 
             //streetmap
             updateStreetView(coordenadasMapa[0], coordenadasMapa[1]);
@@ -903,22 +833,6 @@
                 }
             });
 
-            //Geoletter
-            //construcoes
-            $(data).find("Geoletter").each(function(index, value)
-            {
-                var name = $(this).find("name").text() ;
-                var coordinates = $(this).find("coordinates").text().split(","); 
-
-                var longitude = coordinates[0] ;
-                var latitude = coordinates[1] ;
-
-                if(name && longitude && latitude)
-                {
-                  creatGeoLetterOnMap(name, latitude, longitude);
-                }
-            });
-
             //camera
             $(data).find("Camera").each(function(index, value){
               var longitude = $(this).find("longitude").text() ;
@@ -963,16 +877,6 @@
                   kmlFile += '<coordinates>'+ construcoes[i].getGeometry().getCoordinates() +',0</coordinates>';
                 kmlFile += '</Point>';                
               kmlFile += '</Placemark>';
-            }
-
-            //geoletter
-            for (var i = 0; i < geoLetters.length; i++) {
-              kmlFile += '<Geoletter>';
-                kmlFile += '<name>'+ geoLetters[i].get('name') +'</name>';
-                kmlFile += '<Point>';
-                  kmlFile += '<coordinates>'+ geoLetters[i].getGeometry().getCoordinates() +',0</coordinates>';
-                kmlFile += '</Point>';                
-              kmlFile += '</Geoletter>';
             }
 
             //camera
@@ -1033,15 +937,6 @@
                 iconTemp.fadeTo( "fast", 0.5 );
 
                 //help
-                if( $(this).attr('href') == "geoCarta" ){
-                  $( "#help .balao" ).html("Aplique a carta no mapa para <br /> expressar sua opinião sobre o local.");
-                  $( "#help" ).fadeIn( 400 );
-
-                  my_timer = setTimeout(function () {
-                      $( "#help" ).fadeOut( 400 );
-                  }, 6000);
-                }
-
                 if( $(this).attr('href') == "area" ){
                   $( "#help .balao" ).html("Aplique 4 pontos no mapa para <br />calcular a área do terreno.");
                   $( "#help" ).fadeIn( 400 );
@@ -1233,18 +1128,8 @@
 
           function creatCursor()
           {
-            //geoletter
-            if(cursor["img"] == "geoCarta")
-            {
-              creatGeoLetterOnMap('', coordenadasMouse[0], coordenadasMouse[1]);
-              populateList(construcoes);
-              updateMap();
-
-              cursor = null;
-            }
-
             //area
-            else if(cursor["img"] == "area")
+            if(cursor["img"] == "area")
             {
               if(tool == null || tool == "area")
               {
@@ -1343,148 +1228,157 @@
 
     <!-- App -->
     <div class="container-fluid">
-      <br />
+      <h1>Kimera - KEarth</h1>
     
       <div class="row-fluid">
-        <div class="well span9">
+        <!-- Menu -->
+        <div class="space span4">
+          <div class="row">
+            <div class="tab-content">
+              <!-- Nav -->
+              <ul class="nav nav-pills well span3" role="tablist" id="myTab">
+                <li role="presentation"><a href="#tabs1" role="tab" data-toggle="tab" rel="tooltip" title="Construções Criadas"><img width="30" src="img/icone_representa_construcoes.png" /></a></li>
+                <li role="presentation"><a href="#tabs2" role="tab" data-toggle="tab" rel="tooltip" title="Opções"><img width="30" src="img/icone_representa_opcoes.png" /></a></li>
+                <li role="presentation"><a href="#tabs3" role="tab" data-toggle="tab" rel="tooltip" title="Tutoria"><img width="30" src="img/icone_representa_tutoria.png" /></a></li>
+                <li role="presentation"><a href="#tabs4" role="tab" data-toggle="tab" rel="tooltip" title="Comércio"><img width="30" src="img/icone_representa_comercio.png" /></a></li>
+                <li role="presentation"><a href="#tabs5" role="tab" data-toggle="tab" rel="tooltip" title="Educação"><img width="30" src="img/icone_representa_educacao.png" /></a></li>
+                <li role="presentation"><a href="#tabs6" role="tab" data-toggle="tab" rel="tooltip" title="Habitações"><img width="30" src="img/icone_representa_habitacoes.png" /></a></li>
+                <li role="presentation"><a href="#tabs7" role="tab" data-toggle="tab" rel="tooltip" title="Infraestrutura"><img width="30" src="img/icone_representa_infraestrutura.png" /></a></li>
+                <li role="presentation"><a href="#tabs8" role="tab" data-toggle="tab" rel="tooltip" title="Lazer"><img width="30" src="img/icone_representa_lazer.png" /></a></li>
+                <li role="presentation"><a href="#tabs9" role="tab" data-toggle="tab" rel="tooltip" title="Ferramentas"><img width="30" src="img/icone_configuracoes.png" /></a></li>
+              </ul>
+
+              <!-- Panels -->
+              <div class="tab-pane well span9" role="tabpanel" id="tabs1">
+                <div class="panelContrucao">
+                  <p><b>Construções Criadas</b><br /><small <?php if(!isset($_REQUEST['nome'])){ echo 'class="nomeCidade"'; } ?> >(<?php if(isset($_REQUEST['nome'])){ echo $_REQUEST['nome']; } ?>)</small></p>
+                  
+                  <hr />
+
+                  <ul id="construcoes">
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tab-pane well span9" role="tabpanel" id="tabs2">
+                <div class="panelMapStyle">
+                  <p><b>Modo de Visualização</b></p>
+                  <select id="layer-select">
+                    <option value="Aerial">Satélite</option>
+                    <option value="AerialWithLabels">Satélite com Estradas</option>
+                    <option value="Road" selected>Estradas</option>
+                  </select>
+
+                  <hr />
+
+                  <ul class="nav nav-pills">
+                    <li><a href="#" rel="tooltip" id="inicial" title="Página Inicial"><img src="img/icone_pagina_inicial.png" width="50" /></a></li>
+                    <li><a href="#" rel="tooltip" id="salvar" title="Salvar Construções"><img src="img/icone_salvar.png" width="50" /></a></li>
+                    <li><a href="#" rel="tooltip" id="cartas" title="Cartas Voadoras"><img src="img/icone_cartas_voadoras.png" width="50" /></a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tab-pane well span9" role="tabpanel" id="tabs3">
+                <ul class="nav nav-pills">
+                  <li><a href="files/manual.pdf" rel="tooltip" id="manual" target="_blank" title="Manual"><img src="img/icone_manual.png" width="50" /></a></li>
+                </ul>
+              </div>
+
+              <div class="tab-pane well span9" role="tabpanel" id="tabs4">
+                <ul class="nav nav-pills lista">
+                  <li><a href="academia" rel="tooltip" title="Academia"><img width="50" src="img/icone_comercio_academia.png" /></a></li>
+                  <li><a href="banco-01" rel="tooltip" title="Banco 01"><img width="50" src="img/icone_comercio_banco01.png" /></a></li>
+                  <li><a href="banco-02" rel="tooltip" title="Banco 02"><img width="50" src="img/icone_comercio_banco02.png" /></a></li>
+                  <li><a href="banco-03" rel="tooltip" title="Banco 03"><img width="50" src="img/icone_comercio_banco03.png" /></a></li>
+                  <li><a href="farmacia" rel="tooltip" title="Farmácia"><img width="50" src="img/icone_infraestrutura_farmacia.png" /></a></li>
+                  <li><a href="lanchonete" rel="tooltip" title="Lanchonete"><img width="50" src="img/icone_comercio_lanchonete.png" /></a></li>
+                  <li><a href="loja" rel="tooltip" title="Loja"><img width="50" src="img/icone_comercio_loja.png" /></a></li>
+                  <li><a href="posto-de-gasolina" rel="tooltip" title="Posto de Gasolina"><img width="50" src="img/icone_comercio_postodegasolina.png" /></a></li>
+                  <li><a href="super-mercado" rel="tooltip" title="Supermercado"><img width="50" src="img/icone_comercio_supermercado.png" /></a></li>
+                </ul>
+              </div>
+
+              <div class="tab-pane well span9" role="tabpanel" id="tabs5">
+                <ul class="nav nav-pills lista">
+                  <li><a href="biblioteca" rel="tooltip" title="Biblioteca"><img width="50" src="img/icone_educacao_biblioteca.png" /></a></li>
+                  <li><a href="escola" rel="tooltip" title="Escola"><img width="50" src="img/icone_educacao_escola.png" /></a></li>
+                  <li><a href="universidade" rel="tooltip" title="Universidade"><img width="50" src="img/icone_educacao_universidade.png" /></a></li>
+                </ul>
+              </div>
+
+              <div class="tab-pane well span9" role="tabpanel" id="tabs6">
+                <ul class="nav nav-pills lista">
+                  <li><a href="casa-de-luxo" rel="tooltip" title="Casa de Luxo"><img width="50" src="img/icone_habitacoes_casaluxo.png" /></a></li>
+                  <li><a href="casa-media" rel="tooltip" title="Casa Média"><img width="50" src="img/icone_habitacoes_casamedia.png" /></a></li>
+                  <li><a href="casa-simples" rel="tooltip" title="Casa Simples"><img width="50" src="img/icone_habitacoes_casasimples.png" /></a></li>
+                  <li><a href="hotel" rel="tooltip" title="Hotel"><img width="50" src="img/icone_habitacoes_hotel.png" /></a></li>
+                  <li><a href="predio-de-luxo" rel="tooltip" title="Prédio de Luxo"><img width="50" src="img/icone_habitacoes_predioluxo.png" /></a></li>
+                  <li><a href="predio-medio" rel="tooltip" title="Prédio Médio"><img width="50" src="img/icone_habitacoes_prediomedio.png" /></a></li>
+                  <li><a href="predio-simples" rel="tooltip" title="Prédio Simples"><img width="50" src="img/icone_habitacoes_prediosimples.png" /></a></li>
+                </ul>
+              </div>
+
+              <div class="tab-pane well span9" role="tabpanel" id="tabs7">
+                <ul class="nav nav-pills lista">
+                  <li><a href="aeroporto" rel="tooltip" title="Aeroporto"><img width="50" src="img/icone_infraestrutura_aeroporto.png" /></a></li>
+                  <li><a href="bombeiros" rel="tooltip" title="Bombeiros"><img width="50" src="img/icone_infraestrutura_bombeiros.png" /></a></li>
+                  <li><a href="ciclo-paque" rel="tooltip" title="Ciclo Parque"><img width="50" src="img/icone_infraestrutura_ciclo_paque.png" /></a></li>
+                  <li><a href="delegacia" rel="tooltip" title="Delegacia"><img width="50" src="img/icone_infraestrutura_delegacia.png" /></a></li>
+                  <li><a href="estacao-tratamento-de-agua" rel="tooltip" title="Estaçao de Tratamento de Água"><img width="50" src="img/icone_infraestrutura_estacao_tratamento_de_agua.png" /></a></li>
+                  <li><a href="hospital" rel="tooltip" title="Hospital"><img width="50" src="img/icone_infraestrutura_hospital.png" /></a></li>
+                  <li><a href="industria" rel="tooltip" title="Indústria"><img width="50" src="img/icone_infraestrutura_industria.png" /></a></li>
+                  <li><a href="industria-de-reciclagem-de-lixo" rel="tooltip" title="Indústria de Reciclagem de Lixo"><img width="50" src="img/icone_infraestrutura_industria_de_reciclagem_de_lixo.png" /></a></li>
+                  <li><a href="parque-ecologico" rel="tooltip" title="Parque Ecológico"><img width="50" src="img/icone_infraestrutura_parque_ecologico.png" /></a></li>
+                  <li><a href="posto-de-saude" rel="tooltip" title="Posto de Saúde"><img width="50" src="img/icone_infraestrutura_postodesaude.png" /></a></li>
+                  <li><a href="rodoviaria" rel="tooltip" title="Rodoviária"><img width="50" src="img/icone_infraestrutura_rodoviaria.png" /></a></li>
+                  <li><a href="termo-eletrica" rel="tooltip" title="Termoelétrica"><img width="50" src="img/icone_infraestrutura_termoeletrica.png" /></a></li>
+                  <li><a href="usina-eolica" rel="tooltip" title="Usina Eólica"><img width="50" src="img/icone_infraestrutura_usina_eolica.png" /></a></li>
+                </ul>
+              </div>
+
+              <div class="tab-pane well span9" role="tabpanel" id="tabs8">
+                <ul class="nav nav-pills lista">
+                  <li><a href="estadio-de-futibol" rel="tooltip" title="Estádio de Futebol"><img width="50" src="img/icone_lazer_estadiofutebol.png" /></a></li>
+                  <li><a href="igreja" rel="tooltip" title="Igreja"><img width="50" src="img/icone_lazer_igreja.png" /></a></li>
+                  <li><a href="praia" rel="tooltip" title="Praia"><img width="50" src="img/icone_lazer_praia.png" /></a></li>
+                  <li><a href="restaurante-luxo" rel="tooltip" title="Restaurante de Luxo"><img width="50" src="img/icone_lazer_restauranteluxo.png" /></a></li>
+                  <li><a href="restaurante-simples" rel="tooltip" title="Restaurante Simples"><img width="50" src="img/icone_lazer_restaurantesimples.png" /></a></li>
+                  <li><a href="shopping" rel="tooltip" title="Shopping"><img width="50" src="img/icone_lazer_shopping.png" /></a></li>
+                  <li><a href="sorveteria" rel="tooltip" title="Sorveteria"><img width="50" src="img/icone_lazer_sorveteria.png" /></a></li>
+                  <li><a href="teatro" rel="tooltip" title="Teatro"><img width="50" src="img/icone_lazer_teatro.png" /></a></li>
+                  <li><a href="zoologico" rel="tooltip" title="Zoológico"><img width="50" src="img/icone_lazer_zoologico.png" /></a></li>
+                </ul>
+              </div>
+
+              <div class="tab-pane well span9" role="tabpanel" id="tabs9">
+                <ul class="nav nav-pills lista">
+                  <li><a href="area" rel="tooltip" title="Medir Área"><img width="50" src="img/icone_area.png" /></a></li>
+                  <li><a href="ponto" rel="tooltip" title="Medir Distâncias"><img width="50" src="img/icone_ponto.png" /></a></li>
+                  <li><a href="coordenada" rel="tooltip" title="Retornar Coordenadas"><img width="50" src="img/icone_coordenada.png" /></a></li>
+                  <li><a href="rota" rel="tooltip" title="Calcular Rota"><img width="50" src="img/icone_rota.png" /></a></li>
+                  <li><a href="streetView" rel="tooltip" title="Visão Tridimensional"><img width="50" src="img/icone_streetView.png" /></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="well span8">
+          <div id="info">
+          </div>
+
           <div id="map">
           </div> 
 
           <div id="streetView">
           </div>  
-          
-          <div id="info">
-          </div>
-          
+        
           <div id="help">
             <img src="img/help.png">
             <p class="balao"></p>
             <a href="#" id="closeHelp"><img src="img/close_icon.png" /></a>
-          </div>
-        </div>
-
-        <div class="well span3 panelContrucao">
-            <p><b>Construções Criadas</b><br /><small <?php if(!isset($_REQUEST['nome'])){ echo 'class="nomeCidade"'; } ?> >(<?php if(isset($_REQUEST['nome'])){ echo $_REQUEST['nome']; } ?>)</small></p>
-            
-            <hr />
-
-            <ul id="construcoes">
-            </ul>
-        </div>
-
-        <div class="well span3 panelMapStyle">
-          <p><b>Modo de Visualização</b></p>
-          <select id="layer-select">
-            <option value="Aerial">Satélite</option>
-            <option value="AerialWithLabels">Satélite com Estradas</option>
-            <option value="Road" selected>Estradas</option>
-          </select>
-        </div>
-
-        <div class="well span3 panelFerramentas">
-          <div class="row-fluid">
-            <a href="#" rel="tooltip" class="span6" id="inicial" title="Página Inicial"><img src="img/icone_pagina_inicial.png" width="60" /></a>
-            <a href="#" rel="tooltip" class="span6" id="salvar" title="Salvar Construções"><img src="img/icone_salvar.png" width="60" /></a>
-          </div>
-          <div class="row-fluid">
-            <a href="#" rel="tooltip" class="span6" id="cartas" title="Cartas Voadoras"><img src="img/icone_cartas_voadoras.png" width="60" /></a>
-            <a href="files/manual.pdf" rel="tooltip" class="span6" id="manual" target="_blank" title="Manual"><img src="img/icone_manual.png" width="60" /></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="row-fluid">
-        <div class="well span12">
-          
-          <div class="tab-content">
-            <ul class="nav nav-pills" role="tablist" id="myTab">
-              <li role="presentation"><a href="#tabs1" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_comercio.png" /> Comércio</a></li>
-              <li role="presentation"><a href="#tabs2" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_educacao.png" /> Educação</a></li>
-              <li role="presentation"><a href="#tabs3" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_habitacoes.png" /> Habitações</a></li>
-              <li role="presentation"><a href="#tabs4" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_infraestrutura.png" /> Infraestrutura</a></li>
-              <li role="presentation"><a href="#tabs5" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_lazer.png" /> Lazer</a></li>
-              <li role="presentation"><a href="#tabs6" role="tab" data-toggle="tab"><img width="30" src="img/icone_configuracoes.png" /> Ferramentas</a></li>
-            </ul>
-
-            <hr />
-
-            <div role="tabpanel" class="tab-pane" id="tabs1">
-              <ul class="lista">
-                <li><a href="academia" rel="tooltip" title="Academia"><img src="img/icone_comercio_academia.png" /></a></li>
-                <li><a href="banco-01" rel="tooltip" title="Banco 01"><img src="img/icone_comercio_banco01.png" /></a></li>
-                <li><a href="banco-02" rel="tooltip" title="Banco 02"><img src="img/icone_comercio_banco02.png" /></a></li>
-                <li><a href="banco-03" rel="tooltip" title="Banco 03"><img src="img/icone_comercio_banco03.png" /></a></li>
-                <li><a href="farmacia" rel="tooltip" title="Farmácia"><img src="img/icone_infraestrutura_farmacia.png" /></a></li>
-                <li><a href="lanchonete" rel="tooltip" title="Lanchonete"><img src="img/icone_comercio_lanchonete.png" /></a></li>
-                <li><a href="loja" rel="tooltip" title="Loja"><img src="img/icone_comercio_loja.png" /></a></li>
-                <li><a href="posto-de-gasolina" rel="tooltip" title="Posto de Gasolina"><img src="img/icone_comercio_postodegasolina.png" /></a></li>
-                <li><a href="super-mercado" rel="tooltip" title="Supermercado"><img src="img/icone_comercio_supermercado.png" /></a></li>
-              </ul>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="tabs2">
-              <ul class="lista">
-                <li><a href="biblioteca" rel="tooltip" title="Biblioteca"><img src="img/icone_educacao_biblioteca.png" /></a></li>
-                <li><a href="escola" rel="tooltip" title="Escola"><img src="img/icone_educacao_escola.png" /></a></li>
-                <li><a href="universidade" rel="tooltip" title="Universidade"><img src="img/icone_educacao_universidade.png" /></a></li>
-              </ul>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="tabs3">
-              <ul class="lista">
-                <li><a href="casa-de-luxo" rel="tooltip" title="Casa de Luxo"><img src="img/icone_habitacoes_casaluxo.png" /></a></li>
-                <li><a href="casa-media" rel="tooltip" title="Casa Média"><img src="img/icone_habitacoes_casamedia.png" /></a></li>
-                <li><a href="casa-simples" rel="tooltip" title="Casa Simples"><img src="img/icone_habitacoes_casasimples.png" /></a></li>
-                <li><a href="hotel" rel="tooltip" title="Hotel"><img src="img/icone_habitacoes_hotel.png" /></a></li>
-                <li><a href="predio-de-luxo" rel="tooltip" title="Prédio de Luxo"><img src="img/icone_habitacoes_predioluxo.png" /></a></li>
-                <li><a href="predio-medio" rel="tooltip" title="Prédio Médio"><img src="img/icone_habitacoes_prediomedio.png" /></a></li>
-                <li><a href="predio-simples" rel="tooltip" title="Prédio Simples"><img src="img/icone_habitacoes_prediosimples.png" /></a></li>
-              </ul>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="tabs4">
-              <ul class="lista">
-                <li><a href="aeroporto" rel="tooltip" title="Aeroporto"><img src="img/icone_infraestrutura_aeroporto.png" /></a></li>
-                <li><a href="bombeiros" rel="tooltip" title="Bombeiros"><img src="img/icone_infraestrutura_bombeiros.png" /></a></li>
-                <li><a href="ciclo-paque" rel="tooltip" title="Ciclo Parque"><img src="img/icone_infraestrutura_ciclo_paque.png" /></a></li>
-                <li><a href="delegacia" rel="tooltip" title="Delegacia"><img src="img/icone_infraestrutura_delegacia.png" /></a></li>
-                <li><a href="estacao-tratamento-de-agua" rel="tooltip" title="Estaçao de Tratamento de Água"><img src="img/icone_infraestrutura_estacao_tratamento_de_agua.png" /></a></li>
-                <li><a href="hospital" rel="tooltip" title="Hospital"><img src="img/icone_infraestrutura_hospital.png" /></a></li>
-                <li><a href="industria" rel="tooltip" title="Indústria"><img src="img/icone_infraestrutura_industria.png" /></a></li>
-                <li><a href="industria-de-reciclagem-de-lixo" rel="tooltip" title="Indústria de Reciclagem de Lixo"><img src="img/icone_infraestrutura_industria_de_reciclagem_de_lixo.png" /></a></li>
-                <li><a href="parque-ecologico" rel="tooltip" title="Parque Ecológico"><img src="img/icone_infraestrutura_parque_ecologico.png" /></a></li>
-                <li><a href="posto-de-saude" rel="tooltip" title="Posto de Saúde"><img src="img/icone_infraestrutura_postodesaude.png" /></a></li>
-                <li><a href="rodoviaria" rel="tooltip" title="Rodoviária"><img src="img/icone_infraestrutura_rodoviaria.png" /></a></li>
-                <li><a href="termo-eletrica" rel="tooltip" title="Termoelétrica"><img src="img/icone_infraestrutura_termoeletrica.png" /></a></li>
-                <li><a href="usina-eolica" rel="tooltip" title="Usina Eólica"><img src="img/icone_infraestrutura_usina_eolica.png" /></a></li>
-              </ul>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="tabs5">
-              <ul class="lista">
-                <li><a href="estadio-de-futibol" rel="tooltip" title="Estádio de Futebol"><img src="img/icone_lazer_estadiofutebol.png" /></a></li>
-                <li><a href="igreja" rel="tooltip" title="Igreja"><img src="img/icone_lazer_igreja.png" /></a></li>
-                <li><a href="praia" rel="tooltip" title="Praia"><img src="img/icone_lazer_praia.png" /></a></li>
-                <li><a href="restaurante-luxo" rel="tooltip" title="Restaurante de Luxo"><img src="img/icone_lazer_restauranteluxo.png" /></a></li>
-                <li><a href="restaurante-simples" rel="tooltip" title="Restaurante Simples"><img src="img/icone_lazer_restaurantesimples.png" /></a></li>
-                <li><a href="shopping" rel="tooltip" title="Shopping"><img src="img/icone_lazer_shopping.png" /></a></li>
-                <li><a href="sorveteria" rel="tooltip" title="Sorveteria"><img src="img/icone_lazer_sorveteria.png" /></a></li>
-                <li><a href="teatro" rel="tooltip" title="Teatro"><img src="img/icone_lazer_teatro.png" /></a></li>
-                <li><a href="zoologico" rel="tooltip" title="Zoológico"><img src="img/icone_lazer_zoologico.png" /></a></li>
-              </ul>
-            </div>
-
-             <div role="tabpanel" class="tab-pane" id="tabs6">
-              <ul class="lista">
-                <li><a href="geoCarta" rel="tooltip" title="Carta Geolocalizada"><img src="img/icone_geo_carta.png" /></a></li>
-                <li><a href="area" rel="tooltip" title="Medir Área"><img src="img/icone_area.png" /></a></li>
-                <li><a href="ponto" rel="tooltip" title="Medir Distâncias"><img src="img/icone_ponto.png" /></a></li>
-                <li><a href="coordenada" rel="tooltip" title="Retornar Coordenadas"><img src="img/icone_coordenada.png" /></a></li>
-                <li><a href="rota" rel="tooltip" title="Calcular Rota"><img src="img/icone_rota.png" /></a></li>
-                <li><a href="streetView" rel="tooltip" title="Visão Tridimensional"><img src="img/icone_streetView.png" /></a></li>
-              </ul>
-            </div>
-            
           </div>
         </div>
       </div>

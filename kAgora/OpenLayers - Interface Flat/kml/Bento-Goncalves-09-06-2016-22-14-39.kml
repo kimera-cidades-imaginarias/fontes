@@ -24,7 +24,7 @@
       </IconStyle>
     </Style>
     <Placemark>
-      <name>Supermercado</name>
+      <name>Supermercado Desco</name>
       <styleUrl>#icon1</styleUrl>
       <Point>
         <coordinates>-51.51626318693161,-29.16742444038391,0</coordinates>
@@ -72,18 +72,34 @@
         <coordinates>-51.514184474945075,-29.16548252105713,0</coordinates>
       </Point>
     </Placemark>
-    <Geoletter>
-      <name>suas considerações aqui!  Lugar Bacanudo!</name>
+    <Style id="icon5">
+      <IconStyle>
+        <Icon>
+          <href>img/banco-03.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Banco 03</name>
+      <styleUrl>#icon5</styleUrl>
       <Point>
-        <coordinates>-51.51552826166154,-29.166528582572937,0</coordinates>
+        <coordinates>-51.518524825605716,-29.165369868278503,0</coordinates>
       </Point>
-    </Geoletter>
-    <Geoletter>
-      <name><br/> molho de tomate muito forte!</name>
+    </Placemark>
+    <Style id="icon6">
+      <IconStyle>
+        <Icon>
+          <href>img/banco-03.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Banco 03</name>
+      <styleUrl>#icon6</styleUrl>
       <Point>
-        <coordinates>-51.514546573162086,-29.1673055290903,0</coordinates>
+        <coordinates>-51.517312467130985,-29.16693091392517,0</coordinates>
       </Point>
-    </Geoletter>
+    </Placemark>
     <Camera>
       <longitude>-51.5169861</longitude>
       <latitude>-29.1667089</latitude>
