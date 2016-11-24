@@ -47,41 +47,41 @@
     <Style id="icon3">
       <IconStyle>
         <Icon>
-          <href>img/super-mercado.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-    <Placemark>
-      <name>Supermercado</name>
-      <styleUrl>#icon3</styleUrl>
-      <Point>
-        <coordinates>-51.515168845653534,-29.16719707847733,0</coordinates>
-      </Point>
-    </Placemark>
-    <Style id="icon4">
-      <IconStyle>
-        <Icon>
           <href>img/banco-03.png</href>
         </Icon>
       </IconStyle>
     </Style>
     <Placemark>
       <name>Banco 03</name>
-      <styleUrl>#icon4</styleUrl>
+      <styleUrl>#icon3</styleUrl>
       <Point>
         <coordinates>-51.514184474945075,-29.16548252105713,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon4">
+      <IconStyle>
+        <Icon>
+          <href>img/termo-eletrica.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Termoelétrica</name>
+      <styleUrl>#icon4</styleUrl>
+      <Point>
+        <coordinates>-51.51373654603959,-29.168899655342102,0</coordinates>
       </Point>
     </Placemark>
     <Geoletter>
       <name>suas considerações aqui!  Lugar Bacanudo!</name>
       <Point>
-        <coordinates>-51.51552826166154,-29.166528582572937,0</coordinates>
+        <coordinates>-51.51608616113663,-29.16650176048279,0</coordinates>
       </Point>
     </Geoletter>
     <Geoletter>
-      <name><br/> molho de tomate muito forte!</name>
+      <name> molho de tomate muito forte!</name>
       <Point>
-        <coordinates>-51.514546573162086,-29.1673055290903,0</coordinates>
+        <coordinates>-51.51460021734238,-29.16701138019562,0</coordinates>
       </Point>
     </Geoletter>
     <Camera>

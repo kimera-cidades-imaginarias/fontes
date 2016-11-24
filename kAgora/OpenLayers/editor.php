@@ -92,13 +92,13 @@
 
           $(function () 
           {
-            $('#myTab a').click(function (e) 
+            $('.nav-pills a').click(function (e) 
             {
               e.preventDefault();
               $(this).tab('show')
             });
 
-            $('#myTab a:first').tab('show');
+            $('.nav-pills a:first').tab('show');
 
             $('.tab-content a').tooltip();
             $('.panelFerramentas a').tooltip();
@@ -248,7 +248,7 @@
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 src: 'img/geoCarta.png',
-                scale:1
+                scale:0.65
               }))
             });
 
@@ -305,8 +305,19 @@
               map.addInteraction(dragInteraction);
             } 
 
-            //geoletter interraction jason
-            var select_interaction = new ol.interaction.Select();
+            //geoletter interraction
+            for(var i=0; i<geoLetters.length; i++)
+            {
+              var dragInteraction = new ol.interaction.Modify({
+                  features: new ol.Collection([geoLetters[i]]),
+                  style: null,
+                  pixelTolerance: 40
+              });
+
+              map.addInteraction(dragInteraction);
+            } 
+
+            var select_interaction = new ol.interaction.Select({condition: ol.events.condition.click});
 
             select_interaction.getFeatures().on("add", function (e) { 
               if(e.element.getStyle().getImage().getSrc() == 'img/geoCarta.png')
@@ -486,8 +497,6 @@
                }
             });
 
-            map.addOverlay(popup);
-
             //streetmap
             updateStreetView(coordenadasMapa[0], coordenadasMapa[1]);
 
@@ -519,23 +528,35 @@
             $('.nomeCidade').html("("+nomeMapa+")");
           }
 
-          function populateList(markers)
+          function populateMarkerList(markers)
           {
             $("#construcoes").html('');
 
             for (var i = 0; i < markers.length; i++) 
             {
-              $("#construcoes").append( '<li><a href="javascript:editMarker('+i+')" title="Renomear Construção" rel="tooltip"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')"" title="Remover Construção" rel="tooltip"><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+')">' + markers[i].get('name') + '</a></li>');
+              $("#construcoes").append( '<li><a href="javascript:editMarker('+i+')" title="Renomear Construção" rel="tooltip"><img src="img/icone-editar.png" /></a> <a href="javascript:removeMarker('+i+')" title="Remover Construção" rel="tooltip"><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+', construcoes)">' + markers[i].get('name') + '</a></li>');
             }
 
             $('#construcoes li a').tooltip();
           }
 
-          function focusMarker(index)
+          function populateGeoLetterList(geoletters)
+          {
+            $("#geocartas").html('');
+
+            for (var i = 0; i < geoletters.length; i++) 
+            {
+              $("#geocartas").append( '<li><a href="javascript:removeGeoLetter('+i+')" title="Remover Carta Geolocalizada" rel="tooltip"><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+', geoLetters)">Carta Geolocalizada ' + i + '</a></li>');
+            }
+
+            $('#geoletters li a').tooltip();
+          }
+
+          function focusMarker(index, markers)
           {   
             map.setView(new ol.View({
               projection: 'EPSG:4326',
-              center:  construcoes[index].getGeometry().getLastCoordinate(),
+              center:  markers[index].getGeometry().getLastCoordinate(),
               zoom: 18
             }));
           }
@@ -550,7 +571,22 @@
             if (r == true || auto == true) 
             {
               construcoes.splice(index, 1);
-              populateList(construcoes);
+              populateMarkerList(construcoes);
+              updateMap();
+            } 
+          }
+
+          function removeGeoLetter(index, auto = false)
+          {
+             if(auto == false)
+            {
+              var r = confirm("Voce tem certeza que deseja remover esta carta geolocalizada?");
+            }
+
+            if (r == true || auto == true) 
+            {
+              geoLetters.splice(index, 1);
+              populateGeoLetterList(geoLetters);
               updateMap();
             } 
           }
@@ -568,7 +604,7 @@
 
                 $( "#editMarker" ).remove();
                 
-                populateList(construcoes);
+                populateMarkerList(construcoes);
 
                 return false;
             });
@@ -854,7 +890,10 @@
 
             //show infos
             showMapaName(nomeMapa);
-            populateList(construcoes);
+
+            populateMarkerList(construcoes);
+            populateGeoLetterList(geoLetters);
+            
             updateMap();
           }
 
@@ -904,7 +943,6 @@
             });
 
             //Geoletter
-            //construcoes
             $(data).find("Geoletter").each(function(index, value)
             {
                 var name = $(this).find("name").text() ;
@@ -938,7 +976,10 @@
 
             //show infos
             showMapaName(nomeMapa);
-            populateList(construcoes);
+
+            populateMarkerList(construcoes);
+            populateGeoLetterList(geoLetters);
+
             updateMap();
           }
 
@@ -1237,7 +1278,9 @@
             if(cursor["img"] == "geoCarta")
             {
               creatGeoLetterOnMap('', coordenadasMouse[0], coordenadasMouse[1]);
-              populateList(construcoes);
+              
+              populateGeoLetterList(geoLetters);
+              
               updateMap();
 
               cursor = null;
@@ -1312,7 +1355,7 @@
             {
               if( coliderMarkerCheck(null, coordenadasMouse[0], coordenadasMouse[1]) ){
                 creatConstructionOnMap(cursor["title"], 'img/' + cursor["img"] + '.png', coordenadasMouse[0], coordenadasMouse[1]);
-                populateList(construcoes);
+                populateMarkerList(construcoes);
                 updateMap();
 
                 cursor = null;
@@ -1364,12 +1407,22 @@
         </div>
 
         <div class="well span3 panelContrucao">
-            <p><b>Construções Criadas</b><br /><small <?php if(!isset($_REQUEST['nome'])){ echo 'class="nomeCidade"'; } ?> >(<?php if(isset($_REQUEST['nome'])){ echo $_REQUEST['nome']; } ?>)</small></p>
+            <p <?php if(!isset($_REQUEST['nome'])){ echo 'class="nomeCidade"'; } ?> ><?php if(isset($_REQUEST['nome'])){ echo $_REQUEST['nome']; } ?></p>
             
-            <hr />
+            <div class="tab-content">
+              <ul class="nav nav-pills" role="tablist">
+                <li role="presentation"><a href="#construcoes" role="tab" data-toggle="tab">Construções</a></li>
+                <li role="presentation"><a href="#geocartas" role="tab" data-toggle="tab">Geocartas</a></li>
+              </ul>
 
-            <ul id="construcoes">
-            </ul>
+              <hr />
+
+              <ul id="construcoes" role="tabpanel" class="tab-pane">
+              </ul>
+
+              <ul id="geocartas" role="tabpanel" class="tab-pane">
+              </ul>
+            </div>
         </div>
 
         <div class="well span3 panelMapStyle">
@@ -1397,7 +1450,7 @@
         <div class="well span12">
           
           <div class="tab-content">
-            <ul class="nav nav-pills" role="tablist" id="myTab">
+            <ul class="nav nav-pills" role="tablist">
               <li role="presentation"><a href="#tabs1" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_comercio.png" /> Comércio</a></li>
               <li role="presentation"><a href="#tabs2" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_educacao.png" /> Educação</a></li>
               <li role="presentation"><a href="#tabs3" role="tab" data-toggle="tab"><img width="30" src="img/icone_representa_habitacoes.png" /> Habitações</a></li>
