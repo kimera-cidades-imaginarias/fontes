@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <cidade>Vacaria</cidade>
+  <Document>
+    <Style id="icon0">
+      <IconStyle>
+        <Icon>
+          <href>img/universidade.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Universidade</name>
+      <styleUrl>#icon0</styleUrl>
+      <Point>
+        <coordinates>-50.939110815525055,-28.50711071494516,0</coordinates>
+      </Point>
+    </Placemark>
+    <Style id="icon1">
+      <IconStyle>
+        <Icon>
+          <href>img/biblioteca.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>Biblioteca</name>
+      <styleUrl>#icon1</styleUrl>
+      <Point>
+        <coordinates>-50.93840807676315,-28.507035613092743,0</coordinates>
+      </Point>
+    </Placemark>
+    <Geoletter>
+      <name/>
+      <Point>
+        <coordinates>-50.939840376377106,-28.507949709892273,0</coordinates>
+      </Point>
+    </Geoletter>
+    <Geoletter>
+      <name/>
+      <Point>
+        <coordinates>-50.94029098749161,-28.507220149040222,0</coordinates>
+      </Point>
+    </Geoletter>
+    <Camera>
+      <longitude>-50.941175999999984</longitude>
+      <latitude>-28.5071196</latitude>
+    </Camera>
+  </Document>
+</kml>

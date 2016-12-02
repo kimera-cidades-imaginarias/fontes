@@ -55,29 +55,27 @@
     </div>
 
     <script type="text/javascript">
-      function creatuser()
+      function creatuser(frm)
       {
-        var frm = $('#formCreate');
-
         $.ajax({
             type: frm.attr('method'),
-            url: frm.attr('action'),
+            url: 'action/creat-user.php',
             data: frm.serialize(),
             
             success: function (data) 
             {
                 alert(data);
+
+                login(frm);
             }
         });
       }
 
-      function login()
+      function login(frm)
       {
-        var frm = $('#formLogin');
-
         $.ajax({
             type: frm.attr('method'),
-            url: frm.attr('action'),
+            url: 'action/login.php',
             data: frm.serialize(),
             
             success: function (data) 
@@ -104,14 +102,18 @@
       {
         $('.cadastrar').click(function (e) 
         {
-          creatuser();
+          var frm = $('#formCreate');
+
+          creatuser(frm);
 
           return false;
         });
 
         $('.entrar').click(function (e) 
         {
-          login();
+          var frm = $('#formLogin');
+
+          login(frm);
 
           return false;
         });

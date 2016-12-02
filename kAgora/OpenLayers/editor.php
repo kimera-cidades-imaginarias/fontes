@@ -291,11 +291,13 @@
               {
                 if(tool == null)
                 {
-                  if(!coliderMarkerCheck(e.features.getArray()[0].getId(), coordenadasMouse[0], coordenadasMouse[1]))
-                  {
-                    alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
+                  if(construcoes.length > 1){
+                    if(!coliderMarkerCheck(e.features.getArray()[0].getId(), coordenadasMouse[0], coordenadasMouse[1]))
+                    {
+                      alert("Duas constru\u00e7\u00f5es n\u00e3o podem ocupar o mesmo espa\u00e7o\u0021");
 
-                    e.features.getArray()[0].getGeometry().setCoordinates(lastPosition);
+                      e.features.getArray()[0].getGeometry().setCoordinates(lastPosition);
+                    }
                   }
                 }
 
@@ -317,11 +319,16 @@
               map.addInteraction(dragInteraction);
             } 
 
-            var select_interaction = new ol.interaction.Select({condition: ol.events.condition.click});
+            var select_interaction = new ol.interaction.Select({
+              condition: ol.events.condition.click,
+              toggleCondition: ol.events.condition.click
+            });
 
             select_interaction.getFeatures().on("add", function (e) { 
               if(e.element.getStyle().getImage().getSrc() == 'img/geoCarta.png')
               {
+                select_interaction.getFeatures().clear()
+                
                 var geoFeature = e.element;
                 var content = '<h4>Considerações sobre a localização:</h4>';
                     content += '<p>'+geoFeature.get('name')+'</p>';
@@ -546,7 +553,7 @@
 
             for (var i = 0; i < geoletters.length; i++) 
             {
-              $("#geocartas").append( '<li><a href="javascript:removeGeoLetter('+i+')" title="Remover Carta Geolocalizada" rel="tooltip"><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+', geoLetters)">Carta Geolocalizada ' + i + '</a></li>');
+              $("#geocartas").append( '<li><a href="javascript:removeGeoLetter('+i+')" title="Remover Carta Geolocalizada" rel="tooltip"><img src="img/icone-delete.png" /></a> <a href="javascript:focusMarker('+i+', geoLetters)">Carta Geolocalizada ' + (i+1) + '</a></li>');
             }
 
             $('#geoletters li a').tooltip();

@@ -84,6 +84,18 @@
         <coordinates>-51.51460021734238,-29.16701138019562,0</coordinates>
       </Point>
     </Geoletter>
+    <Geoletter>
+      <name> Altos preços!</name>
+      <Point>
+        <coordinates>-51.51626318693162,-29.16742444038391,0</coordinates>
+      </Point>
+    </Geoletter>
+    <Geoletter>
+      <name><br/> minhas considerações!</name>
+      <Point>
+        <coordinates>-51.51494354009628,-29.16824519634247,0</coordinates>
+      </Point>
+    </Geoletter>
     <Camera>
       <longitude>-51.5169861</longitude>
       <latitude>-29.1667089</latitude>

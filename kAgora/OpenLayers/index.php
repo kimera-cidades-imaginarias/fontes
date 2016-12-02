@@ -209,7 +209,7 @@
                         <input type="text" class="form-control input-large" id="nome" name="nome" placeholder="Exemplo: Salvador" required data-msg-required="Este campo não pode ser vazio!" >
 
                         <label for="endereco">Endereço</label>
-                        <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Brasil, Bahia, Salvador, Centro" required data-msg-required="Este campo não pode ser vazio!" >
+                        <input type="text" class="form-control input-xxlarge" id="endereco" name="endereco" placeholder="Exemplo: Centro, Salvador, Bahia, Brasil" required data-msg-required="Este campo não pode ser vazio!" >
                       </div>
 
                       <input type="submit" class="btn btn-primary" value="Navegar" />
