@@ -1,0 +1,13 @@
+1 - Baixei a pasta source-kimera do nosso repositório no GIT.
+
+2 - Utilizei o Winrar versão 5.00 (64-bit) para compactar o diretório, utilizando o método de compressão padrão.
+
+3 - Utilizei o utilitário File Checksum Integrity Verifier (FCIV) para Windows. Ver https://support.microsoft.com/en-us/help/841290/availability-and-description-of-the-file-checksum-integrity-verifier-u
+
+4 - fciv -sha1 source-kimera.rar
+//
+// File Checksum Integrity Verifier version 2.05.
+//
+ea1e5257a059c9273a668c01854061f95246739b source-kimera.rar
+
+5 - Fiz upload tanto do arquivo compactado utilizado, quando destas instruções-Hash para o nosso repositório, na pasta: kimera-registro em https://github.com/kimera-cidades-imaginarias/fontes/upload/master/.
