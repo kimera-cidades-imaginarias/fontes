@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<data>
+	<construcao>
+		<nome>Castelo do Rei Kimera</nome>
+		
+		<!-- Texto descritivo -->
+		<descricao>
+			<![CDATA[.]]>
+		</descricao>
+		
+		<caminho>data/construcoes/decorativo/castelo_rei_kimera.swf</caminho>
+		
+		<!-- Tamanho: quantas células do mapa a construção ocupará -->
+		<tamanho>4x4</tamanho>
+		
+		<tamanho_perspectiva/>
+		<areas_livres/>
+		<funcao>castelo</funcao>
+	</construcao>
+</data>
+

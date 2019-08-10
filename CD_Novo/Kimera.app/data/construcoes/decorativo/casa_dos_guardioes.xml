@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<data>
+	<construcao>
+		<nome>Casa dos Guardiões</nome>
+		
+		<!-- Texto descritivo -->
+		<descricao>
+			<![CDATA[.]]>
+		</descricao>
+		
+		<caminho>data/construcoes/decorativo/casa_dos_guardioes.swf</caminho>
+		
+		<!-- Tamanho: quantas células do mapa a construção ocupará -->
+		<tamanho>3x3</tamanho>
+		
+		<tamanho_perspectiva/>
+		<areas_livres/>
+		<funcao>guardioes</funcao>
+	</construcao>
+</data>
+

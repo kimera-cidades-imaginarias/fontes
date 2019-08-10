@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- 
+	Usage:
+
+	To localize the description, use the following format for the description element.
+	<description>
+	<text xml:lang="en">English App description goes here</text>
+	<text xml:lang="fr">French App description goes here</text>
+	<text xml:lang="ja">Japanese App description goes here</text>
+	</description>
+
+	To localize the name, use the following format for the name element.
+	<name>
+	<text xml:lang="en">English App name goes here</text>
+	<text xml:lang="fr">French App name goes here</text>
+	<text xml:lang="ja">Japanese App name goes here</text>
+	</name>
+-->
+<application xmlns="http://ns.adobe.com/air/application/13.0">
+  <id>com.geotec.kimera</id>
+  <versionNumber>1.0.0</versionNumber>
+  <versionLabel/>
+  <filename>Kimera</filename>
+  <description/>
+  <name>Kimera</name>
+  <copyright/>
+  <initialWindow>
+    <content>Kimera.swf</content>
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <fullScreen>true</fullScreen>
+    
+    <renderMode>auto</renderMode>
+    <autoOrients>true</autoOrients>
+    <width>1024</width>
+    <height>768</height>
+    <maximizable>false</maximizable>
+    <minimizable>true</minimizable>
+    <resizable>false</resizable>
+  </initialWindow>
+  <icon>
+    <image128x128>AppIconsForPublish/icon128.png</image128x128>
+    <image48x48>AppIconsForPublish/icon48.png</image48x48>
+    <image32x32>AppIconsForPublish/icon32.png</image32x32>
+    <image16x16>AppIconsForPublish/icon16.png</image16x16>
+  </icon>
+  <customUpdateUI>false</customUpdateUI>
+  <allowBrowserInvocation>false</allowBrowserInvocation>
+  <android>
+    <manifestAdditions><![CDATA[<manifest>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+</manifest>]]></manifestAdditions>
+  </android>
+  <supportedLanguages>pt</supportedLanguages>
+  <installFolder>geotec/kimera</installFolder>
+  <programMenuFolder>geotec/kimera</programMenuFolder>
+  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice </supportedProfiles>
+</application>
