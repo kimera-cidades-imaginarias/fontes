@@ -210,11 +210,13 @@ package com.kimera.screens
 
 		private function loadNow(){
 			if(state == 1){
-				loaderMap.load( new URLRequest( 'https://kimera4.websiteseguro.com/mapsService/service.php?latitude='+String(latitude)+'&longitude='+String(longitude)+'&zoom=17' + complemento ) );
+			
+				loaderMap.load( new URLRequest( 'http://www.kagora.geotec.uneb.br/mapsService/service.php?latitude='+String(latitude)+'&longitude='+String(longitude)+'&zoom=17' + complemento ) );
 			}
 
 			else if(state == 2){
-				loaderMap.load( new URLRequest( 'https://kimera4.websiteseguro.com/mapsService/service.php?zoom=17&endereco='+String(enderecoMapa) + complemento ) );
+				//loaderMap.load( new URLRequest( 'http://www.kagora.geotec.uneb.br/mapsService/service.php?latitude=-29.1685373&longitude=-51.5137662&zoom=16' ) );
+				loaderMap.load( new URLRequest( 'http://www.kagora.geotec.uneb.br/mapsService/service.php?zoom=17&endereco='+String(enderecoMapa) + complemento ) );
 			}
 		}
 
